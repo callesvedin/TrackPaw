@@ -62,10 +62,10 @@ struct EditTrackView: View {
                 LazyVStack(alignment: .leading) {
                     HStack {
                         Spacer()
-                        PreviewTrackMapView(track: theTrack)
-                            .scaledToFit()
-                            .cornerRadius(10)
-                            .padding(.bottom, 30)
+//                        PreviewTrackMapView(track: theTrack)
+//                            .scaledToFit()
+//                            .cornerRadius(10)
+//                            .padding(.bottom, 30)
 
                         Spacer()
                     }
@@ -88,7 +88,7 @@ struct EditTrackView: View {
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(false)
         .navigationDestination(for: Track.self) { _ in
-            TrackMapView(track: theTrack, preview: false)
+            MapView2(trackModel: TrackMapModel(track: theTrack))
         }
         .onDisappear {
             persistanceController.updateTrack(track: theTrack)

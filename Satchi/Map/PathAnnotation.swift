@@ -6,14 +6,43 @@
 //
 
 import Foundation
+import SwiftUI
 import MapKit
 
-enum PathAnnotationKind {
-    case trailStart,
-         trailEnd,
-         trackingStart,
-         trackingEnd,
-         dummy
+enum PathAnnotationKind: Hashable
+{
+
+    func hash(into hasher: inout Hasher) {
+
+        hasher.combine(self.getTitle())
+//        switch self {
+//        case .trailStart(let value):
+//            hasher.combine(value.longitude)
+//            hasher.combine(value.latitude)
+//        case .trailEnd(let value):
+//            hasher.combine(value.longitude)
+//            hasher.combine(value.latitude)
+//        case .trackingStart(let value):
+//            hasher.combine(value.longitude)
+//            hasher.combine(value.latitude)
+//        case .trackingEnd(let value):
+//            hasher.combine(value.longitude)
+//            hasher.combine(value.latitude)
+//        case .dummy(let value):
+//            hasher.combine(value.longitude)
+//            hasher.combine(value.latitude)
+//        }
+    }
+
+    static func == (lhs: PathAnnotationKind, rhs: PathAnnotationKind) -> Bool {
+        return lhs.getTitle() == rhs.getTitle()
+    }
+
+    case trailStart(location: CLLocationCoordinate2D),
+         trailEnd(location: CLLocationCoordinate2D),
+         trackingStart(location: CLLocationCoordinate2D),
+         trackingEnd(location: CLLocationCoordinate2D),
+         dummy(location: CLLocationCoordinate2D)
 
     func getTitle() -> String {
         switch self {
@@ -30,58 +59,33 @@ enum PathAnnotationKind {
         }
     }
 
-    func getIdentifier() -> String {
+    func getImage() -> String {
         switch self {
         case .trailStart:
-            return "TrailStart"
+            return "signpost.right.circle"
         case .trailEnd:
-            return "TrailEnd"
+            return "signpost.right.circle"
         case .trackingStart:
-            return "TrackStart"
+            return "figure.walk.circle"
         case .trackingEnd:
-            return "TrackEnd"
+            return "figure.walk.circle"
         case .dummy:
-            return "Dummy"
+            return "rosette"
         }
     }
-}
 
-class PathAnnotation: MKPointAnnotation {
-    let kind: PathAnnotationKind
-    let reuseIdentifier: String
-    let imageIdentifier: String
-    let color: UIColor
-
-    init(kind: PathAnnotationKind) {
-        self.kind = kind
-
-        switch kind {
+    func getColor() -> Color {
+        switch self {
         case .trailStart:
-            if #available(iOS 16.1, *) {
-                self.imageIdentifier = "signpost.right.circle"
-            } else {
-                self.imageIdentifier = "signpost.right"
-            }
-            self.color = UIColor.systemGreen
+            return Color(.green)
         case .trailEnd:
-            if #available(iOS 16.1, *) {
-                self.imageIdentifier = "signpost.right.circle"
-            } else {
-                self.imageIdentifier = "signpost.right"
-            }
-            self.color = UIColor.systemGreen
+            return Color(.green)
         case .trackingStart:
-            self.imageIdentifier = "figure.walk.circle"
-            self.color = UIColor.systemRed
+            return Color(.red)
         case .trackingEnd:
-            self.imageIdentifier = "figure.walk.circle"
-            self.color = UIColor.systemRed
+            return Color(.red)
         case .dummy:
-            self.imageIdentifier = "rosette"
-            self.color = UIColor.magenta
+            return Color(.magenta)
         }
-        self.reuseIdentifier = kind.getIdentifier()
-        super.init()
-        self.title = kind.getTitle()
     }
 }

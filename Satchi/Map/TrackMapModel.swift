@@ -29,10 +29,10 @@ class TrackMapModel: NSObject, ObservableObject {
     private var track: Track
     public var stateMachine: Machine<RunningState, RunningEvent>!
 
-    @Published var pathStartLocation: CLLocationCoordinate2D?
-    @Published var pathEndLocation: CLLocationCoordinate2D?
-    @Published var trackStartLocation: CLLocationCoordinate2D?
-    @Published var trackEndLocation: CLLocationCoordinate2D?
+    var trailStartLocation: CLLocationCoordinate2D?
+    var trailEndLocation: CLLocationCoordinate2D?
+    var trackStartLocation: CLLocationCoordinate2D?
+    var trackEndLocation: CLLocationCoordinate2D?
     public var isTracking = false
     var followUser: Bool = true
     @Published var timer: TrackTimer = .init()
@@ -73,12 +73,20 @@ class TrackMapModel: NSObject, ObservableObject {
         }
     }
 
+    public var laidCoordinates: [CLLocationCoordinate2D] {
+        return laidPath.map { $0.coordinate }
+    }
+
     @Published public var trackPath: [CLLocation] = [] {
         didSet {
             if trackPath.count >= 2 {
                 distance = getLength(from: trackPath)
             }
         }
+    }
+
+    public var trackCoordinates: [CLLocationCoordinate2D] {
+        return trackPath.map { $0.coordinate }
     }
 
     init(track: Track, locationManager: CLLocationManager = CLLocationManager()) {
@@ -110,12 +118,16 @@ class TrackMapModel: NSObject, ObservableObject {
 
         if track.getState() == .trailTracked {
             trackStartLocation = trackPath.first?.coordinate
+            self.annnotations.append(PathAnnotationKind.trackingStart(location: trackStartLocation!))
             trackEndLocation = trackPath.last?.coordinate
+            self.annnotations.append(PathAnnotationKind.trackingEnd(location: trackEndLocation!))
         }
 
         if track.getState() == .trailAdded || track.getState() == .trailTracked {
-            pathStartLocation = laidPath.first?.coordinate
-            pathEndLocation = laidPath.last?.coordinate
+            trailStartLocation = laidPath.first?.coordinate
+            self.annnotations.append(PathAnnotationKind.trailStart(location: trailStartLocation!))
+            trailEndLocation = laidPath.last?.coordinate
+            self.annnotations.append(PathAnnotationKind.trailEnd(location: trailEndLocation!))
         }
         stateMachine.addRouteMapping { event, fromState, _ -> RunningState? in
             // no route for no-event
@@ -173,7 +185,7 @@ class TrackMapModel: NSObject, ObservableObject {
     private func resumeRunning() {
         timer.resume()
         if track.getState() == .notStarted {
-            pathEndLocation = nil
+            trailEndLocation = nil
         } else {
             trackEndLocation = nil
         }
@@ -208,7 +220,7 @@ class TrackMapModel: NSObject, ObservableObject {
         timer.stop()
         switch track.getState() {
         case .notStarted:
-            pathEndLocation = laidPath.last?.coordinate
+            trailEndLocation = laidPath.last?.coordinate
         case .trailAdded:
             trackEndLocation = trackPath.last?.coordinate
         default:
@@ -221,11 +233,11 @@ class TrackMapModel: NSObject, ObservableObject {
     private func startRunning() {
         switch track.getState() {
         case .notStarted:
-            pathStartLocation = currentLocation?.coordinate
+            trailStartLocation = currentLocation?.coordinate
             timer.start()
         case .trailAdded:
-            pathStartLocation = laidPath.first?.coordinate
-            pathEndLocation = laidPath.last?.coordinate
+            trailStartLocation = laidPath.first?.coordinate
+            trailEndLocation = laidPath.last?.coordinate
             trackingStarted = Date()
             trackStartLocation = currentLocation?.coordinate
             timer.start()

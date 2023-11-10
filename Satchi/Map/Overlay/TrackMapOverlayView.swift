@@ -28,15 +28,14 @@ struct TrackMapOverlayView: View {
 //    }
 
     var body: some View {
-        let window = UIApplication.shared.currentKeyWindow
-        let topPadding = window == nil ? 40 : window!.safeAreaInsets.top + 10
+
         return VStack {
             HStack {
                 Text("Distance: \(DistanceFormatter.distanceFor(meters: mapModel.distance))")
                 Spacer()
                 Text("Time: \(TimeFormatter.shortTimeWithSecondsFor(seconds: mapModel.timer.secondsElapsed))")
             }
-            .padding(.top, topPadding)
+//            .padding(.top, topPadding)
             .padding(.horizontal)
             .padding(.bottom)
             .background(palette.mainBackground.opacity(0.8))
