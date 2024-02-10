@@ -192,6 +192,7 @@
 		EB5BDF0F28181E61009DF497 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
 		EB5CE225261CBA3D00D56711 /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapView.swift; sourceTree = "<group>"; };
 		EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModel.swift; sourceTree = "<group>"; };
+		EB60D74F2B5D90AF00D60252 /* screenshots */ = {isa = PBXFileReference; lastKnownFileType = folder; path = screenshots; sourceTree = "<group>"; };
 		EB7D2142282C617E006CB703 /* Satchi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Satchi.entitlements; sourceTree = "<group>"; };
 		EB7D2144282C6181006CB703 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		EB7D2148282C6553006CB703 /* UIApplicationExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
@@ -301,6 +302,7 @@
 		EB8724FB260CC0C4008AD8E7 = {
 			isa = PBXGroup;
 			children = (
+				EB60D74F2B5D90AF00D60252 /* screenshots */,
 				EB872506260CC0C4008AD8E7 /* Satchi */,
 				EB87251D260CC0C5008AD8E7 /* SatchiTests */,
 				EB872528260CC0C5008AD8E7 /* SatchiUITests */,
@@ -1027,12 +1029,12 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1061,11 +1063,11 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
