@@ -42,7 +42,7 @@ class TrackMapModel: NSObject, ObservableObject {
     @Published public var accuracy: Double = 0
     @Published public var done: Bool = false
     @Published public var showAccessDenied: Bool = false
-
+    public var mapAnnotations: [PathAnnotationKind] = []
     public var locationAuthorizationStatus: CLAuthorizationStatus {
         didSet {
             switch locationAuthorizationStatus {
@@ -118,16 +118,16 @@ class TrackMapModel: NSObject, ObservableObject {
 
         if track.getState() == .trailTracked {
             trackStartLocation = trackPath.first?.coordinate
-            self.annnotations.append(PathAnnotationKind.trackingStart(location: trackStartLocation!))
+            self.mapAnnotations.append(PathAnnotationKind.trackingStart(location: trackStartLocation!))
             trackEndLocation = trackPath.last?.coordinate
-            self.annnotations.append(PathAnnotationKind.trackingEnd(location: trackEndLocation!))
+            self.mapAnnotations.append(PathAnnotationKind.trackingEnd(location: trackEndLocation!))
         }
 
         if track.getState() == .trailAdded || track.getState() == .trailTracked {
             trailStartLocation = laidPath.first?.coordinate
-            self.annnotations.append(PathAnnotationKind.trailStart(location: trailStartLocation!))
+            self.mapAnnotations.append(PathAnnotationKind.trailStart(location: trailStartLocation!))
             trailEndLocation = laidPath.last?.coordinate
-            self.annnotations.append(PathAnnotationKind.trailEnd(location: trailEndLocation!))
+            self.mapAnnotations.append(PathAnnotationKind.trailEnd(location: trailEndLocation!))
         }
         stateMachine.addRouteMapping { event, fromState, _ -> RunningState? in
             // no route for no-event

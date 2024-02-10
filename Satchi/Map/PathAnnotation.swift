@@ -9,8 +9,10 @@ import Foundation
 import SwiftUI
 import MapKit
 
-enum PathAnnotationKind: Hashable
+enum PathAnnotationKind: Hashable, Identifiable
 {
+
+    var id: String { getTitle() }
 
     func hash(into hasher: inout Hasher) {
 
@@ -43,6 +45,21 @@ enum PathAnnotationKind: Hashable
          trackingStart(location: CLLocationCoordinate2D),
          trackingEnd(location: CLLocationCoordinate2D),
          dummy(location: CLLocationCoordinate2D)
+
+    func getLocation() -> CLLocationCoordinate2D {
+        switch self {
+        case .trailStart(let location):
+            return location
+        case .trailEnd(let location):
+            return location
+        case .trackingStart(let location):
+            return location
+        case .trackingEnd(let location):
+            return location
+        case .dummy(let location):
+            return location
+        }
+    }
 
     func getTitle() -> String {
         switch self {

@@ -29,8 +29,9 @@ struct EditTrackView: View {
         .accentColor(palette.link)
     }
 
+    @ViewBuilder
     var showMapViewButton: some View {
-        NavigationLink(value: Destination.runView(track: theTrack)) {
+        NavigationLink(value: theTrack) {
             if theTrack.getState() == .trailTracked {
                 Text("Show track")
             } else if theTrack.getState() == .notStarted {

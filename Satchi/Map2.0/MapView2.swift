@@ -15,24 +15,8 @@ struct MapView2: View {
 
     var body: some View {
 //        ZStack {
+        VStack {
             Map(scope: mapScope) {
-                // I must change this to add all PathAnnotations from trackModel
-                if let location = trackModel.trailStartLocation {
-                    Marker("Start", systemImage: "signpost.right.circle", coordinate: location).tint(.green)
-                }
-
-                if let location = trackModel.trailEndLocation {
-                    Marker("End", systemImage: "signpost.right.circle", coordinate: location).tint(.green)
-                }
-
-                if let location = trackModel.trackStartLocation {
-                    Marker("Start", systemImage: "figure.walk.circle", coordinate: location).tint(.red)
-                }
-
-                if let location = trackModel.trackEndLocation {
-                    Marker("End", systemImage: "figure.walk.circle", coordinate: location).tint(.red)
-                }
-
                 if !trackModel.laidCoordinates.isEmpty {
                     MapPolyline(coordinates: trackModel.laidCoordinates)
                         .stroke(.green, lineWidth: 4)
@@ -41,6 +25,11 @@ struct MapView2: View {
                     MapPolyline(coordinates: trackModel.trackCoordinates)
                         .stroke(.red, lineWidth: 4)
                 }
+
+                ForEach(trackModel.mapAnnotations) {a in
+                    Marker(a.getTitle(), systemImage: a.getImage(), coordinate: a.getLocation()).tint(a.getColor())
+                }
+
             }
             .overlay(alignment: .topTrailing) {
                 VStack {
@@ -54,10 +43,14 @@ struct MapView2: View {
             }
             .overlay(alignment: .bottom){
                 StateButtonView(mapModel: trackModel)
-                                    .padding(.bottom, 30)
+                    .padding(.bottom, 30)
             }
             .mapStyle(.imagery(elevation: .flat))
             .mapScope(mapScope)
+        }
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+        .ignoresSafeArea(.all)
     }
 }
 
@@ -78,7 +71,7 @@ struct MapView2: View {
     ]
     track.trackPath = [
         CLLocation(latitude: CLLocationDegrees(56.65432), longitude: CLLocationDegrees(16.32649)),
-        CLLocation(latitude: CLLocationDegrees(56.65420), longitude: CLLocationDegrees(16.32443)),
+        CLLocation(latitude: CLLocationDegrees(56.65420), longitude: CLLocationDegrees(16.32453)),
         CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446))
     ]
     return MapView2(trackModel: TrackMapModel(track: track))

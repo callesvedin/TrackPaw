@@ -95,6 +95,7 @@ struct TrackListView: View {
                         EditTrackView(track)
                     case .runView(track: let track):
                         EditTrackView(track)
+                        MapView2(trackModel: TrackMapModel(track: track))
 //                        TrackMapView(track: track, preview: false)
                     }
                 }
