@@ -11,12 +11,12 @@ import SwiftUI
 
 struct MapView2: View {
     @StateObject var trackModel: TrackMapModel
+    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: MapCameraPosition.automatic)
     @Namespace var mapScope
 
     var body: some View {
-//        ZStack {
         VStack {
-            Map(scope: mapScope) {
+            Map(position: $cameraPosition, scope: mapScope){
                 if !trackModel.laidCoordinates.isEmpty {
                     MapPolyline(coordinates: trackModel.laidCoordinates)
                         .stroke(.green, lineWidth: 4)
