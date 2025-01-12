@@ -13,19 +13,25 @@ struct PreviewTrackMapView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var track: Track
+    var showNavigationBar: Bool
 
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: PreviewTrackMapView.self)
     )
 
-    init(track: Track) {
+    init(track: Track, showNavigationBar: Bool) {
         self.track = track
+        self.showNavigationBar = showNavigationBar
     }
 
     var body: some View {
-        PreviewMapView(laidPath: track.laidPath, trackPath: track.trackPath)
-            .navigationBarHidden(true)
+        PreviewMapView(
+            laidPath: track.laidPath,
+            trackPath: track.trackPath,
+            allowUserInteraction: self.showNavigationBar
+        )
+            .navigationBarHidden(!self.showNavigationBar)
             .ignoresSafeArea()
     }
 }

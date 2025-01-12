@@ -95,6 +95,8 @@ struct TrackListView: View {
                         EditTrackView(track)
                     case .runView(track: let track):
                         TrackMapView(track: track, preview: false)
+                    case .previewView(track: let track):
+                        PreviewTrackMapView(track: track, showNavigationBar:true)
                     }
                 }
             }

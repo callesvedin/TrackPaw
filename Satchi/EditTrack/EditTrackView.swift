@@ -41,7 +41,12 @@ struct EditTrackView: View {
         }
         .accentColor(palette.link)
     }
-
+    var previewMapViewButton: some View {
+        NavigationLink(value: Destination.previewView(track: theTrack)) {
+            Text("Show track")
+        }
+        .accentColor(palette.link)
+    }
 //    var showMapViewButton: some View {
 //        NavigationLink(destination: TrackMapView(track: theTrack, preview: false)) {
 //            if theTrack.getState() == .trailTracked {
@@ -62,7 +67,7 @@ struct EditTrackView: View {
                 LazyVStack(alignment: .leading) {
                     HStack {
                         Spacer()
-                        PreviewTrackMapView(track: theTrack)
+                        PreviewTrackMapView(track: theTrack,showNavigationBar: false)
                             .scaledToFit()
                             .cornerRadius(10)
                             .padding(.bottom, 30)
@@ -80,16 +85,17 @@ struct EditTrackView: View {
                 shareButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                showMapViewButton
+                if theTrack.getState() == .trailTracked {
+                    previewMapViewButton
+                }else{
+                    showMapViewButton
+                }
             }
         }
         .background(palette.mainBackground)
         .navigationBarTitle(theTrack.name)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(false)
-        .navigationDestination(for: Track.self) { _ in
-            TrackMapView(track: theTrack, preview: false)
-        }
         .onDisappear {
             persistanceController.updateTrack(track: theTrack)
         }

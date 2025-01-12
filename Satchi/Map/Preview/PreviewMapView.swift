@@ -13,11 +13,13 @@ struct PreviewMapView: UIViewRepresentable {
 
     private var laidPath: [CLLocation]?
     private var trackPath: [CLLocation]?
+    private var allowUserInteraction: Bool
 //    private var dummies: [CLLocationCoordinate2D]?
 
-    init(laidPath: [CLLocation]?, trackPath: [CLLocation]?) {
+    init(laidPath: [CLLocation]?, trackPath: [CLLocation]?, allowUserInteraction: Bool) {
         self.laidPath = laidPath
         self.trackPath = trackPath
+        self.allowUserInteraction = allowUserInteraction
 //        self.dummies = dummies
     }
 
@@ -32,8 +34,7 @@ struct PreviewMapView: UIViewRepresentable {
         theView.showsUserLocation = false
         theView.mapType = .satellite
         theView.userTrackingMode = .none
-        theView.showsUserLocation = false
-        theView.isUserInteractionEnabled = false
+        theView.isUserInteractionEnabled = self.allowUserInteraction
         theView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: PathAnnotationKind.trailStart.getIdentifier())
         theView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: PathAnnotationKind.trailEnd.getIdentifier())
         theView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: PathAnnotationKind.trackingStart.getIdentifier())

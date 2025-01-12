@@ -19,4 +19,5 @@ class ViewCoordinator: ObservableObject {
 enum Destination: Hashable {
     case editView(track: Track)
     case runView(track: Track)
+    case previewView(track: Track)
 }
