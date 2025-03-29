@@ -52,7 +52,7 @@ struct PreviewMapView: UIViewRepresentable {
     }
 
     private func upateAnnotation(_ type: AnnotationType, in view: MKMapView, to location: CLLocationCoordinate2D) {
-        if let annotation = view.annotations.first(where: { annotation in annotation.title == type.rawValue }) as? PathAnnotation {
+        if let annotation = view.annotations.first(where: { annotation in annotation.title == type.localized() }) as? PathAnnotation {
             annotation.coordinate = location
         } else {
             addAnnotation(to: view, withType: type, at: location)
@@ -82,7 +82,9 @@ struct PreviewMapView: UIViewRepresentable {
     }
 
     private func removeAnnotation(from view: MKMapView, type: AnnotationType) {
-        guard let annotation = view.annotations.first(where: { annotation in annotation.title == type.rawValue }) else { return }
+        guard let annotation = view.annotations.first(where: { annotation in annotation.title == type.localized() }) else {
+            return
+        }
         view.removeAnnotation(annotation)
     }
 

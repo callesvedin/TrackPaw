@@ -213,7 +213,7 @@ class TrackMapModel: NSObject, ObservableObject {
             trackEndLocation = trackPath.last?.coordinate
         default:
             let state = track.getState()
-            Logger.mapView.debug("Can not start Running on track state \(String(describing: state)). Maybe view() instead")
+            Logger.mapView.debug("Can not pause Running on track state \(String(describing: state)). Maybe view() instead")
             return
         }
     }

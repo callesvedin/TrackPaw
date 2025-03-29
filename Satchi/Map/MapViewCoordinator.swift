@@ -92,7 +92,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     }
 
     private func upateAnnotation(_ type: AnnotationType, in view: MKMapView, to location: CLLocationCoordinate2D) {
-        if let annotation = view.annotations.first(where: { annotation in annotation.title == type.rawValue }) as? PathAnnotation {
+        if let annotation = view.annotations.first(where: { annotation in annotation.title == type.localized() }) as? PathAnnotation {
             annotation.coordinate = location
         } else {
             addAnnotation(to: view, withType: type, at: location)
@@ -122,7 +122,9 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     }
 
     private func removeAnnotation(from view: MKMapView, type: AnnotationType) {
-        guard let annotation = view.annotations.first(where: { annotation in annotation.title == type.rawValue }) else { return }
+        guard let annotation = view.annotations.first(where: { annotation in annotation.title == type.localized() }) else {
+            return
+        }
         view.removeAnnotation(annotation)
     }
 
@@ -130,7 +132,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         if let location = mapModel.pathStartLocation {
             upateAnnotation(AnnotationType.laidStart, in: mapView, to: location)
         } else {
-            removeAnnotation(from: mapView, type: AnnotationType.laidStart)
+//            removeAnnotation(from: mapView, type: AnnotationType.laidStart)
         }
 
         if let location = mapModel.pathEndLocation {
@@ -148,7 +150,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         if let location = mapModel.trackEndLocation {
             upateAnnotation(AnnotationType.trackStop, in: mapView, to: location)
         } else {
-            removeAnnotation(from: mapView, type: AnnotationType.trackStop)
+    //        removeAnnotation(from: mapView, type: AnnotationType.trackStop)
         }
 
 //        if !mapModel.dummies.isEmpty {
