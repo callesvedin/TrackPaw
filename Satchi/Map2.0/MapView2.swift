@@ -13,10 +13,13 @@ struct MapView2: View {
     @StateObject var trackModel: TrackMapModel
     @State var cameraPosition: MapCameraPosition = .userLocation(fallback: MapCameraPosition.automatic)
     @Namespace var mapScope
+    @Environment(\.dismiss) var dismiss
+
 
     var body: some View {
         VStack {
             Map(position: $cameraPosition, scope: mapScope){
+                UserAnnotation()
                 if !trackModel.laidCoordinates.isEmpty {
                     MapPolyline(coordinates: trackModel.laidCoordinates)
                         .stroke(.green, lineWidth: 4)
@@ -29,13 +32,22 @@ struct MapView2: View {
                 ForEach(trackModel.mapAnnotations) {a in
                     Marker(a.getTitle(), systemImage: a.getImage(), coordinate: a.getLocation()).tint(a.getColor())
                 }
-
             }
+            .onChange(of: trackModel.done) { _, value in
+                if value == true {
+                    dismiss()
+                }
+            }
+
+            .mapControlVisibility(.hidden)
+
             .overlay(alignment: .topTrailing) {
-                VStack {
+                VStack(alignment:.trailing) {
+                    MapScaleView(scope: mapScope)
+                        .mapControlVisibility(.automatic)
                     MapUserLocationButton(scope: mapScope)
+                        .foregroundStyle(.black)
                     MapCompass(scope: mapScope).mapControlVisibility(.automatic)
-                    //                    MapScaleView(scope: mapScope)
                 }
                 .padding(.top, 40)
                 .padding(.trailing, 20)
@@ -51,6 +63,7 @@ struct MapView2: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(.all)
+        .tint(.blue)
     }
 }
 

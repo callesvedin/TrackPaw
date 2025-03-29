@@ -29,10 +29,22 @@ class TrackMapModel: NSObject, ObservableObject {
     private var track: Track
     public var stateMachine: Machine<RunningState, RunningEvent>!
 
-    var trailStartLocation: CLLocationCoordinate2D?
-    var trailEndLocation: CLLocationCoordinate2D?
-    var trackStartLocation: CLLocationCoordinate2D?
-    var trackEndLocation: CLLocationCoordinate2D?
+    var trailStartLocation: CLLocationCoordinate2D? {didSet {
+        trailStartUpdated()
+    }}
+
+    var trailEndLocation: CLLocationCoordinate2D? {didSet {
+        trailEndUpdated()
+    }}
+
+    var trackStartLocation: CLLocationCoordinate2D? {didSet {
+        trackStartUpdated()
+    }}
+
+    var trackEndLocation: CLLocationCoordinate2D? {didSet {
+        trackEndUpdated()
+    }}
+
     public var isTracking = false
     var followUser: Bool = true
     @Published var timer: TrackTimer = .init()
@@ -107,13 +119,13 @@ class TrackMapModel: NSObject, ObservableObject {
             timer.secondsElapsed = track.timeToFinish
         }
 
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-
-        locationManager.delegate = self
+        self.locationManager.allowsBackgroundLocationUpdates = true
+        self.locationManager.pausesLocationUpdatesAutomatically = false
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        
+        self.locationManager.delegate = self
         if locationAuthorizationStatus == .notDetermined {
-            locationManager.requestAlwaysAuthorization()
+            self.locationManager.requestAlwaysAuthorization()
         }
 
         if track.getState() == .trailTracked {
@@ -304,6 +316,71 @@ class TrackMapModel: NSObject, ObservableObject {
         locationManager.stopMonitoringSignificantLocationChanges()
         isTracking = false
         locationManager.delegate = nil
+    }
+
+    fileprivate func trailStartUpdated() {
+        if trailStartLocation == nil {
+            if let i = self.mapAnnotations.firstIndex(where: {
+                switch $0 {
+                case .trailStart: return true
+                default: return false
+                }
+            }) {
+                self.mapAnnotations.remove(at: i)
+            }
+        } else {
+            self.mapAnnotations.append( PathAnnotationKind.trailStart(location: trailStartLocation!))
+        }
+    }
+
+
+
+    fileprivate func trailEndUpdated() {
+        if trailEndLocation == nil {
+            if let i = self.mapAnnotations.firstIndex(where: {
+                switch $0 {
+                case .trailEnd: return true
+                default: return false
+                }
+            }) {
+                self.mapAnnotations.remove(at: i)
+            }
+
+        }else {
+            self.mapAnnotations.append( PathAnnotationKind.trailEnd(location: trailEndLocation!))
+        }
+    }
+
+    fileprivate func trackStartUpdated() {
+        if trackStartLocation == nil {
+            if let i = self.mapAnnotations.firstIndex(where: {
+                switch $0 {
+                case .trackingStart: return true
+                default: return false
+                }
+            }) {
+                self.mapAnnotations.remove(at: i)
+            }
+
+        }else {
+            self.mapAnnotations.append(PathAnnotationKind.trackingStart(location: trackStartLocation!))
+        }
+    }
+
+    fileprivate func trackEndUpdated() {
+        if trackEndLocation == nil {
+            if let i = self.mapAnnotations.firstIndex(where: {
+                switch $0 {
+                case .trackingEnd: return true
+                default: return false
+                }
+            }) {
+                self.mapAnnotations.remove(at: i)
+            }
+
+        }else {
+            self.mapAnnotations.append(PathAnnotationKind.trackingStart(location: trackEndLocation!))
+        }
     }
 }
 

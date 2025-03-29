@@ -7,38 +7,43 @@
 
 import SwiftUI
 
-struct StateButtonView: View {
+struct StateButtonView: View {    @Environment(\.preferredColorPalette) private var palette
+
     @ObservedObject var mapModel: TrackMapModel
 
     var body: some View {
         HStack {
             if mapModel.stateMachine.state == .notStarted {
                 Button(action: { mapModel.stop() }, label: { Text("Close") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: .red))
+                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
                     .padding(15)
                 if mapModel.locationAuthorizationStatus != .denied {
                     Button(action: { mapModel.start() }, label: { Text("Start") })
-                        .buttonStyle(OverlayButtonStyle(backgroundColor: .green))
+                        .buttonStyle(
+                            OverlayButtonStyle(backgroundColor: palette.confirm)
+                        )
                         .disabled(mapModel.accuracy > 10)
                         .padding(15)
                 }
             }
             if mapModel.stateMachine.state == .running {
                 Button(action: { mapModel.pause() }, label: { Text("Pause") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: .red))
+                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
                     .padding(15)
             }
             if mapModel.stateMachine.state == .paused {
                 Button(action: { mapModel.resume() }, label: { Text("Continue") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: .green))
+                    .buttonStyle(
+                        OverlayButtonStyle(backgroundColor: palette.confirm)
+                    )
                     .padding(15)
                 Button(action: { mapModel.stop() }, label: { Text("Stop") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: .red))
+                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
                     .padding(15)
             }
             if mapModel.stateMachine.state == .viewing {
                 Button(action: { mapModel.stop() }, label: { Text("Close") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: .green))
+                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.confirm))
                     .padding(15)
             }
         }

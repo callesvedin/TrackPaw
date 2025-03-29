@@ -51,6 +51,14 @@ extension Color {
         var link: Color {
             Color(fromPalette: self.name, semanticName: "link")
         }
+
+        var warning: Color {
+            .red
+        }
+
+        var confirm: Color {
+            .green
+        }
     }
 }
 
