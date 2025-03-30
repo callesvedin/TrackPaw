@@ -12,32 +12,14 @@ import MapKit
 enum PathAnnotationKind: Hashable, Identifiable
 {
 
-    var id: String { getTitle() }
+    var id: String { getTitleKey() }
 
     func hash(into hasher: inout Hasher) {
-
-        hasher.combine(self.getTitle())
-//        switch self {
-//        case .trailStart(let value):
-//            hasher.combine(value.longitude)
-//            hasher.combine(value.latitude)
-//        case .trailEnd(let value):
-//            hasher.combine(value.longitude)
-//            hasher.combine(value.latitude)
-//        case .trackingStart(let value):
-//            hasher.combine(value.longitude)
-//            hasher.combine(value.latitude)
-//        case .trackingEnd(let value):
-//            hasher.combine(value.longitude)
-//            hasher.combine(value.latitude)
-//        case .dummy(let value):
-//            hasher.combine(value.longitude)
-//            hasher.combine(value.latitude)
-//        }
+        hasher.combine(self.getTitleKey())
     }
 
     static func == (lhs: PathAnnotationKind, rhs: PathAnnotationKind) -> Bool {
-        return lhs.getTitle() == rhs.getTitle()
+        return lhs.getTitleKey() == rhs.getTitleKey()
     }
 
     case trailStart(location: CLLocationCoordinate2D),
@@ -61,18 +43,18 @@ enum PathAnnotationKind: Hashable, Identifiable
         }
     }
 
-    func getTitle() -> String {
+    func getTitleKey() -> String {
         switch self {
         case .trailStart:
-            return "Start"
+            return "laidStart" // return "Start" // String(localized: "laidStart")
         case .trailEnd:
-            return "Stop"
+            return "laidStop" // return "Stop" // String(localized: "laidStop")
         case .trackingStart:
-            return "Track Start"
+            return "trackStart" //"Start" //
         case .trackingEnd:
-            return "Track Stop"
+            return "trackStop" //"Stop" //
         case .dummy:
-            return "Dummy"
+            return String(localized: "Dummy") // "Dummy" // String(localized: "Dummy")
         }
     }
 

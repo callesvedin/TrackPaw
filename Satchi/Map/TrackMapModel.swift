@@ -19,6 +19,7 @@ enum RunningEvent: EventType {
     case start, pause, resume, stop
 }
 
+@MainActor
 class TrackMapModel: NSObject, ObservableObject {
     private var locationManager: CLLocationManager
     //    public var image: UIImage?

@@ -30,7 +30,7 @@ struct MapView2: View {
                 }
 
                 ForEach(trackModel.mapAnnotations) {a in
-                    Marker(a.getTitle(), systemImage: a.getImage(), coordinate: a.getLocation()).tint(a.getColor())
+                    Marker(LocalizedStringKey(a.getTitleKey()), systemImage: a.getImage(), coordinate: a.getLocation()).tint(a.getColor())
                 }
             }
             .onChange(of: trackModel.done) { _, value in
@@ -45,8 +45,9 @@ struct MapView2: View {
                 VStack(alignment:.trailing) {
                     MapScaleView(scope: mapScope)
                         .mapControlVisibility(.automatic)
-                    MapUserLocationButton(scope: mapScope)
-                        .foregroundStyle(.black)
+                    if trackModel.isTracking {
+                        MapUserLocationButton(scope: mapScope)
+                    }
                     MapCompass(scope: mapScope).mapControlVisibility(.automatic)
                 }
                 .padding(.top, 40)
