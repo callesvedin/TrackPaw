@@ -16,6 +16,8 @@ struct MainTabView: View {
         return NavigationStack(path: $coordinator.path) {
             TrackListView()
         }
+        .foregroundColor(palette.primaryText)
+
         //.navigationViewStyle(.stack)
         .id(palette.name)
         .accentColor(palette.link)

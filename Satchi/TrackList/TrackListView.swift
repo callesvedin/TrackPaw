@@ -97,7 +97,7 @@ struct TrackListView: View {
 
 //                        EditTrackView(track)
 
-                        MapView2(trackModel: TrackMapModel(track: track))
+                        MapView(trackModel: TrackMapModel(track: track))
 //                        TrackMapView(track: track, preview: false)
                     }
                 }

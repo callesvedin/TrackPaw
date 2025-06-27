@@ -58,38 +58,34 @@ struct EditTrackView: View {
 //    }
 
     var body: some View {
-        VStack {
             ScrollView {
-                LazyVStack(alignment: .leading) {
-                    HStack {
-                        Spacer()
-//                        PreviewTrackMapView(track: theTrack)
-//                            .scaledToFit()
-//                            .cornerRadius(10)
-//                            .padding(.bottom, 30)
-
-                        Spacer()
-                    }
-                    FieldsView(theTrack: theTrack)
+                HStack {
+                    Spacer()
+                    MapView(trackModel: TrackMapModel(track: theTrack, preview: true, showButtons: false))
+                        .scaledToFit()
+                        .cornerRadius(10)
+                        .padding(.bottom, 30)
+                    Spacer()
                 }
-            }
+                FieldsView(theTrack: theTrack)
         }
         .foregroundColor(palette.primaryText)
         .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                shareButton
+                shareButton.foregroundStyle(palette.link)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                showMapViewButton
+                showMapViewButton.foregroundStyle(palette.link)
             }
         }
+        .toolbarBackground(palette.mainBackground)
         .background(palette.mainBackground)
         .navigationBarTitle(theTrack.name)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(false)
         .navigationDestination(for: Track.self) { _ in
-            MapView2(trackModel: TrackMapModel(track: theTrack))
+            MapView(trackModel: TrackMapModel(track: theTrack))
         }
         .onDisappear {
             persistanceController.updateTrack(track: theTrack)
@@ -179,18 +175,20 @@ struct FieldsView: View {
     }
 }
 
+extension View {
+    @available(iOS 14, *)
+    func navigationBarTitleTextColor(_ color: Color) -> some View {
+        let uiColor = UIColor(color)
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor ]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
+        return self
+    }
+}
+
 struct EditTrackView_Previews: PreviewProvider {
     static let localizations = Bundle.main.localizations.map(Locale.init).filter { $0.identifier != "base" }
     static var previews: some View {
-        let track = Track(context: PersistenceController.shared.persistentContainer.viewContext)
-        track.name = "Test-Track"
-        track.created = Date()
-        track.timeToFinish = 19*60
-        track.difficulty = 3
-        track.comments = "A little hard..."
-        track.timeToCreate = 21*60
-        track.started = Date().addingTimeInterval(60*60*3)
-        track.length = 1000
+        let track = createTestTrack()
         return ForEach(ColorScheme.allCases, id: \.self) { scheme in
             ForEach(localizations, id: \.identifier) { locale in
                 NavigationView {
@@ -202,5 +200,33 @@ struct EditTrackView_Previews: PreviewProvider {
                 }
             }
         }
+    }
+
+    static private func createTestTrack() -> Track {
+       let track = Track(context: PersistenceController.shared.persistentContainer.viewContext)
+       track.name = "Test-Track"
+       track.created = Date()
+       track.timeToFinish = 19*60
+       track.difficulty = 3
+       track.comments = "A little hard..."
+       track.timeToCreate = 21*60
+       track.started = Date().addingTimeInterval(60*60*3)
+       track.length = 1000
+        track.trackPath = [CLLocation(
+            latitude: 52.520008,
+            longitude: 13.404954
+        ),CLLocation(
+            latitude: 53.520008,
+            longitude: 13.404954
+        )]
+        track.laidPath = [CLLocation(
+            latitude: 52.520008,
+            longitude: 13.404960
+        ),CLLocation(
+            latitude: 53.520008,
+            longitude: 13.507954
+        )]
+
+        return track
     }
 }

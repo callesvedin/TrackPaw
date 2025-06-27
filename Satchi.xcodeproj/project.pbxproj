@@ -22,7 +22,7 @@
 		EB59DE4428310BF60043DE33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE4328310BF60043DE33 /* AppDelegate.swift */; };
 		EB5A5BA929DB79B000F05A4F /* SchemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5A5BA829DB79B000F05A4F /* SchemeType.swift */; };
 		EB5CE22E261CBFE100D56711 /* TrackMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */; };
-		EB690CFE2ABCB47800652A6F /* MapView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB690CFA2ABCAF5800652A6F /* MapView2.swift */; };
+		EB690CFE2ABCB47800652A6F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB690CFA2ABCAF5800652A6F /* MapView.swift */; };
 		EB6DC7B32882BA3D009E788A /* SwiftState in Frameworks */ = {isa = PBXBuildFile; productRef = EB6DC7B22882BA3D009E788A /* SwiftState */; };
 		EB7D2145282C6181006CB703 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB7D2144282C6181006CB703 /* CloudKit.framework */; };
 		EB7D2149282C6553006CB703 /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D2148282C6553006CB703 /* UIApplicationExt.swift */; };
@@ -135,11 +135,11 @@
 		EB5BDF0F28181E61009DF497 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
 		EB5CE225261CBA3D00D56711 /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapView.swift; sourceTree = "<group>"; };
 		EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModel.swift; sourceTree = "<group>"; };
-		EB690CFA2ABCAF5800652A6F /* MapView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView2.swift; sourceTree = "<group>"; };
+		EB690CFA2ABCAF5800652A6F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		EB7539B62DE8E99500BD7288 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		EB7D2142282C617E006CB703 /* Satchi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Satchi.entitlements; sourceTree = "<group>"; };
 		EB7D2144282C6181006CB703 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		EB7D2148282C6553006CB703 /* UIApplicationExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
-		EB7DFD2A261E0D6A0056D6B4 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		EB872504260CC0C4008AD8E7 /* Satchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Satchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB872507260CC0C4008AD8E7 /* SatchiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiApp.swift; sourceTree = "<group>"; };
 		EB872509260CC0C4008AD8E7 /* TrackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListView.swift; sourceTree = "<group>"; };
@@ -224,14 +224,6 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		EB690CF92ABCAC5F00652A6F /* Map2.0 */ = {
-			isa = PBXGroup;
-			children = (
-				EB690CFA2ABCAF5800652A6F /* MapView2.swift */,
-			);
-			path = Map2.0;
-			sourceTree = "<group>";
-		};
 		EB7D2143282C6181006CB703 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +235,7 @@
 		EB8724FB260CC0C4008AD8E7 = {
 			isa = PBXGroup;
 			children = (
+				EB7539B62DE8E99500BD7288 /* TODO.md */,
 				EB872506260CC0C4008AD8E7 /* Satchi */,
 				EB87251D260CC0C5008AD8E7 /* SatchiTests */,
 				EB872528260CC0C5008AD8E7 /* SatchiUITests */,
@@ -265,7 +258,6 @@
 		EB872506260CC0C4008AD8E7 /* Satchi */ = {
 			isa = PBXGroup;
 			children = (
-				EB690CF92ABCAC5F00652A6F /* Map2.0 */,
 				EBDC075A29B69A010028FC64 /* App */,
 				EBDC076129B6A3880028FC64 /* Extensions */,
 				EBDC075629B6992B0028FC64 /* Map */,
@@ -363,13 +355,13 @@
 			isa = PBXGroup;
 			children = (
 				EBDC075B29B69B0A0028FC64 /* TrackTimer.swift */,
-				EB7DFD2A261E0D6A0056D6B4 /* MapView.swift */,
 				EB05E19426277868002941B6 /* PathAnnotation.swift */,
 				EBDC075429B6989D0028FC64 /* MapViewCoordinator.swift */,
 				EB5CE225261CBA3D00D56711 /* TrackMapView.swift */,
 				EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */,
 				EBDC075829B6998B0028FC64 /* Preview */,
 				EBDC075729B6995E0028FC64 /* Overlay */,
+				EB690CFA2ABCAF5800652A6F /* MapView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -504,7 +496,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					EB872503260CC0C4008AD8E7 = {
 						CreatedOnToolsVersion = 12.4;
@@ -604,7 +596,7 @@
 				EB7D2149282C6553006CB703 /* UIApplicationExt.swift in Sources */,
 				EB35885F2970BAEB00CCB235 /* SceneDelegate.swift in Sources */,
 				EBB85EF229CA19F40058E0B5 /* Logger.swift in Sources */,
-				EB690CFE2ABCB47800652A6F /* MapView2.swift in Sources */,
+				EB690CFE2ABCB47800652A6F /* MapView.swift in Sources */,
 				EB59DE3E2830051F0043DE33 /* String.swift in Sources */,
 				EBDC075C29B69B0A0028FC64 /* TrackTimer.swift in Sources */,
 				EBDC075F29B69F750028FC64 /* MainTabView.swift in Sources */,
@@ -762,6 +754,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9469B78B2K;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -827,6 +820,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9469B78B2K;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -858,7 +852,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Satchi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -888,7 +881,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Satchi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -911,10 +903,8 @@
 		EB872532260CC0C5008AD8E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				INFOPLIST_FILE = SatchiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -933,10 +923,8 @@
 		EB872533260CC0C5008AD8E7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				INFOPLIST_FILE = SatchiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -955,9 +943,7 @@
 		EB872535260CC0C5008AD8E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				INFOPLIST_FILE = SatchiUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -975,9 +961,7 @@
 		EB872536260CC0C5008AD8E7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				INFOPLIST_FILE = SatchiUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1001,7 +985,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Satchi copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1030,7 +1013,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
-				DEVELOPMENT_TEAM = 9469B78B2K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Satchi copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;

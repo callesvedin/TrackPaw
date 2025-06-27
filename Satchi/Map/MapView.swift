@@ -1,85 +1,105 @@
-import Combine
+//
+//  SwiftUIView.swift
+//  Satchi
+//
+//  Created by Carl-Johan Svedin on 2023-09-21.
+//
+
 import MapKit
-import os.log
 import SwiftUI
+// Maybe use edge insets like https://medium.com/appcoda-tutorials/working-with-mapkit-and-annotation-for-swiftui-f7c30c4f0da6
 
-enum AnnotationType: String {
-    case trackStart, trackStop, laidStart, laidStop, dummy
-    func localized() -> String {
-        let typeKey = String.LocalizationValue(stringLiteral: rawValue)
-        return String(localized: typeKey)
+struct MapView: View {
+    @StateObject var trackModel: TrackMapModel
+    @State var cameraPosition: MapCameraPosition
+    @Namespace var mapScope
+    @Environment(\.dismiss) var dismiss
+    
+    init(trackModel: TrackMapModel) {
+        self._trackModel = StateObject(wrappedValue: trackModel)
+        // Set different camera behavior based on preview mode
+        if trackModel.preview {
+            self._cameraPosition = State(initialValue: .automatic)
+        } else {
+            self._cameraPosition = State(initialValue: .userLocation(fallback: MapCameraPosition.automatic))
+        }
+    }
+
+
+    var body: some View {
+        VStack {
+            Map(position: $cameraPosition, scope: mapScope){
+                if !trackModel.preview {
+                    UserAnnotation()
+                }
+                if !trackModel.laidCoordinates.isEmpty {
+                    MapPolyline(coordinates: trackModel.laidCoordinates)
+                        .stroke(.green, lineWidth: 4)
+                }
+                if !trackModel.trackCoordinates.isEmpty {
+                    MapPolyline(coordinates: trackModel.trackCoordinates)
+                        .stroke(.red, lineWidth: 4)
+                }
+
+                ForEach(trackModel.mapAnnotations) {a in
+                    Marker(LocalizedStringKey(a.getTitleKey()), systemImage: a.getImage(), coordinate: a.getLocation()).tint(a.getColor())
+                }
+            }
+            .onChange(of: trackModel.done) { _, value in
+                if value == true {
+                    dismiss()
+                }
+            }
+
+            .mapControlVisibility(trackModel.preview ? .hidden : .automatic)
+
+            .overlay(alignment: .topTrailing) {
+                if !trackModel.preview {
+                    VStack(alignment:.trailing) {
+                        MapScaleView(scope: mapScope)
+                        if trackModel.isTracking {
+                            MapUserLocationButton(scope: mapScope)
+                        }
+                        MapCompass(scope: mapScope)
+                    }
+                    .padding(.top, 40)
+                    .padding(.trailing, 20)
+                    .buttonBorderShape(.roundedRectangle)
+                }
+            }
+            .overlay(alignment: .bottom){
+                StateButtonView(mapModel: trackModel)
+                    .padding(.bottom, 30)
+            }
+            .mapStyle(.imagery(elevation: .flat))
+            .mapScope(mapScope)
+        }
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+        .ignoresSafeArea(.all)
+        .tint(.blue)
     }
 }
 
-struct MapView: UIViewRepresentable {
-    @ObservedObject var mapModel: TrackMapModel
-
-    private static let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: MapView.self)
-    )
-
-    init(mapModel: TrackMapModel) {
-        self.mapModel = mapModel
-    }
-
-    func makeCoordinator() -> MapViewCoordinator {
-        return MapViewCoordinator(mapModel: mapModel)
-    }
-
-    func makeUIView(context: Context) -> MKMapView {
-        let theView = MKMapView()
-        theView.delegate = context.coordinator
-
-        theView.showsUserLocation = true
-        theView.mapType = .satellite
-//        theView.userTrackingMode = .follow
-        theView.layoutMargins.top = 100.0 // This is for the maps compass that shows up when rotating the view
-        theView.register(MKMarkerAnnotationView.self,
-                         forAnnotationViewWithReuseIdentifier: PathAnnotationKind.trailStart.getIdentifier())
-        theView.register(MKMarkerAnnotationView.self,
-                         forAnnotationViewWithReuseIdentifier: PathAnnotationKind.trailEnd.getIdentifier())
-        theView.register(MKMarkerAnnotationView.self,
-                         forAnnotationViewWithReuseIdentifier: PathAnnotationKind.trackingStart.getIdentifier())
-        theView.register(MKMarkerAnnotationView.self,
-                         forAnnotationViewWithReuseIdentifier: PathAnnotationKind.trackingEnd.getIdentifier())
-        theView.register(MKMarkerAnnotationView.self,
-                         forAnnotationViewWithReuseIdentifier: PathAnnotationKind.dummy.getIdentifier())
-        theView.tintColor = UIColor.systemBlue
-
-        return theView
-    }
-
-    func updateUIView(_ mapView: MKMapView, context: Context) {
-        let start = Date.now
-        context.coordinator.update(mapView)
-        mapView.delegate = context.coordinator
-
-        let endDate = Date()
-        let consumedTime = endDate.timeIntervalSince(start)
-        Logger.mapView.trace("MapView updateUIView. Time spent \(consumedTime). Overlays:\(mapView.overlays.count)")
-    }
-}
-
-class TrackPolyline: MKPolyline, Identifiable {
-    var color: UIColor?
-    let id = UUID()
-    convenience init(coordinates: [CLLocationCoordinate2D], count: Int, color: UIColor) {
-        self.init(coordinates: coordinates, count: count)
-        self.color = color
-    }
-}
-
-private extension MKMapView {
-    func centerToLocation(
-        _ location: CLLocation,
-        regionRadius: CLLocationDistance = 500
-    ) {
-        let coordinateRegion = MKCoordinateRegion(
-            center: location.coordinate,
-            latitudinalMeters: regionRadius,
-            longitudinalMeters: regionRadius
-        )
-        setRegion(coordinateRegion, animated: true)
-    }
+#Preview {
+    let track = Track(context: PersistenceController.shared.persistentContainer.viewContext)
+    track.name = "Test-Track"
+    track.created = Date()
+    track.timeToFinish = 19*60
+    track.difficulty = 3
+    track.comments = "A little test..."
+    track.timeToCreate = 21*60
+    track.started = Date().addingTimeInterval(60*60*3)
+    track.length = 1000
+    track.laidPath = [
+        CLLocation(latitude: CLLocationDegrees(56.65422), longitude: CLLocationDegrees(16.32646)),
+        CLLocation(latitude: CLLocationDegrees(56.65422), longitude: CLLocationDegrees(16.32446)),
+        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446))
+    ]
+    track.trackPath = [
+        CLLocation(latitude: CLLocationDegrees(56.65432), longitude: CLLocationDegrees(16.32649)),
+        CLLocation(latitude: CLLocationDegrees(56.65420), longitude: CLLocationDegrees(16.32453)),
+        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446))
+    ]
+    return MapView(trackModel: TrackMapModel(track: track))
 }

@@ -46,6 +46,9 @@ extension PersistenceController {
 
         let sharingController: UICloudSharingController
         if trackShare == nil {
+            // Note: UICloudSharingController.init(preparationHandler:) is deprecated in iOS 17
+            // but Apple hasn't provided a functionally equivalent replacement yet.
+            // The suggested UIActivityViewController doesn't provide the same CloudKit management features.
             sharingController = newSharingController(unsharedTrack: track, persistenceController: self)
         } else {
             sharingController = UICloudSharingController(share: trackShare!, container: cloudKitContainer)
@@ -77,6 +80,9 @@ extension PersistenceController {
 
     private func newSharingController(unsharedTrack: Track, persistenceController: PersistenceController) -> UICloudSharingController {
         Logger.sharing.debug("\(#function):")
+        // Note: UICloudSharingController.init(preparationHandler:) is deprecated in iOS 17
+        // but Apple hasn't provided a functionally equivalent replacement yet.
+        // The suggested UIActivityViewController doesn't provide the same CloudKit management features.
         return UICloudSharingController { (_, completion: @escaping (CKShare?, CKContainer?, Error?) -> Void) in
             /**
              The app doesn't specify a share intentionally, so Core Data creates a new share (zone).

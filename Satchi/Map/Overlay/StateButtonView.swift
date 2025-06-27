@@ -13,38 +13,49 @@ struct StateButtonView: View {    @Environment(\.preferredColorPalette) private 
 
     var body: some View {
         HStack {
-            if mapModel.stateMachine.state == .notStarted {
-                Button(action: { mapModel.stop() }, label: { Text("Close") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
-                    .padding(15)
-                if mapModel.locationAuthorizationStatus != .denied {
-                    Button(action: { mapModel.start() }, label: { Text("Start") })
-                        .buttonStyle(
-                            OverlayButtonStyle(backgroundColor: palette.confirm)
-                        )
-                        .disabled(mapModel.accuracy > 10)
-                        .padding(15)
-                }
-            }
-            if mapModel.stateMachine.state == .running {
-                Button(action: { mapModel.pause() }, label: { Text("Pause") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
-                    .padding(15)
-            }
-            if mapModel.stateMachine.state == .paused {
-                Button(action: { mapModel.resume() }, label: { Text("Continue") })
-                    .buttonStyle(
-                        OverlayButtonStyle(backgroundColor: palette.confirm)
-                    )
-                    .padding(15)
-                Button(action: { mapModel.stop() }, label: { Text("Stop") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
-                    .padding(15)
-            }
-            if mapModel.stateMachine.state == .viewing {
+            if !mapModel.showButtons {
+                // No buttons mode - hide all buttons (e.g., when embedded in EditTrackView)
+                EmptyView()
+            } else if mapModel.preview {
+                // Preview mode - only show Close button regardless of state
                 Button(action: { mapModel.stop() }, label: { Text("Close") })
                     .buttonStyle(OverlayButtonStyle(backgroundColor: palette.confirm))
                     .padding(15)
+            } else {
+                // Normal mode - show state-based buttons
+                if mapModel.stateMachine.state == .notStarted {
+                    Button(action: { mapModel.stop() }, label: { Text("Close") })
+                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
+                        .padding(15)
+                    if mapModel.locationAuthorizationStatus != .denied {
+                        Button(action: { mapModel.start() }, label: { Text("Start") })
+                            .buttonStyle(
+                                OverlayButtonStyle(backgroundColor: palette.confirm)
+                            )
+                            .disabled(mapModel.accuracy > 10)
+                            .padding(15)
+                    }
+                }
+                if mapModel.stateMachine.state == .running {
+                    Button(action: { mapModel.pause() }, label: { Text("Pause") })
+                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
+                        .padding(15)
+                }
+                if mapModel.stateMachine.state == .paused {
+                    Button(action: { mapModel.resume() }, label: { Text("Continue") })
+                        .buttonStyle(
+                            OverlayButtonStyle(backgroundColor: palette.confirm)
+                        )
+                        .padding(15)
+                    Button(action: { mapModel.stop() }, label: { Text("Stop") })
+                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
+                        .padding(15)
+                }
+                if mapModel.stateMachine.state == .viewing {
+                    Button(action: { mapModel.stop() }, label: { Text("Close") })
+                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.confirm))
+                        .padding(15)
+                }
             }
         }
     }
