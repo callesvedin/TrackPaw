@@ -14,17 +14,28 @@ struct EditTrackView: View {
     @Environment(\.preferredColorPalette) private var palette
     @EnvironmentObject var coordinator: ViewCoordinator
     @ObservedObject var theTrack: Track
+    @State private var showingDeleteAlert = false
     private var persistanceController = PersistenceController.shared
 
     init(_ track: Track) {
         theTrack = track
     }
 
-    var shareButton: some View {
-        Button {
-            showShareView(track: theTrack)
+    var actionsMenu: some View {
+        Menu {
+            Button {
+                showShareView(track: theTrack)
+            } label: {
+                Label("Share Track", systemImage: "square.and.arrow.up")
+            }
+            
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                Label("Delete Track", systemImage: "trash")
+            }
         } label: {
-            Image(systemName: "square.and.arrow.up")
+            Image(systemName: "ellipsis.circle")
         }
         .accentColor(palette.link)
     }
@@ -73,11 +84,12 @@ struct EditTrackView: View {
         .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                shareButton.foregroundStyle(palette.link)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
                 showMapViewButton.foregroundStyle(palette.link)
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                actionsMenu.foregroundStyle(palette.link)
+            }
+
         }
         .toolbarBackground(palette.mainBackground)
         .background(palette.mainBackground)
@@ -87,6 +99,14 @@ struct EditTrackView: View {
         .navigationDestination(for: Track.self) { _ in
             MapView(trackModel: TrackMapModel(track: theTrack))
         }
+        .alert("Delete Track", isPresented: $showingDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                deleteTrack()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text(String(localized:"delete.confirmation"))
+        }
         .onDisappear {
             persistanceController.updateTrack(track: theTrack)
         }
@@ -94,6 +114,11 @@ struct EditTrackView: View {
 
     private func showShareView(track: Track) {
         PersistenceController.shared.presentCloudSharingController(track: track)
+    }
+    
+    private func deleteTrack() {
+        persistanceController.delete(track: theTrack)
+        dismiss()
     }
 }
 
