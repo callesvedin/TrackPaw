@@ -15,6 +15,7 @@ struct EditTrackView: View {
     @EnvironmentObject var coordinator: ViewCoordinator
     @ObservedObject var theTrack: Track
     @State private var showingDeleteAlert = false
+    @State private var mapRefreshTrigger = 0
     private var persistanceController = PersistenceController.shared
 
     init(_ track: Track) {
@@ -73,6 +74,7 @@ struct EditTrackView: View {
                 HStack {
                     Spacer()
                     MapView(trackModel: TrackMapModel(track: theTrack, preview: true, showButtons: false))
+                        .id(mapRefreshTrigger)
                         .scaledToFit()
                         .cornerRadius(10)
                         .padding(.bottom, 30)
@@ -106,6 +108,9 @@ struct EditTrackView: View {
             Button("Cancel", role: .cancel) { }
         } message: {
             Text(String(localized:"delete.confirmation"))
+        }
+        .onAppear {
+            mapRefreshTrigger += 1
         }
         .onDisappear {
             persistanceController.updateTrack(track: theTrack)
