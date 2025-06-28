@@ -26,6 +26,8 @@
 		EB6DC7B32882BA3D009E788A /* SwiftState in Frameworks */ = {isa = PBXBuildFile; productRef = EB6DC7B22882BA3D009E788A /* SwiftState */; };
 		EB7D2145282C6181006CB703 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB7D2144282C6181006CB703 /* CloudKit.framework */; };
 		EB7D2149282C6553006CB703 /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D2148282C6553006CB703 /* UIApplicationExt.swift */; };
+		EB80DA9A2E100D4E0005CBCB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EB80DA992E100D4E0005CBCB /* README.md */; };
+		EB80DA9C2E100D660005CBCB /* CLAUDE.md in Resources */ = {isa = PBXBuildFile; fileRef = EB80DA9B2E100D660005CBCB /* CLAUDE.md */; };
 		EB872508260CC0C4008AD8E7 /* SatchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* SatchiApp.swift */; };
 		EB87250A260CC0C4008AD8E7 /* TrackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872509260CC0C4008AD8E7 /* TrackListView.swift */; };
 		EB87250C260CC0C5008AD8E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB87250B260CC0C5008AD8E7 /* Assets.xcassets */; };
@@ -140,6 +142,8 @@
 		EB7D2142282C617E006CB703 /* Satchi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Satchi.entitlements; sourceTree = "<group>"; };
 		EB7D2144282C6181006CB703 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		EB7D2148282C6553006CB703 /* UIApplicationExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
+		EB80DA992E100D4E0005CBCB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EB80DA9B2E100D660005CBCB /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		EB872504260CC0C4008AD8E7 /* Satchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Satchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB872507260CC0C4008AD8E7 /* SatchiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiApp.swift; sourceTree = "<group>"; };
 		EB872509260CC0C4008AD8E7 /* TrackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListView.swift; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 		EB8724FB260CC0C4008AD8E7 = {
 			isa = PBXGroup;
 			children = (
+				EB80DA9B2E100D660005CBCB /* CLAUDE.md */,
+				EB80DA992E100D4E0005CBCB /* README.md */,
 				EB7539B62DE8E99500BD7288 /* TODO.md */,
 				EB872506260CC0C4008AD8E7 /* Satchi */,
 				EB87251D260CC0C5008AD8E7 /* SatchiTests */,
@@ -544,8 +550,10 @@
 				EB8ECDD82952F777009E0134 /* Localizable.strings in Resources */,
 				EB2409C928D1A5000027671D /* Colors.xcassets in Resources */,
 				EB8ECDD52952F777009E0134 /* InfoPlist.strings in Resources */,
+				EB80DA9A2E100D4E0005CBCB /* README.md in Resources */,
 				EB87250F260CC0C5008AD8E7 /* Preview Assets.xcassets in Resources */,
 				EBB11B8B29B47936008EE889 /* Settings.bundle in Resources */,
+				EB80DA9C2E100D660005CBCB /* CLAUDE.md in Resources */,
 				EB87250C260CC0C5008AD8E7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
