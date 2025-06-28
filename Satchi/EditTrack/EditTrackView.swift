@@ -55,20 +55,6 @@ struct EditTrackView: View {
         .accentColor(palette.link)
     }
 
-//    var showMapViewButton: some View {
-//        NavigationLink(destination: TrackMapView(track: theTrack, preview: false)) {
-//            if theTrack.getState() == .trailTracked {
-//                Text("Show track")
-//            } else if theTrack.getState() == .notStarted {
-//                Text("Lay track")
-//            } else {
-//                Text("Follow Track")
-//            }
-//        }
-//        .isDetailLink(false)
-//        .accentColor(palette.link)
-//    }
-
     var body: some View {
             ScrollView {
                 HStack {
@@ -91,7 +77,6 @@ struct EditTrackView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 actionsMenu.foregroundStyle(palette.link)
             }
-
         }
         .toolbarBackground(palette.mainBackground)
         .background(palette.mainBackground)
@@ -100,6 +85,9 @@ struct EditTrackView: View {
         .navigationBarBackButtonHidden(false)
         .navigationDestination(for: Track.self) { _ in
             MapView(trackModel: TrackMapModel(track: theTrack))
+        }
+        .onChange(of: theTrack.state) { _, _ in
+            mapRefreshTrigger += 1
         }
         .alert("Delete Track", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
@@ -113,7 +101,9 @@ struct EditTrackView: View {
             mapRefreshTrigger += 1
         }
         .onDisappear {
-            persistanceController.updateTrack(track: theTrack)
+            Task {
+                await persistanceController.updateTrack(track: theTrack)
+            }
         }
     }
 

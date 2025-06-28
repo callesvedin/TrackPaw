@@ -30,9 +30,9 @@ extension PersistenceController {
         }
     }
 
-    func updateTrack(track: Track) {
+    func updateTrack(track: Track) async {
         if let context = track.managedObjectContext {
-            context.perform {
+            await context.perform {
                 context.save(with: .updateTrack)
             }
         }

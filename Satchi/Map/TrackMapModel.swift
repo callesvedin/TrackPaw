@@ -227,13 +227,13 @@ class TrackMapModel: NSObject, ObservableObject {
                 track.created = Date()
                 track.state = track.getState().rawValue
                 //            track.dummies = dummies
-                PersistenceController.shared.updateTrack(track: track)
+                await PersistenceController.shared.updateTrack(track: track)
             case .trailAdded:
                 track.trackPath = trackPath
                 track.timeToFinish = timer.secondsElapsed
                 track.started = trackingStarted
                 track.state = track.getState().rawValue
-                PersistenceController.shared.updateTrack(track: track)
+                await PersistenceController.shared.updateTrack(track: track)
             default:
                 let state = track.getState()
                 Logger.mapView.debug("Unknown state when stopRunning is called \(String(describing: state))")
