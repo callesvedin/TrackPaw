@@ -7,8 +7,8 @@
 
 import CloudKit
 import CoreData
-import os.log
 import SwiftUI
+import os.log
 
 struct TrackListView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -22,7 +22,7 @@ struct TrackListView: View {
         sortDescriptors: [
             SortDescriptor(\Track.state, order: .forward),
             SortDescriptor(\Track.created, order: .reverse),
-            SortDescriptor(\Track.name, order: .forward)
+            SortDescriptor(\Track.name, order: .forward),
         ],
         animation: Animation.default
     )
@@ -55,7 +55,10 @@ struct TrackListView: View {
             } else {
                 List {
                     ForEach(tracks) { section in
-                        Section(header: Text(LocalizedStringKey(TrackState(rawValue: section.id)!.text()))) {
+                        Section(
+                            header: Text(
+                                LocalizedStringKey(TrackState(rawValue: section.id)!.text()))
+                        ) {
                             ForEach(section, id: \.id) { track in
                                 Button(
                                     action: {
@@ -63,9 +66,10 @@ struct TrackListView: View {
                                         coordinator.path.append(Destination.editView(track: track))
                                     },
                                     label: {
-                                        TrackCellView(deleteFunction: deleteTrack,
-                                                      track: track,
-                                                      waitingForShare: track.id == waitingForShareId)
+                                        TrackCellView(
+                                            deleteFunction: deleteTrack,
+                                            track: track,
+                                            waitingForShare: track.id == waitingForShareId)
                                     }
                                 )
                                 .swipeActions(allowsFullSwipe: false) {
@@ -91,14 +95,10 @@ struct TrackListView: View {
                 .hideScroll()
                 .navigationDestination(for: Destination.self) { destination in
                     switch destination {
-                    case .editView(track: let track):
+                    case .editView(let track):
                         EditTrackView(track)
-                    case .runView(track: let track):
-
-//                        EditTrackView(track)
-
+                    case .runView(let track):
                         MapView(trackModel: TrackMapModel(track: track))
-//                        TrackMapView(track: track, preview: false)
                     }
                 }
             }
@@ -107,11 +107,14 @@ struct TrackListView: View {
         .navigationTitle(LocalizedStringKey("Tracks"))
         .toolbar {
             HStack {
-                Button(action: {
-                    createNewTrack()
-                }, label: {
-                    Text("Add track")
-                })
+                Button(
+                    action: {
+                        createNewTrack()
+                    },
+                    label: {
+                        Text("Add track")
+                    }
+                )
                 .foregroundColor(palette.link)
                 .padding(0)
             }

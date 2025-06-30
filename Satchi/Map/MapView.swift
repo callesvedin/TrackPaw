@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+
 // Maybe use edge insets like https://medium.com/appcoda-tutorials/working-with-mapkit-and-annotation-for-swiftui-f7c30c4f0da6
 
 struct MapView: View {
@@ -14,21 +15,21 @@ struct MapView: View {
     @State var cameraPosition: MapCameraPosition
     @Namespace var mapScope
     @Environment(\.dismiss) var dismiss
-    
+
     init(trackModel: TrackMapModel) {
         self._trackModel = StateObject(wrappedValue: trackModel)
         // Set different camera behavior based on preview mode
         if trackModel.preview {
             self._cameraPosition = State(initialValue: .automatic)
         } else {
-            self._cameraPosition = State(initialValue: .userLocation(fallback: MapCameraPosition.automatic))
+            self._cameraPosition = State(
+                initialValue: .userLocation(fallback: MapCameraPosition.automatic))
         }
     }
 
-
     var body: some View {
         VStack {
-            Map(position: $cameraPosition, scope: mapScope){
+            Map(position: $cameraPosition, scope: mapScope) {
                 if !trackModel.preview {
                     UserAnnotation()
                 }
@@ -41,8 +42,11 @@ struct MapView: View {
                         .stroke(.red, lineWidth: 4)
                 }
 
-                ForEach(trackModel.mapAnnotations) {a in
-                    Marker(LocalizedStringKey(a.getTitleKey()), systemImage: a.getImage(), coordinate: a.getLocation()).tint(a.getColor())
+                ForEach(trackModel.mapAnnotations) { a in
+                    Marker(
+                        LocalizedStringKey(a.getTitleKey()), systemImage: a.getImage(),
+                        coordinate: a.getLocation()
+                    ).tint(a.getColor())
                 }
             }
             .onChange(of: trackModel.done) { _, value in
@@ -55,7 +59,7 @@ struct MapView: View {
 
             .overlay(alignment: .topTrailing) {
                 if !trackModel.preview {
-                    VStack(alignment:.trailing) {
+                    VStack(alignment: .trailing) {
                         MapScaleView(scope: mapScope)
                         if trackModel.isTracking {
                             MapUserLocationButton(scope: mapScope)
@@ -67,7 +71,7 @@ struct MapView: View {
                     .buttonBorderShape(.roundedRectangle)
                 }
             }
-            .overlay(alignment: .bottom){
+            .overlay(alignment: .bottom) {
                 StateButtonView(mapModel: trackModel)
                     .padding(.bottom, 30)
             }
@@ -85,21 +89,21 @@ struct MapView: View {
     let track = Track(context: PersistenceController.shared.persistentContainer.viewContext)
     track.name = "Test-Track"
     track.created = Date()
-    track.timeToFinish = 19*60
+    track.timeToFinish = 19 * 60
     track.difficulty = 3
     track.comments = "A little test..."
-    track.timeToCreate = 21*60
-    track.started = Date().addingTimeInterval(60*60*3)
+    track.timeToCreate = 21 * 60
+    track.started = Date().addingTimeInterval(60 * 60 * 3)
     track.length = 1000
     track.laidPath = [
         CLLocation(latitude: CLLocationDegrees(56.65422), longitude: CLLocationDegrees(16.32646)),
         CLLocation(latitude: CLLocationDegrees(56.65422), longitude: CLLocationDegrees(16.32446)),
-        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446))
+        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446)),
     ]
     track.trackPath = [
         CLLocation(latitude: CLLocationDegrees(56.65432), longitude: CLLocationDegrees(16.32649)),
         CLLocation(latitude: CLLocationDegrees(56.65420), longitude: CLLocationDegrees(16.32453)),
-        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446))
+        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446)),
     ]
     return MapView(trackModel: TrackMapModel(track: track))
 }

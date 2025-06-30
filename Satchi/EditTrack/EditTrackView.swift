@@ -29,7 +29,7 @@ struct EditTrackView: View {
             } label: {
                 Label("Share Track", systemImage: "square.and.arrow.up")
             }
-            
+
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {
@@ -56,17 +56,19 @@ struct EditTrackView: View {
     }
 
     var body: some View {
-            ScrollView {
-                HStack {
-                    Spacer()
-                    MapView(trackModel: TrackMapModel(track: theTrack, preview: true, showButtons: false))
-                        .id(mapRefreshTrigger)
-                        .scaledToFit()
-                        .cornerRadius(10)
-                        .padding(.bottom, 30)
-                    Spacer()
-                }
-                FieldsView(theTrack: theTrack)
+        ScrollView {
+            HStack {
+                Spacer()
+                MapView(
+                    trackModel: TrackMapModel(track: theTrack, preview: true, showButtons: false)
+                )
+                .id(mapRefreshTrigger)
+                .scaledToFit()
+                .cornerRadius(10)
+                .padding(.bottom, 30)
+                Spacer()
+            }
+            FieldsView(theTrack: theTrack)
         }
         .foregroundColor(palette.primaryText)
         .padding()
@@ -93,9 +95,9 @@ struct EditTrackView: View {
             Button("Delete", role: .destructive) {
                 deleteTrack()
             }
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) {}
         } message: {
-            Text(String(localized:"delete.confirmation"))
+            Text(String(localized: "delete.confirmation"))
         }
         .onAppear {
             mapRefreshTrigger += 1
@@ -110,7 +112,7 @@ struct EditTrackView: View {
     private func showShareView(track: Track) {
         PersistenceController.shared.presentCloudSharingController(track: track)
     }
-    
+
     private func deleteTrack() {
         persistanceController.delete(track: theTrack)
         dismiss()
@@ -140,43 +142,65 @@ struct FieldsView: View {
                 TextField("Name", text: $theTrack.name)
                     .font(Font.title2)
                     .padding(.horizontal, 8)
-                    .background(RoundedRectangle(cornerRadius: 4)
-                        .fill(palette.midBackground)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(palette.midBackground)
                     )
             }.padding(.bottom, 18)
 
             VStack {
-                EditRow(textOne: "Created:", textTwo: "\(theTrack.created != nil ? TimeFormatter.dateStringFrom(date: theTrack.created) : "-")")
-                EditRow(textOne: "Time to create:", textTwo: "\(TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToCreate))")
+                EditRow(
+                    textOne: "Created:",
+                    textTwo:
+                        "\(theTrack.created != nil ? TimeFormatter.dateStringFrom(date: theTrack.created) : "-")"
+                )
+                EditRow(
+                    textOne: "Time to create:",
+                    textTwo:
+                        "\(TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToCreate))")
                 EditRow(textOne: "Time since created:", textTwo: "\(getTimeSinceCreated())")
 
             }.padding(.vertical, 4)
 
             VStack {
-                EditRow(textOne: "Length:", textTwo: "\(DistanceFormatter.distanceFor(meters: Double(theTrack.length)))")
+                EditRow(
+                    textOne: "Length:",
+                    textTwo: "\(DistanceFormatter.distanceFor(meters: Double(theTrack.length)))")
 
                 HStack {
                     Text("Difficulty:").frame(alignment: .leading)
                     Spacer()
-                    DifficultyView(difficulty: $theTrack.difficulty).frame(maxWidth: .infinity, alignment: .trailing)
+                    DifficultyView(difficulty: $theTrack.difficulty).frame(
+                        maxWidth: .infinity, alignment: .trailing)
                 }
             }.padding(.vertical, 4)
 
             VStack {
-                EditRow(textOne: "Track rested:", textTwo: "\(getTimeBetween(date: theTrack.created, and: theTrack.started))")
+                EditRow(
+                    textOne: "Track rested:",
+                    textTwo: "\(getTimeBetween(date: theTrack.created, and: theTrack.started))")
             }.padding(.vertical, 4)
 
             VStack {
-                EditRow(textOne: "Tracking started:", textTwo: "\(theTrack.started != nil ? TimeFormatter.dateStringFrom(date: theTrack.started!) : "-")")
-                EditRow(textOne: "Time to finish:", textTwo: "\(theTrack.timeToFinish > 0 ? TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToFinish) : "-")")
+                EditRow(
+                    textOne: "Tracking started:",
+                    textTwo:
+                        "\(theTrack.started != nil ? TimeFormatter.dateStringFrom(date: theTrack.started!) : "-")"
+                )
+                EditRow(
+                    textOne: "Time to finish:",
+                    textTwo:
+                        "\(theTrack.timeToFinish > 0 ? TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToFinish) : "-")"
+                )
             }.padding(.vertical, 4)
-
-            Text("Comments:").padding(.bottom, 0)
-            TextField("Comments", text: $theTrack.comments)
-                .padding()
-                .textFieldStyle(PlainTextFieldStyle())
-                .frame(minHeight: 80)
-                .border(Color.gray, width: 1)
+            VStack(alignment:.leading) {
+                Text("Comments:").padding(.bottom, 0)
+                TextField("Comments", text: $theTrack.comments)
+                    .padding()
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .frame(minHeight: 80)
+                    .border(Color.gray, width: 1)
+            }
         }
         .font(
             .body
@@ -199,14 +223,16 @@ extension View {
     @available(iOS 14, *)
     func navigationBarTitleTextColor(_ color: Color) -> some View {
         let uiColor = UIColor(color)
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor ]
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor]
         return self
     }
 }
 
 struct EditTrackView_Previews: PreviewProvider {
-    static let localizations = Bundle.main.localizations.map(Locale.init).filter { $0.identifier != "base" }
+    static let localizations = Bundle.main.localizations.map(Locale.init).filter {
+        $0.identifier != "base"
+    }
     static var previews: some View {
         let track = createTestTrack()
         return ForEach(ColorScheme.allCases, id: \.self) { scheme in
@@ -223,29 +249,35 @@ struct EditTrackView_Previews: PreviewProvider {
     }
 
     static private func createTestTrack() -> Track {
-       let track = Track(context: PersistenceController.shared.persistentContainer.viewContext)
-       track.name = "Test-Track"
-       track.created = Date()
-       track.timeToFinish = 19*60
-       track.difficulty = 3
-       track.comments = "A little hard..."
-       track.timeToCreate = 21*60
-       track.started = Date().addingTimeInterval(60*60*3)
-       track.length = 1000
-        track.trackPath = [CLLocation(
-            latitude: 52.520008,
-            longitude: 13.404954
-        ),CLLocation(
-            latitude: 53.520008,
-            longitude: 13.404954
-        )]
-        track.laidPath = [CLLocation(
-            latitude: 52.520008,
-            longitude: 13.404960
-        ),CLLocation(
-            latitude: 53.520008,
-            longitude: 13.507954
-        )]
+        let track = Track(context: PersistenceController.shared.persistentContainer.viewContext)
+        track.name = "Test-Track"
+        track.created = Date()
+        track.timeToFinish = 19 * 60
+        track.difficulty = 3
+        track.comments = "A little hard..."
+        track.timeToCreate = 21 * 60
+        track.started = Date().addingTimeInterval(60 * 60 * 3)
+        track.length = 1000
+        track.trackPath = [
+            CLLocation(
+                latitude: 52.520008,
+                longitude: 13.404954
+            ),
+            CLLocation(
+                latitude: 53.520008,
+                longitude: 13.404954
+            ),
+        ]
+        track.laidPath = [
+            CLLocation(
+                latitude: 52.520008,
+                longitude: 13.404960
+            ),
+            CLLocation(
+                latitude: 53.520008,
+                longitude: 13.507954
+            ),
+        ]
 
         return track
     }
