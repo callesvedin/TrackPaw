@@ -50,9 +50,9 @@ enum PathAnnotationKind: Hashable, Identifiable
         case .trailEnd:
             return "laidStop" // return "Stop" // String(localized: "laidStop")
         case .trackingStart:
-            return "trackStart" //"Start" //
+            return "trackStart" // "Start" //
         case .trackingEnd:
-            return "trackStop" //"Stop" //
+            return "trackStop" // "Stop" //
         case .dummy:
             return String(localized: "Dummy") // "Dummy" // String(localized: "Dummy")
         }

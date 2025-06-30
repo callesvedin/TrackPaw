@@ -22,7 +22,7 @@ struct TrackListView: View {
         sortDescriptors: [
             SortDescriptor(\Track.state, order: .forward),
             SortDescriptor(\Track.created, order: .reverse),
-            SortDescriptor(\Track.name, order: .forward),
+            SortDescriptor(\Track.name, order: .forward)
         ],
         animation: Animation.default
     )
@@ -178,20 +178,6 @@ struct NoTracksView: View {
                 callback()
             }
             .foregroundColor(palette.link)
-            Spacer()
-        }
-    }
-}
-
-struct TrackSectionView: View {
-    var sectionName: String
-    var body: some View {
-        HStack {
-            Text(sectionName)
-                .font(.title3)
-                .padding(.horizontal, 8)
-                .padding(.top, 32)
-                .padding(.bottom, 2)
             Spacer()
         }
     }

@@ -20,7 +20,6 @@
 		EB3588602970BAEB00CCB235 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35885E2970BAEB00CCB235 /* SceneDelegate.swift */; };
 		EB409F3628AD0EB700BA2C23 /* StateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */; };
 		EB5688E0269C304000AF9AB1 /* TrackCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5688DF269C304000AF9AB1 /* TrackCellView.swift */; };
-		EB59DE3E2830051F0043DE33 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3D2830051F0043DE33 /* String.swift */; };
 		EB59DE40283045A60043DE33 /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */; };
 		EB59DE4428310BF60043DE33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE4328310BF60043DE33 /* AppDelegate.swift */; };
 		EB5A5BA929DB79B000F05A4F /* SchemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5A5BA829DB79B000F05A4F /* SchemeType.swift */; };
@@ -52,7 +51,6 @@
 		EBA6D5C9296B6738000579FC /* SatchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* SatchiApp.swift */; };
 		EBA6D5CA296B6738000579FC /* EditTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD13A54261AF3760080C4FE /* EditTrackView.swift */; };
 		EBA6D5CC296B6738000579FC /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D2148282C6553006CB703 /* UIApplicationExt.swift */; };
-		EBA6D5CD296B6738000579FC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3D2830051F0043DE33 /* String.swift */; };
 		EBA6D5CF296B6738000579FC /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA842E7287589CF0061C338 /* TimeFormatter.swift */; };
 		EBA6D5D1296B6738000579FC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AD296B6265000579FC /* CoreDataHelper.swift */; };
 		EBA6D5D2296B6738000579FC /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
@@ -120,7 +118,6 @@
 		EB35885E2970BAEB00CCB235 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateButtonView.swift; sourceTree = "<group>"; };
 		EB5688DF269C304000AF9AB1 /* TrackCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCellView.swift; sourceTree = "<group>"; };
-		EB59DE3D2830051F0043DE33 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EB59DE4328310BF60043DE33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB5A5BA829DB79B000F05A4F /* SchemeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeType.swift; sourceTree = "<group>"; };
@@ -383,7 +380,6 @@
 		EBDC076129B6A3880028FC64 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				EB59DE3D2830051F0043DE33 /* String.swift */,
 				EBE9440228D25AE900C1C7A5 /* Color.swift */,
 				EBCDAAA629B75BC10035809D /* NotificationCenter.swift */,
 				EBB85EF129CA19F40058E0B5 /* Logger.swift */,
@@ -405,6 +401,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EB386FE62E12BF1900557A54 /* PBXTargetDependency */,
 			);
 			name = Satchi;
 			packageProductDependencies = (
@@ -505,6 +502,7 @@
 			mainGroup = EB8724FB260CC0C4008AD8E7;
 			packageReferences = (
 				EB6DC7B12882BA3D009E788A /* XCRemoteSwiftPackageReference "SwiftState" */,
+				EB386FE42E12BE6E00557A54 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			productRefGroup = EB872505260CC0C4008AD8E7 /* Products */;
 			projectDirPath = "";
@@ -577,7 +575,6 @@
 				EB35885F2970BAEB00CCB235 /* SceneDelegate.swift in Sources */,
 				EBB85EF229CA19F40058E0B5 /* Logger.swift in Sources */,
 				EB690CFE2ABCB47800652A6F /* MapView.swift in Sources */,
-				EB59DE3E2830051F0043DE33 /* String.swift in Sources */,
 				EBDC075C29B69B0A0028FC64 /* TrackTimer.swift in Sources */,
 				EBDC075F29B69F750028FC64 /* MainTabView.swift in Sources */,
 				EBA842E8287589CF0061C338 /* TimeFormatter.swift in Sources */,
@@ -637,7 +634,6 @@
 				EBA6D5CA296B6738000579FC /* EditTrackView.swift in Sources */,
 				EBA6D5CC296B6738000579FC /* UIApplicationExt.swift in Sources */,
 				EB3588602970BAEB00CCB235 /* SceneDelegate.swift in Sources */,
-				EBA6D5CD296B6738000579FC /* String.swift in Sources */,
 				EBDC075D29B69B0A0028FC64 /* TrackTimer.swift in Sources */,
 				EBDC076029B69F750028FC64 /* MainTabView.swift in Sources */,
 				EBA6D5CF296B6738000579FC /* TimeFormatter.swift in Sources */,
@@ -661,6 +657,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		EB386FE62E12BF1900557A54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = EB386FE52E12BF1900557A54 /* SwiftLintBuildToolPlugin */;
+		};
 		EB87251C260CC0C5008AD8E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EB872503260CC0C4008AD8E7 /* Satchi */;
@@ -1050,6 +1050,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EB386FE42E12BE6E00557A54 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
 		EB6DC7B12882BA3D009E788A /* XCRemoteSwiftPackageReference "SwiftState" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactKit/SwiftState";
@@ -1069,6 +1077,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EB386FE52E12BF1900557A54 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB386FE42E12BE6E00557A54 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
 		EB6DC7B22882BA3D009E788A /* SwiftState */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EB6DC7B12882BA3D009E788A /* XCRemoteSwiftPackageReference "SwiftState" */;

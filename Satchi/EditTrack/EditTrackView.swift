@@ -193,7 +193,7 @@ struct FieldsView: View {
                         "\(theTrack.timeToFinish > 0 ? TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToFinish) : "-")"
                 )
             }.padding(.vertical, 4)
-            VStack(alignment:.leading) {
+            VStack(alignment: .leading) {
                 Text("Comments:").padding(.bottom, 0)
                 TextField("Comments", text: $theTrack.comments)
                     .padding()
@@ -266,7 +266,7 @@ struct EditTrackView_Previews: PreviewProvider {
             CLLocation(
                 latitude: 53.520008,
                 longitude: 13.404954
-            ),
+            )
         ]
         track.laidPath = [
             CLLocation(
@@ -276,7 +276,7 @@ struct EditTrackView_Previews: PreviewProvider {
             CLLocation(
                 latitude: 53.520008,
                 longitude: 13.507954
-            ),
+            )
         ]
 
         return track

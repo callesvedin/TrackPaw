@@ -7,9 +7,9 @@
 
 import CoreLocation
 import Foundation
-import os.log
 import SwiftState
 import SwiftUI
+import os.log
 
 enum RunningState: StateType {
     case notStarted, running, paused, done, viewing
@@ -23,7 +23,7 @@ class TrackMapModel: NSObject, ObservableObject {
     private var locationManager: CLLocationManager
     //    public var image: UIImage?
 
-//    public var regionIsSet: Bool = false
+    //    public var regionIsSet: Bool = false
     private var trackingStarted: Date?
 
     private var track: Track
@@ -32,21 +32,29 @@ class TrackMapModel: NSObject, ObservableObject {
     public var showButtons: Bool
     public var stateMachine: Machine<RunningState, RunningEvent>!
 
-    var trailStartLocation: CLLocationCoordinate2D? {didSet {
-        trailStartUpdated()
-    }}
+    var trailStartLocation: CLLocationCoordinate2D? {
+        didSet {
+            trailStartUpdated()
+        }
+    }
 
-    var trailEndLocation: CLLocationCoordinate2D? {didSet {
-        trailEndUpdated()
-    }}
+    var trailEndLocation: CLLocationCoordinate2D? {
+        didSet {
+            trailEndUpdated()
+        }
+    }
 
-    var trackStartLocation: CLLocationCoordinate2D? {didSet {
-        trackStartUpdated()
-    }}
+    var trackStartLocation: CLLocationCoordinate2D? {
+        didSet {
+            trackStartUpdated()
+        }
+    }
 
-    var trackEndLocation: CLLocationCoordinate2D? {didSet {
-        trackEndUpdated()
-    }}
+    var trackEndLocation: CLLocationCoordinate2D? {
+        didSet {
+            trackEndUpdated()
+        }
+    }
 
     public var isTracking = false
     var followUser: Bool = true
@@ -62,18 +70,24 @@ class TrackMapModel: NSObject, ObservableObject {
     @MainActor public var locationAuthorizationStatus: CLAuthorizationStatus {
         didSet {
             if preview {
-                Logger.mapView.debug("Preview mode - skipping location authorization handling")
+                Logger.mapView.debug(
+                    "Preview mode - skipping location authorization handling"
+                )
                 return
             }
             switch locationAuthorizationStatus {
             case .notDetermined:
-                Logger.mapView.info("Status not determined. Requesting authorization")
+                Logger.mapView.info(
+                    "Status not determined. Requesting authorization"
+                )
                 locationManager.requestAlwaysAuthorization()
             case .authorizedWhenInUse, .authorizedAlways:
                 startTracking()
             case .denied, .restricted:
                 showAccessDenied = true
-                Logger.mapView.info("LocationAuthorizationStatus prohibits tracking")
+                Logger.mapView.info(
+                    "LocationAuthorizationStatus prohibits tracking"
+                )
             @unknown default:
                 gotUserLocation = false
             }
@@ -109,8 +123,15 @@ class TrackMapModel: NSObject, ObservableObject {
         return trackPath.map { $0.coordinate }
     }
 
-    @MainActor init(track: Track, preview: Bool = false, showButtons: Bool = true, locationManager: CLLocationManager = CLLocationManager()) {
-        Logger.mapView.debug("TrackMapModel initialized Track: \(track.name)-\(track.id?.uuidString ?? "*")")
+    @MainActor init(
+        track: Track,
+        preview: Bool = false,
+        showButtons: Bool = true,
+        locationManager: CLLocationManager = CLLocationManager()
+    ) {
+        Logger.mapView.debug(
+            "TrackMapModel initialized Track: \(track.name)-\(track.id?.uuidString ?? "*")"
+        )
         self.track = track
         self.preview = preview || track.getState() == .trailTracked
         self.showButtons = showButtons
@@ -122,7 +143,9 @@ class TrackMapModel: NSObject, ObservableObject {
         locationAuthorizationStatus = locationManager.authorizationStatus
 
         super.init()
-        if locationAuthorizationStatus == .denied || locationAuthorizationStatus == .restricted || preview {
+        if locationAuthorizationStatus == .denied
+            || locationAuthorizationStatus == .restricted || preview
+        {
             followUser = false
             distance = Double(track.length)
             timer.secondsElapsed = track.timeToFinish
@@ -131,28 +154,40 @@ class TrackMapModel: NSObject, ObservableObject {
         if !preview {
             self.locationManager.allowsBackgroundLocationUpdates = true
             self.locationManager.pausesLocationUpdatesAutomatically = false
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-            
+            self.locationManager.desiredAccuracy =
+                kCLLocationAccuracyBestForNavigation
+
             self.locationManager.delegate = self
             if locationAuthorizationStatus == .notDetermined {
                 self.locationManager.requestAlwaysAuthorization()
             }
         } else {
-            Logger.mapView.debug("Preview mode - skipping location manager setup")
+            Logger.mapView.debug(
+                "Preview mode - skipping location manager setup"
+            )
         }
 
         if track.getState() == .trailTracked {
             trackStartLocation = trackPath.first?.coordinate
-            self.mapAnnotations.append(PathAnnotationKind.trackingStart(location: trackStartLocation!))
+            self.mapAnnotations.append(
+                PathAnnotationKind.trackingStart(location: trackStartLocation!)
+            )
             trackEndLocation = trackPath.last?.coordinate
-            self.mapAnnotations.append(PathAnnotationKind.trackingEnd(location: trackEndLocation!))
+            self.mapAnnotations.append(
+                PathAnnotationKind.trackingEnd(location: trackEndLocation!)
+            )
         }
 
-        if track.getState() == .trailAdded || track.getState() == .trailTracked {
+        if track.getState() == .trailAdded || track.getState() == .trailTracked
+        {
             trailStartLocation = laidPath.first?.coordinate
-            self.mapAnnotations.append(PathAnnotationKind.trailStart(location: trailStartLocation!))
+            self.mapAnnotations.append(
+                PathAnnotationKind.trailStart(location: trailStartLocation!)
+            )
             trailEndLocation = laidPath.last?.coordinate
-            self.mapAnnotations.append(PathAnnotationKind.trailEnd(location: trailEndLocation!))
+            self.mapAnnotations.append(
+                PathAnnotationKind.trailEnd(location: trailEndLocation!)
+            )
         }
         stateMachine.addRouteMapping { event, fromState, _ -> RunningState? in
             // no route for no-event
@@ -173,21 +208,29 @@ class TrackMapModel: NSObject, ObservableObject {
                 return .done
 
             default:
-                Logger.mapView.debug("Unknown event \(String(describing: event)) from state \(String(describing: fromState))")
+                Logger.mapView.debug(
+                    "Unknown event \(String(describing: event)) from state \(String(describing: fromState))"
+                )
                 return nil
             }
         }
 
         stateMachine.addHandler(event: .start) { context in
-            Logger.mapView.debug(".start is triggered! Context:\(String(describing: context))")
+            Logger.mapView.debug(
+                ".start is triggered! Context:\(String(describing: context))"
+            )
             self.startRunning()
         }
         stateMachine.addHandler(event: .pause) { context in
-            Logger.mapView.debug(".pause is triggered! Context:\(String(describing: context))")
+            Logger.mapView.debug(
+                ".pause is triggered! Context:\(String(describing: context))"
+            )
             self.pauseRunning()
         }
         stateMachine.addHandler(event: .stop) { context in
-            Logger.mapView.debug(".stop is triggered! Context:\(String(describing: context))")
+            Logger.mapView.debug(
+                ".stop is triggered! Context:\(String(describing: context))"
+            )
             if context.fromState == .viewing {
                 self.stopRunning()
             } else if context.fromState == .notStarted {
@@ -198,7 +241,9 @@ class TrackMapModel: NSObject, ObservableObject {
             }
         }
         stateMachine.addHandler(event: .resume) { context in
-            Logger.mapView.debug(".resume is triggered! Context:\(String(describing: context))")
+            Logger.mapView.debug(
+                ".resume is triggered! Context:\(String(describing: context))"
+            )
             self.resumeRunning()
         }
     }
@@ -236,7 +281,9 @@ class TrackMapModel: NSObject, ObservableObject {
                 await PersistenceController.shared.updateTrack(track: track)
             default:
                 let state = track.getState()
-                Logger.mapView.debug("Unknown state when stopRunning is called \(String(describing: state))")
+                Logger.mapView.debug(
+                    "Unknown state when stopRunning is called \(String(describing: state))"
+                )
             }
             stopTracking()
             done = true
@@ -252,7 +299,9 @@ class TrackMapModel: NSObject, ObservableObject {
             trackEndLocation = trackPath.last?.coordinate
         default:
             let state = track.getState()
-            Logger.mapView.debug("Can not pause Running on track state \(String(describing: state)). Maybe view() instead")
+            Logger.mapView.debug(
+                "Can not pause Running on track state \(String(describing: state)). Maybe view() instead"
+            )
             return
         }
     }
@@ -270,7 +319,9 @@ class TrackMapModel: NSObject, ObservableObject {
             timer.start()
         default:
             let state = track.getState()
-            Logger.mapView.debug("Can not start Running on track state \(String(describing: state)). Maybe view() instead")
+            Logger.mapView.debug(
+                "Can not start Running on track state \(String(describing: state)). Maybe view() instead"
+            )
             return
         }
     }
@@ -289,7 +340,7 @@ class TrackMapModel: NSObject, ObservableObject {
     }
 
     public func pause() {
-        if preview{
+        if preview {
             Logger.mapView.debug("Preview mode - ignoring pause action")
             return
         }
@@ -308,12 +359,12 @@ class TrackMapModel: NSObject, ObservableObject {
         stateMachine <-! .stop
     }
 
-//    public func addDummy() {
-//        Logger.mapView.debug("Add dummy now!")
-//        if let location = locationManager.location {
-//            dummies.append(location.coordinate)
-//        }
-//    }
+    //    public func addDummy() {
+    //        Logger.mapView.debug("Add dummy now!")
+    //        if let location = locationManager.location {
+    //            dummies.append(location.coordinate)
+    //        }
+    //    }
 
     private func getLength(from locations: [CLLocation]) -> Double {
         var length: Double = 0
@@ -360,7 +411,9 @@ class TrackMapModel: NSObject, ObservableObject {
                 self.mapAnnotations.remove(at: i)
             }
         } else {
-            self.mapAnnotations.append( PathAnnotationKind.trailStart(location: trailStartLocation!))
+            self.mapAnnotations.append(
+                PathAnnotationKind.trailStart(location: trailStartLocation!)
+            )
         }
     }
 
@@ -375,8 +428,10 @@ class TrackMapModel: NSObject, ObservableObject {
                 self.mapAnnotations.remove(at: i)
             }
 
-        }else {
-            self.mapAnnotations.append( PathAnnotationKind.trailEnd(location: trailEndLocation!))
+        } else {
+            self.mapAnnotations.append(
+                PathAnnotationKind.trailEnd(location: trailEndLocation!)
+            )
         }
     }
 
@@ -391,8 +446,10 @@ class TrackMapModel: NSObject, ObservableObject {
                 self.mapAnnotations.remove(at: i)
             }
 
-        }else {
-            self.mapAnnotations.append(PathAnnotationKind.trackingStart(location: trackStartLocation!))
+        } else {
+            self.mapAnnotations.append(
+                PathAnnotationKind.trackingStart(location: trackStartLocation!)
+            )
         }
     }
 
@@ -407,20 +464,28 @@ class TrackMapModel: NSObject, ObservableObject {
                 self.mapAnnotations.remove(at: i)
             }
 
-        }else {
-            self.mapAnnotations.append(PathAnnotationKind.trackingStart(location: trackEndLocation!))
+        } else {
+            self.mapAnnotations.append(
+                PathAnnotationKind.trackingStart(location: trackEndLocation!)
+            )
         }
     }
 }
 
 extension TrackMapModel: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
         Task { @MainActor in
             // If we want to continue updating while paused we have to add .paused state here but we then have to save the location where we paused...
-            if stateMachine.state == .running && track.getState() == .notStarted {
+            if stateMachine.state == .running && track.getState() == .notStarted
+            {
                 laidPath.append(contentsOf: locations)
                 // If we want to continue updating while paused we have to add .paused state here but we then have to save the location where we paused...
-            } else if stateMachine.state == .running && track.getState() == .trailAdded {
+            } else if stateMachine.state == .running
+                && track.getState() == .trailAdded
+            {
                 trackPath.append(contentsOf: locations)
             }
             accuracy = locations.first?.horizontalAccuracy ?? 0
@@ -431,13 +496,20 @@ extension TrackMapModel: CLLocationManagerDelegate {
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         Task { @MainActor in
-            Logger.mapView.debug("locationManagerDidChangeAuthorization:manager. Status:\(String(describing: manager.authorizationStatus))")
+            Logger.mapView.debug(
+                "locationManagerDidChangeAuthorization:manager. Status:\(String(describing: manager.authorizationStatus))"
+            )
             locationAuthorizationStatus = manager.authorizationStatus
         }
     }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        Logger.mapView.debug("Location manager failed. \(error.localizedDescription)")
+    func locationManager(
+        _ manager: CLLocationManager,
+        didFailWithError error: Error
+    ) {
+        Logger.mapView.debug(
+            "Location manager failed. \(error.localizedDescription)"
+        )
     }
 
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {

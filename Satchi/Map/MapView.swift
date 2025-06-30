@@ -49,8 +49,8 @@ struct MapView: View {
                     ).tint(a.getColor())
                 }
             }
-            .onChange(of: trackModel.done) { _, value in
-                if value == true {
+            .onChange(of: trackModel.done) { _, done in
+                if done {
                     dismiss()
                 }
             }
@@ -98,12 +98,12 @@ struct MapView: View {
     track.laidPath = [
         CLLocation(latitude: CLLocationDegrees(56.65422), longitude: CLLocationDegrees(16.32646)),
         CLLocation(latitude: CLLocationDegrees(56.65422), longitude: CLLocationDegrees(16.32446)),
-        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446)),
+        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446))
     ]
     track.trackPath = [
         CLLocation(latitude: CLLocationDegrees(56.65432), longitude: CLLocationDegrees(16.32649)),
         CLLocation(latitude: CLLocationDegrees(56.65420), longitude: CLLocationDegrees(16.32453)),
-        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446)),
+        CLLocation(latitude: CLLocationDegrees(56.65622), longitude: CLLocationDegrees(16.32446))
     ]
     return MapView(trackModel: TrackMapModel(track: track))
 }
