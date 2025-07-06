@@ -14,6 +14,10 @@ class ViewCoordinator: ObservableObject {
     func gotoRoot() {
         path.removeLast(path.count)
     }
+
+    func pop() {
+        path.removeLast()
+    }
 }
 
 enum Destination: Hashable {

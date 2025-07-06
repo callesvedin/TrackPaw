@@ -43,16 +43,27 @@ struct EditTrackView: View {
 
     @ViewBuilder
     var showMapViewButton: some View {
-        NavigationLink(value: theTrack) {
-            if theTrack.getState() == .trailTracked {
+        switch theTrack.getState() {
+        case .trailTracked:
+            Button {
+                coordinator.path.append(Destination.runView(track: theTrack))
+            } label: {
                 Text("Show track")
-            } else if theTrack.getState() == .notStarted {
-                Text("Lay track")
-            } else {
-                Text("Follow Track")
             }
+        case .notStarted:
+            Button {
+                coordinator.path.append(Destination.runView(track: theTrack))
+            }label: {
+                Text("Lay track")
+            }
+        default:
+            Button {
+                coordinator.path.append(Destination.runView(track: theTrack))
+            }label: {
+                Text("Follow track")
+            }
+
         }
-        .accentColor(palette.link)
     }
 
     var body: some View {
@@ -85,9 +96,6 @@ struct EditTrackView: View {
         .navigationBarTitle(theTrack.name)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(false)
-        .navigationDestination(for: Track.self) { _ in
-            MapView(trackModel: TrackMapModel(track: theTrack))
-        }
         .onChange(of: theTrack.state) { _, _ in
             mapRefreshTrigger += 1
         }
@@ -103,8 +111,10 @@ struct EditTrackView: View {
             mapRefreshTrigger += 1
         }
         .onDisappear {
-            Task {
-                await persistanceController.updateTrack(track: theTrack)
+            if theTrack.length > 0 {
+                Task {
+                    await persistanceController.updateTrack(track: theTrack)
+                }
             }
         }
     }

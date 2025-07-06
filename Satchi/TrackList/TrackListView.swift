@@ -99,6 +99,12 @@ struct TrackListView: View {
                         EditTrackView(track)
                     case .runView(let track):
                         MapView(trackModel: TrackMapModel(track: track))
+                        .onDisappear{
+                            if track.length == 0 {
+                                deleteTrack(track)
+                                coordinator.pop()
+                            }
+                        }
                     }
                 }
             }

@@ -265,7 +265,11 @@
         }
       }
     },
+    "Follow track" : {
+
+    },
     "Follow Track" : {
+      "extractionState" : "stale",
       "localizations" : {
         "sv" : {
           "stringUnit" : {
