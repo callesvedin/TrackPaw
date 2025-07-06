@@ -54,9 +54,7 @@ struct MapView: View {
                     dismiss()
                 }
             }
-
-            .mapControlVisibility(trackModel.preview ? .hidden : .automatic)
-
+            .mapControlVisibility(.hidden)
             .overlay(alignment: .topTrailing) {
                 if !trackModel.preview {
                     VStack(alignment: .trailing) {
