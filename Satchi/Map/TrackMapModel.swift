@@ -19,8 +19,7 @@ enum RunningEvent: EventType {
     case start, pause, resume, stop
 }
 
-class TrackMapModel: NSObject, ObservableObject {
-    private var locationManager: CLLocationManager
+class TrackMapModel: NSObject, ObservableObject, LocationManagerDelegate {
     //    public var image: UIImage?
 
     //    public var regionIsSet: Bool = false
@@ -67,32 +66,7 @@ class TrackMapModel: NSObject, ObservableObject {
     @MainActor @Published public var showAccessDenied: Bool = false
     public var mapAnnotations: [PathAnnotationKind] = []
 
-    @MainActor public var locationAuthorizationStatus: CLAuthorizationStatus {
-        didSet {
-            if preview {
-                Logger.mapView.debug(
-                    "Preview mode - skipping location authorization handling"
-                )
-                return
-            }
-            switch locationAuthorizationStatus {
-            case .notDetermined:
-                Logger.mapView.info(
-                    "Status not determined. Requesting authorization"
-                )
-                locationManager.requestAlwaysAuthorization()
-            case .authorizedWhenInUse, .authorizedAlways:
-                startTracking()
-            case .denied, .restricted:
-                showAccessDenied = true
-                Logger.mapView.info(
-                    "LocationAuthorizationStatus prohibits tracking"
-                )
-            @unknown default:
-                gotUserLocation = false
-            }
-        }
-    }
+    @MainActor @Published public var locationAuthorizationStatus: CLAuthorizationStatus = .notDetermined
 
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
@@ -126,12 +100,11 @@ class TrackMapModel: NSObject, ObservableObject {
     @MainActor init(
         track: Track,
         preview: Bool = false,
-        showButtons: Bool = true,
-        locationManager: CLLocationManager = CLLocationManager()
+        showButtons: Bool = true
     ) {
-        Logger.mapView.debug(
-            "TrackMapModel initialized Track: \(track.name)-\(track.id?.uuidString ?? "*")"
-        )
+//        Logger.mapView.debug(
+//            "❤️ TrackMapModel initialized Track: \(track.name)-\(track.id?.uuidString ?? "*")"
+//        )
         self.track = track
         self.preview = preview || track.getState() == .trailTracked
         self.showButtons = showButtons
@@ -139,8 +112,7 @@ class TrackMapModel: NSObject, ObservableObject {
         trackPath = track.trackPath ?? []
 
         stateMachine = Machine(state: preview ? .viewing : .notStarted)
-        self.locationManager = locationManager
-        locationAuthorizationStatus = locationManager.authorizationStatus
+        locationAuthorizationStatus = LocationManager.shared.authorizationStatus
 
         super.init()
         if locationAuthorizationStatus == .denied
@@ -152,14 +124,9 @@ class TrackMapModel: NSObject, ObservableObject {
         }
 
         if !preview {
-            self.locationManager.allowsBackgroundLocationUpdates = true
-            self.locationManager.pausesLocationUpdatesAutomatically = false
-            self.locationManager.desiredAccuracy =
-                kCLLocationAccuracyBestForNavigation
-
-            self.locationManager.delegate = self
+            LocationManager.shared.subscribe(self)
             if locationAuthorizationStatus == .notDetermined {
-                self.locationManager.requestAlwaysAuthorization()
+                LocationManager.shared.requestAlwaysAuthorization()
             }
         } else {
             Logger.mapView.debug(
@@ -249,7 +216,10 @@ class TrackMapModel: NSObject, ObservableObject {
     }
 
     deinit {
-        locationManager.delegate = nil
+        if !preview {
+            LocationManager.shared.unsubscribe(self)
+        }
+        Logger.mapView.debug("❤️ TrackMapModel deinitialized")
     }
 
     @MainActor private func resumeRunning() {
@@ -285,7 +255,7 @@ class TrackMapModel: NSObject, ObservableObject {
                     "Unknown state when stopRunning is called \(String(describing: state))"
                 )
             }
-            stopTracking()
+            LocationManager.shared.unsubscribe(self)
             done = true
         }
     }
@@ -327,7 +297,6 @@ class TrackMapModel: NSObject, ObservableObject {
     }
 
     @MainActor private func cancelRunning() {
-        stopTracking()
         done = true
     }
 
@@ -381,23 +350,7 @@ class TrackMapModel: NSObject, ObservableObject {
             Logger.mapView.debug("Preview mode - skipping location tracking")
             return
         }
-        if !isTracking {
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
-            locationManager.startMonitoringSignificantLocationChanges()
-
-            isTracking = true
-        }
-    }
-
-    private func stopTracking() {
-        Logger.mapView.debug("Stop tracking.")
-        locationManager.stopUpdatingHeading()
-        locationManager.stopUpdatingLocation()
-        locationManager.stopUpdatingHeading()
-        locationManager.stopMonitoringSignificantLocationChanges()
-        isTracking = false
-        locationManager.delegate = nil
+        isTracking = true
     }
 
     fileprivate func trailStartUpdated() {
@@ -472,9 +425,9 @@ class TrackMapModel: NSObject, ObservableObject {
     }
 }
 
-extension TrackMapModel: CLLocationManagerDelegate {
+extension TrackMapModel {
     func locationManager(
-        _ manager: CLLocationManager,
+        _ manager: LocationManager,
         didUpdateLocations locations: [CLLocation]
     ) {
         Task { @MainActor in
@@ -489,30 +442,53 @@ extension TrackMapModel: CLLocationManagerDelegate {
                 trackPath.append(contentsOf: locations)
             }
             accuracy = locations.first?.horizontalAccuracy ?? 0
-            currentLocation = manager.location
+            currentLocation = LocationManager.shared.currentLocation
             gotUserLocation = true
         }
     }
 
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    func locationManager(
+        _ manager: LocationManager,
+        didChangeAuthorization status: CLAuthorizationStatus
+    ) {
         Task { @MainActor in
             Logger.mapView.debug(
-                "locationManagerDidChangeAuthorization:manager. Status:\(String(describing: manager.authorizationStatus))"
+                "locationManagerDidChangeAuthorization. Status:\(String(describing: status))"
             )
-            locationAuthorizationStatus = manager.authorizationStatus
+            locationAuthorizationStatus = status
+            
+            if preview {
+                Logger.mapView.debug(
+                    "Preview mode - skipping location authorization handling"
+                )
+                return
+            }
+            
+            switch status {
+            case .notDetermined:
+                Logger.mapView.info(
+                    "Status not determined. Requesting authorization"
+                )
+                LocationManager.shared.requestAlwaysAuthorization()
+            case .authorizedWhenInUse, .authorizedAlways:
+                startTracking()
+            case .denied, .restricted:
+                showAccessDenied = true
+                Logger.mapView.info(
+                    "LocationAuthorizationStatus prohibits tracking"
+                )
+            @unknown default:
+                gotUserLocation = false
+            }
         }
     }
 
     func locationManager(
-        _ manager: CLLocationManager,
+        _ manager: LocationManager,
         didFailWithError error: Error
     ) {
         Logger.mapView.debug(
             "Location manager failed. \(error.localizedDescription)"
         )
-    }
-
-    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        Logger.mapView.debug("Location manager paused location updates.")
     }
 }
