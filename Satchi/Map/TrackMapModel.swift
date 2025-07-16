@@ -25,7 +25,7 @@ class TrackMapModel: NSObject, ObservableObject, LocationManagerDelegate {
     //    public var regionIsSet: Bool = false
     private var trackingStarted: Date?
 
-    private var track: Track
+    public var track: Track
     public var preview: Bool
 
     public var showButtons: Bool
@@ -102,28 +102,28 @@ class TrackMapModel: NSObject, ObservableObject, LocationManagerDelegate {
         preview: Bool = false,
         showButtons: Bool = true
     ) {
-//        Logger.mapView.debug(
-//            "❤️ TrackMapModel initialized Track: \(track.name)-\(track.id?.uuidString ?? "*")"
-//        )
+        Logger.mapView.debug(
+            "TrackMapModel initialized Track: \(track.name)-\(track.id?.uuidString ?? "*")"
+        )
         self.track = track
         self.preview = preview || track.getState() == .trailTracked
         self.showButtons = showButtons
         laidPath = track.laidPath ?? []
         trackPath = track.trackPath ?? []
 
-        stateMachine = Machine(state: preview ? .viewing : .notStarted)
+        stateMachine = Machine(state: self.preview ? .viewing : .notStarted)
         locationAuthorizationStatus = LocationManager.shared.authorizationStatus
 
         super.init()
         if locationAuthorizationStatus == .denied
-            || locationAuthorizationStatus == .restricted || preview
+            || locationAuthorizationStatus == .restricted || self.preview
         {
             followUser = false
             distance = Double(track.length)
             timer.secondsElapsed = track.timeToFinish
         }
 
-        if !preview {
+        if !self.preview {
             LocationManager.shared.subscribe(self)
             if locationAuthorizationStatus == .notDetermined {
                 LocationManager.shared.requestAlwaysAuthorization()
@@ -219,7 +219,7 @@ class TrackMapModel: NSObject, ObservableObject, LocationManagerDelegate {
         if !preview {
             LocationManager.shared.unsubscribe(self)
         }
-        Logger.mapView.debug("❤️ TrackMapModel deinitialized")
+        Logger.mapView.debug("TrackMapModel deinitialized")
     }
 
     @MainActor private func resumeRunning() {

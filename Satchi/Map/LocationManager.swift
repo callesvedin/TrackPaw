@@ -55,11 +55,6 @@ public class LocationManager: NSObject, ObservableObject {
     }
     
     public func subscribe(_ delegate: LocationManagerDelegate) {
-        LocationManager.logger
-            .debug(
-                "😃 LocationManager: Adding subscriber (\(self.delegates.count))"
-            )
-
         // Remove any existing reference to this delegate
         unsubscribe(delegate)
         
@@ -75,14 +70,12 @@ public class LocationManager: NSObject, ObservableObject {
         }
         LocationManager.logger
             .debug(
-                "😃 LocationManager: Adding subscriber done (\(self.delegates.count))"
+                "✅ LocationManager: Adding subscriber done (\(self.delegates.count))"
             )
 
     }
     
     public func unsubscribe(_ delegate: LocationManagerDelegate) {
-        LocationManager.logger.debug("😢 LocationManager: Removing subscriber (\(self.delegates.count))")
-
         delegates.removeAll { weakDelegate in
             guard let existingDelegate = weakDelegate.delegate else { return true }
             return existingDelegate === delegate
@@ -94,7 +87,7 @@ public class LocationManager: NSObject, ObservableObject {
         if delegates.isEmpty && isTracking {
             stopLocationTracking()
         }
-        LocationManager.logger.debug("😢 LocationManager: Removing subscriber done (\(self.delegates.count))")
+        LocationManager.logger.debug("✅ LocationManager: Removing subscriber done (\(self.delegates.count))")
     }
     
     private func cleanupDelegates() {
@@ -108,7 +101,7 @@ public class LocationManager: NSObject, ObservableObject {
     private func startLocationTracking() {
         guard !isTracking else { return }
         
-        LocationManager.logger.debug("✅ LocationManager: Starting location tracking")
+        LocationManager.logger.debug("LocationManager: Starting location tracking")
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         locationManager.startMonitoringSignificantLocationChanges()
@@ -117,8 +110,7 @@ public class LocationManager: NSObject, ObservableObject {
     
     private func stopLocationTracking() {
         guard isTracking else { return }
-        
-        LocationManager.logger.debug("🚫 LocationManager: Stopping location tracking")
+        LocationManager.logger.debug("LocationManager: Stopping location tracking")
         locationManager.stopUpdatingLocation()
         locationManager.stopUpdatingHeading()
         locationManager.stopMonitoringSignificantLocationChanges()

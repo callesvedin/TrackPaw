@@ -70,9 +70,7 @@ struct EditTrackView: View {
         ScrollView {
             HStack {
                 Spacer()
-                MapView(
-                    trackModel: TrackMapModel(track: theTrack, preview: true, showButtons: false)
-                )
+                MapView(track: theTrack, preview: true, showButtons: false)
                 .id(mapRefreshTrigger)
                 .scaledToFit()
                 .cornerRadius(10)
