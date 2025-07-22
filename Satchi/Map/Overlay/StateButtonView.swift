@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StateButtonView: View {    @Environment(\.preferredColorPalette) private var palette
 
-    @ObservedObject var mapModel: TrackMapModel
+    @Bindable var mapModel: TrackMapModel
 
     var body: some View {
         HStack {
@@ -23,7 +23,7 @@ struct StateButtonView: View {    @Environment(\.preferredColorPalette) private 
                     .padding(15)
             } else {
                 // Normal mode - show state-based buttons
-                if mapModel.stateMachine.state == .notStarted {
+                if mapModel.currentState == .notStarted {
                     Button(action: { mapModel.stop() }, label: { Text("Close") })
                         .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
                         .padding(15)
@@ -36,12 +36,12 @@ struct StateButtonView: View {    @Environment(\.preferredColorPalette) private 
                             .padding(15)
                     }
                 }
-                if mapModel.stateMachine.state == .running {
+                if mapModel.currentState == .running {
                     Button(action: { mapModel.pause() }, label: { Text("Pause") })
                         .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
                         .padding(15)
                 }
-                if mapModel.stateMachine.state == .paused {
+                if mapModel.currentState == .paused {
                     Button(action: { mapModel.resume() }, label: { Text("Continue") })
                         .buttonStyle(
                             OverlayButtonStyle(backgroundColor: palette.confirm)
@@ -51,7 +51,7 @@ struct StateButtonView: View {    @Environment(\.preferredColorPalette) private 
                         .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
                         .padding(15)
                 }
-                if mapModel.stateMachine.state == .viewing {
+                if mapModel.currentState == .viewing {
                     Button(action: { mapModel.stop() }, label: { Text("Close") })
                         .buttonStyle(OverlayButtonStyle(backgroundColor: palette.confirm))
                         .padding(15)
@@ -73,10 +73,8 @@ struct StateButtonView_Previews: PreviewProvider {
         track.started = Date().addingTimeInterval(60*60*3)
         track.length = 1000
         let m1 = TrackMapModel(track: track)
-        m1.followUser = false
         m1.accuracy = 4
         let m2 = TrackMapModel(track: track)
-        m2.followUser = false
         m2.accuracy = 20
 
         let track2 = Track(context: PersistenceController.shared.persistentContainer.viewContext)
@@ -89,7 +87,6 @@ struct StateButtonView_Previews: PreviewProvider {
         track2.started = Date().addingTimeInterval(60*60*3)
         track2.length = 1000
         let m3 = TrackMapModel(track: track2)
-        m3.followUser = false
         m3.accuracy = 4
 
         let examples = [m1, m2, m3]

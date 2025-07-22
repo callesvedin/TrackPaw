@@ -10,20 +10,6 @@ import SwiftUI
 import Combine
 import os.log
 
-class OptionalTrackMapModel: ObservableObject {
-    @Published var trackModel: TrackMapModel? {
-        didSet {
-            // Re-publish any changes from the nested trackModel
-            if let trackModel = trackModel {
-                trackModel.objectWillChange.sink { [weak self] _ in
-                    self?.objectWillChange.send()
-                }.store(in: &cancellables)
-            }
-        }
-    }
-    private var cancellables: Set<AnyCancellable> = []
-}
-
 // Maybe use edge insets like https://medium.com/appcoda-tutorials/working-with-mapkit-and-annotation-for-swiftui-f7c30c4f0da6
 
 struct MapView: View {
@@ -31,7 +17,7 @@ struct MapView: View {
     let preview: Bool
     let showButtons: Bool
     
-    @StateObject private var modelHolder = OptionalTrackMapModel()
+    @State private var viewModel: TrackMapModel?
     @State var cameraPosition: MapCameraPosition
     @Namespace var mapScope
     @Environment(\.dismiss) var dismiss
@@ -43,7 +29,7 @@ struct MapView: View {
         self.showButtons = showButtons
         
         // Set different camera behavior based on preview mode
-        if preview {
+        if preview || track.getState() == .trailTracked {
             self._cameraPosition = State(initialValue: .automatic)
         } else {
             self._cameraPosition = State(
@@ -67,41 +53,49 @@ struct MapView: View {
 //        }
 //    }
 
+    fileprivate func isPreviewOrDone() -> Bool {
+        if let trackModel = self.viewModel {
+            return trackModel.preview || track.getState() == .trailTracked
+        }
+        return true
+    }
+    
     var body: some View {
         Group {
-            if let trackModel = modelHolder.trackModel {
+            if let trackModel = self.viewModel {
+                @Bindable var bindableModel = trackModel
                 VStack {
                     Map(position: $cameraPosition, scope: mapScope) {
-                        if !trackModel.preview {
+                        if !isPreviewOrDone() {
                             UserAnnotation()
                         }
-                        if !trackModel.laidCoordinates.isEmpty {
-                            MapPolyline(coordinates: trackModel.laidCoordinates)
+                        if !bindableModel.laidCoordinates.isEmpty {
+                            MapPolyline(coordinates: bindableModel.laidCoordinates)
                                 .stroke(.green, lineWidth: 4)
                         }
-                        if !trackModel.trackCoordinates.isEmpty {
-                            MapPolyline(coordinates: trackModel.trackCoordinates)
+                        if !bindableModel.trackCoordinates.isEmpty {
+                            MapPolyline(coordinates: bindableModel.trackCoordinates)
                                 .stroke(.red, lineWidth: 4)
                         }
 
-                        ForEach(trackModel.mapAnnotations) { a in
+                        ForEach(bindableModel.mapAnnotations) { a in
                             Marker(
                                 LocalizedStringKey(a.getTitleKey()), systemImage: a.getImage(),
                                 coordinate: a.getLocation()
                             ).tint(a.getColor())
                         }
                     }
-                    .onChange(of: trackModel.done) { _, done in
+                    .onChange(of: bindableModel.done) { _, done in
                         if done {
                             dismiss()
                         }
                     }
                     .mapControlVisibility(.hidden)
                     .overlay(alignment: .topTrailing) {
-                        if !trackModel.preview {
+                        if !bindableModel.preview {
                             VStack(alignment: .trailing) {
                                 MapScaleView(scope: mapScope)
-                                if trackModel.isTracking {
+                                if bindableModel.isTracking {
                                     MapUserLocationButton(scope: mapScope)
                                 }
                                 MapCompass(scope: mapScope)
@@ -112,7 +106,7 @@ struct MapView: View {
                         }
                     }
                     .overlay(alignment: .bottom) {
-                        StateButtonView(mapModel: trackModel)
+                        StateButtonView(mapModel: bindableModel)
                             .padding(.bottom, 30)
                     }
                     .mapStyle(.imagery(elevation: .flat))
@@ -125,7 +119,7 @@ struct MapView: View {
             } else {
                 Color.clear
                     .onAppear {
-                        modelHolder.trackModel = TrackMapModel(track: track, preview: preview, showButtons: showButtons)
+                        self.viewModel = TrackMapModel(track: track, preview: preview, showButtons: showButtons)
                     }
             }
         }
