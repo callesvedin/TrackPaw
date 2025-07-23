@@ -35,7 +35,7 @@ class TrackTimer: ObservableObject {
 
     public func resume() {
         Logger.timer.debug("Resuming timer")
-
+        mode = .running
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
             self.secondsElapsed += 0.1
         }
