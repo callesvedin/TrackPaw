@@ -10,6 +10,19 @@ struct MainTabView: View {
     @EnvironmentObject var coordinator: ViewCoordinator
 
     @Environment(\.preferredColorPalette) private var palette
+    @AppStorage("systemTheme") private var systemTheme: Int = SchemeType.allCases.first!.rawValue
+
+    private var selectedScheme: ColorScheme? {
+        guard let theme = SchemeType(rawValue: systemTheme) else { return nil }
+        switch theme {
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        default:
+            return nil
+        }
+    }
     var body: some View {
         setNavigationColors(background: palette.mainBackground, text: palette.primaryText)
 
@@ -19,6 +32,7 @@ struct MainTabView: View {
         .foregroundColor(palette.primaryText)        
         .id(palette.name)
         .accentColor(palette.link)
+        .preferredColorScheme(selectedScheme)
     }
 }
 

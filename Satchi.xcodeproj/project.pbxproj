@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EB05E19526277868002941B6 /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
+		EB10D38C2E31517C00B59BDE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBB11B8A29B47935008EE889 /* Settings.bundle */; };
 		EB1DA65F2AFED152001CF587 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */; };
 		EB1DA6602AFED152001CF587 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */; };
 		EB1DA6622AFED152001CF587 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA6612AFED152001CF587 /* InfoPlist.xcstrings */; };
@@ -538,6 +539,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB10D38C2E31517C00B59BDE /* Settings.bundle in Resources */,
 				EB2409C928D1A5000027671D /* Colors.xcassets in Resources */,
 				EB1DA65F2AFED152001CF587 /* Localizable.xcstrings in Resources */,
 				EB1DA6622AFED152001CF587 /* InfoPlist.xcstrings in Resources */,
