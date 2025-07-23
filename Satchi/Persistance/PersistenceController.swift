@@ -9,6 +9,7 @@ import CloudKit
 import CoreData
 import Foundation
 import SwiftUI
+import os.log
 
 let gCloudKitContainerIdentifier = "iCloud.se.cjs.Satchi"
 
@@ -110,13 +111,13 @@ class PersistenceController: NSObject, ObservableObject {
          Run initializeCloudKitSchema() once to update the CloudKit schema every time you change the Core Data model.
          Don't call this code in the production environment.
          */
-//        #if InitializeCloudKitSchema
-//        do {
-//            try container.initializeCloudKitSchema()
-//        } catch {
-//            Logger.persistance.error("\(#function): initializeCloudKitSchema: \(error)")
-//        }
-//        #else
+        #if InitializeCloudKitSchema
+        do {
+            try container.initializeCloudKitSchema()
+        } catch {
+            Logger.persistance.error("\(#function): initializeCloudKitSchema: \(error)")
+        }
+        #else
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         container.viewContext.transactionAuthor = TransactionAuthor.app
 
@@ -146,7 +147,7 @@ class PersistenceController: NSObject, ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(containerEventChanged(_:)),
                                                name: NSPersistentCloudKitContainer.eventChangedNotification,
                                                object: container)
-//        #endif
+        #endif
         return container
     }()
 
