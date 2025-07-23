@@ -169,7 +169,7 @@ class TrackMapModelTests: XCTestCase {
         trackMapModel.pause()
         
         trackMapModel.stop()
-        
+
         XCTAssertEqual(trackMapModel.currentState, .done)
         XCTAssertTrue(trackMapModel.done)
     }
@@ -377,7 +377,7 @@ class TrackMapModelTests: XCTestCase {
         XCTAssertEqual(trackMapModel.mapAnnotations.count, 1)
         XCTAssertTrue(trackMapModel.mapAnnotations.contains { annotation in
             switch annotation {
-            case .trackingStart(let location):
+            case .trackingEnd(let location):
                 return location.latitude == coordinate.latitude && location.longitude == coordinate.longitude
             default:
                 return false

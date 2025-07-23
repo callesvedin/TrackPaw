@@ -203,6 +203,7 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
                 ".stop is triggered! Context:\(String(describing: context))"
             )
             self.currentState = self.stateMachine.state
+            self.done = true
             if context.fromState == .viewing {
                 self.stopRunning()
             } else if context.fromState == .notStarted {
@@ -262,7 +263,6 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
                 )
             }
             LocationManager.shared.unsubscribe(self)
-            done = true
         }
     }
 
@@ -304,7 +304,6 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 
     @MainActor private func cancelRunning() {
         LocationManager.shared.unsubscribe(self)
-        done = true
     }
 
     @MainActor public func start() {
@@ -433,60 +432,58 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 }
 
 extension TrackMapModel {
+    @MainActor
     func locationManager(
         _ manager: LocationManager,
         didUpdateLocations locations: [CLLocation]
     ) {
-        Task { @MainActor in
+        // If we want to continue updating while paused we have to add .paused state here but we then have to save the location where we paused...
+        if currentState == .running && track.getState() == .notStarted
+        {
+            laidPath.append(contentsOf: locations)
             // If we want to continue updating while paused we have to add .paused state here but we then have to save the location where we paused...
-            if currentState == .running && track.getState() == .notStarted
-            {
-                laidPath.append(contentsOf: locations)
-                // If we want to continue updating while paused we have to add .paused state here but we then have to save the location where we paused...
-            } else if currentState == .running
-                && track.getState() == .trailAdded
-            {
-                trackPath.append(contentsOf: locations)
-            }
-            accuracy = locations.first?.horizontalAccuracy ?? 0
-            currentLocation = LocationManager.shared.currentLocation
-            gotUserLocation = true
+        } else if currentState == .running
+            && track.getState() == .trailAdded
+        {
+            trackPath.append(contentsOf: locations)
         }
+        accuracy = locations.first?.horizontalAccuracy ?? 0
+        currentLocation = LocationManager.shared.currentLocation
+        gotUserLocation = true
     }
 
+    @MainActor
     func locationManager(
         _ manager: LocationManager,
         didChangeAuthorization status: CLAuthorizationStatus
     ) {
-        Task { @MainActor in
+        Logger.mapView.debug(
+            "locationManagerDidChangeAuthorization. Status:\(String(describing: status))"
+        )
+        locationAuthorizationStatus = status
+        
+        if preview {
             Logger.mapView.debug(
-                "locationManagerDidChangeAuthorization. Status:\(String(describing: status))"
+                "Preview mode - skipping location authorization handling"
             )
-            locationAuthorizationStatus = status
-            
-            if preview {
-                Logger.mapView.debug(
-                    "Preview mode - skipping location authorization handling"
-                )
-                return
-            }
-            
-            switch status {
-            case .notDetermined:
-                Logger.mapView.info(
-                    "Status not determined. Requesting authorization"
-                )
-                LocationManager.shared.requestAlwaysAuthorization()
-            case .authorizedWhenInUse, .authorizedAlways:
-                startTracking()
-            case .denied, .restricted:
-                showAccessDenied = true
-                Logger.mapView.info(
-                    "LocationAuthorizationStatus prohibits tracking"
-                )
-            @unknown default:
-                gotUserLocation = false
-            }
+            return
+        }
+        
+        switch status {
+        case .notDetermined:
+            Logger.mapView.info(
+                "Status not determined. Requesting authorization"
+            )
+            LocationManager.shared.requestAlwaysAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            startTracking()
+        case .denied, .restricted:
+            showAccessDenied = true
+            Logger.mapView.info(
+                "LocationAuthorizationStatus prohibits tracking"
+            )
+        @unknown default:
+            gotUserLocation = false
         }
     }
 
