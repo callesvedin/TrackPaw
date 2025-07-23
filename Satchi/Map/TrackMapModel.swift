@@ -138,25 +138,25 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 
          if track.getState() == .trailTracked {
             trackStartLocation = trackPath.first?.coordinate
-            self.mapAnnotations.append(
-                PathAnnotationKind.trackingStart(location: trackStartLocation!)
-            )
+//            self.mapAnnotations.append(
+//                PathAnnotationKind.trackingStart(location: trackStartLocation!)
+//            )
             trackEndLocation = trackPath.last?.coordinate
-            self.mapAnnotations.append(
-                PathAnnotationKind.trackingEnd(location: trackEndLocation!)
-            )
+//            self.mapAnnotations.append(
+//                PathAnnotationKind.trackingEnd(location: trackEndLocation!)
+//            )
          }
 
         if track.getState() == .trailAdded || track.getState() == .trailTracked
         {
             trailStartLocation = laidPath.first?.coordinate
-            self.mapAnnotations.append(
-                PathAnnotationKind.trailStart(location: trailStartLocation!)
-            )
+//            self.mapAnnotations.append(
+//                PathAnnotationKind.trailStart(location: trailStartLocation!)
+//            )
             trailEndLocation = laidPath.last?.coordinate
-            self.mapAnnotations.append(
-                PathAnnotationKind.trailEnd(location: trailEndLocation!)
-            )
+//            self.mapAnnotations.append(
+//                PathAnnotationKind.trailEnd(location: trailEndLocation!)
+//            )
         }
         stateMachine.addRouteMapping { event, fromState, _ -> RunningState? in
             // no route for no-event
@@ -426,7 +426,7 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 
         } else {
             self.mapAnnotations.append(
-                PathAnnotationKind.trackingStart(location: trackEndLocation!)
+                PathAnnotationKind.trackingEnd(location: trackEndLocation!)
             )
         }
     }
