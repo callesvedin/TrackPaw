@@ -24,6 +24,17 @@
 		EB59DE4428310BF60043DE33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE4328310BF60043DE33 /* AppDelegate.swift */; };
 		EB5A5BA929DB79B000F05A4F /* SchemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5A5BA829DB79B000F05A4F /* SchemeType.swift */; };
 		EB5CE22E261CBFE100D56711 /* TrackMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */; };
+		EB67AC852E30C69D00B925EA /* TrackMapModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67AC842E30C69D00B925EA /* TrackMapModelTests.swift */; };
+		EB67AC862E30C72E00B925EA /* TrackMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */; };
+		EB67AC872E30C76500B925EA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC1BF0B2E204DA6005525D6 /* LocationManager.swift */; };
+		EB67AC882E30C77B00B925EA /* TrackTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075B29B69B0A0028FC64 /* TrackTimer.swift */; };
+		EB67AC892E30C7C500B925EA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB85EF129CA19F40058E0B5 /* Logger.swift */; };
+		EB67AC8A2E30C8AB00B925EA /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
+		EB67AC8B2E30C8DF00B925EA /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AA296B6263000579FC /* PersistenceController.swift */; };
+		EB67AC8C2E30C90200B925EA /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */; };
+		EB67AC8D2E30C9B500B925EA /* PersistenceController+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5B8296B6325000579FC /* PersistenceController+Track.swift */; };
+		EB67AC8E2E30D19800B925EA /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AD296B6265000579FC /* CoreDataHelper.swift */; };
+		EB67AC8F2E30D1F200B925EA /* PersistenceController+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AF296B6266000579FC /* PersistenceController+History.swift */; };
 		EB690CFE2ABCB47800652A6F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB690CFA2ABCAF5800652A6F /* MapView.swift */; };
 		EB6DC7B32882BA3D009E788A /* SwiftState in Frameworks */ = {isa = PBXBuildFile; productRef = EB6DC7B22882BA3D009E788A /* SwiftState */; };
 		EB7D2145282C6181006CB703 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB7D2144282C6181006CB703 /* CloudKit.framework */; };
@@ -127,6 +138,7 @@
 		EB5BDF0F28181E61009DF497 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
 		EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModel.swift; sourceTree = "<group>"; };
 		EB60D74F2B5D90AF00D60252 /* screenshots */ = {isa = PBXFileReference; lastKnownFileType = folder; path = screenshots; sourceTree = "<group>"; };
+		EB67AC842E30C69D00B925EA /* TrackMapModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModelTests.swift; sourceTree = "<group>"; };
 		EB690CFA2ABCAF5800652A6F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		EB7539B62DE8E99500BD7288 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		EB7D2142282C617E006CB703 /* Satchi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Satchi.entitlements; sourceTree = "<group>"; };
@@ -287,6 +299,7 @@
 		EB87251D260CC0C5008AD8E7 /* SatchiTests */ = {
 			isa = PBXGroup;
 			children = (
+				EB67AC842E30C69D00B925EA /* TrackMapModelTests.swift */,
 				EB87251E260CC0C5008AD8E7 /* SatchiTests.swift */,
 				EB872520260CC0C5008AD8E7 /* Info.plist */,
 			);
@@ -608,9 +621,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB67AC862E30C72E00B925EA /* TrackMapModel.swift in Sources */,
 				EB8D3FD8284567BE00D12C38 /* Track+CoreDataClass.swift in Sources */,
+				EB67AC872E30C76500B925EA /* LocationManager.swift in Sources */,
+				EB67AC8D2E30C9B500B925EA /* PersistenceController+Track.swift in Sources */,
+				EB67AC8F2E30D1F200B925EA /* PersistenceController+History.swift in Sources */,
 				EB87251F260CC0C5008AD8E7 /* SatchiTests.swift in Sources */,
+				EB67AC8C2E30C90200B925EA /* ValueTransformers.swift in Sources */,
+				EB67AC852E30C69D00B925EA /* TrackMapModelTests.swift in Sources */,
+				EB67AC882E30C77B00B925EA /* TrackTimer.swift in Sources */,
+				EB67AC8E2E30D19800B925EA /* CoreDataHelper.swift in Sources */,
 				EB8D3FD7284567B800D12C38 /* Track+CoreDataProperties.swift in Sources */,
+				EB67AC8A2E30C8AB00B925EA /* PathAnnotation.swift in Sources */,
+				EB67AC892E30C7C500B925EA /* Logger.swift in Sources */,
+				EB67AC8B2E30C8DF00B925EA /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
