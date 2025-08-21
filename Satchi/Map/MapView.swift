@@ -94,6 +94,17 @@ struct MapView: View {
                     .overlay(alignment: .topTrailing) {
                         if !bindableModel.preview {
                             VStack(alignment: .trailing) {
+                                if bindableModel.showAccessDenied {
+                                    Image(systemName: "location.slash")
+                                        .font(.title2)
+                                        .foregroundColor(.red)
+                                        .padding(8)
+                                        .background(
+                                            .regularMaterial,
+                                            in: Circle()
+                                        )
+                                        .padding(.top, 12)
+                                }
                                 MapScaleView(scope: mapScope)
                                 if bindableModel.isTracking {
                                     MapUserLocationButton(scope: mapScope)

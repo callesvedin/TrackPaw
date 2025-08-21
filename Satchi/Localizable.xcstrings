@@ -60,9 +60,6 @@
         }
       }
     },
-    "Appearance" : {
-
-    },
     "Cancel" : {
       "localizations" : {
         "sv" : {
@@ -248,9 +245,6 @@
         }
       }
     },
-    "Done" : {
-
-    },
     "Dummy" : {
 
     },
@@ -411,9 +405,6 @@
         }
       }
     },
-    "Settings" : {
-
-    },
     "Share" : {
       "localizations" : {
         "sv" : {
@@ -491,9 +482,6 @@
           }
         }
       }
-    },
-    "Theme" : {
-
     },
     "Time since created:" : {
       "extractionState" : "migrated",

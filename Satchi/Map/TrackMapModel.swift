@@ -127,7 +127,10 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 
         if !self.preview {
             LocationManager.shared.subscribe(self)
-            if locationAuthorizationStatus == .notDetermined {
+            if locationAuthorizationStatus == .notDetermined || locationAuthorizationStatus == .denied || locationAuthorizationStatus == .restricted {
+                showAccessDenied = true
+            }
+            if locationAuthorizationStatus == .notDetermined || locationAuthorizationStatus == .restricted {
                 LocationManager.shared.requestAlwaysAuthorization()
             }
         } else {
@@ -474,8 +477,10 @@ extension TrackMapModel {
             Logger.mapView.info(
                 "Status not determined. Requesting authorization"
             )
+            showAccessDenied = true
             LocationManager.shared.requestAlwaysAuthorization()
         case .authorizedWhenInUse, .authorizedAlways:
+            showAccessDenied = false
             startTracking()
         case .denied, .restricted:
             showAccessDenied = true
@@ -483,6 +488,7 @@ extension TrackMapModel {
                 "LocationAuthorizationStatus prohibits tracking"
             )
         @unknown default:
+            showAccessDenied = true
             gotUserLocation = false
         }
     }
