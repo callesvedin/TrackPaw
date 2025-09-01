@@ -16,7 +16,7 @@
 		EB2409C928D1A5000027671D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB2409C828D1A5000027671D /* Colors.xcassets */; };
 		EB2F91262624B8DF0026773D /* OverlayButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F91252624B8DF0026773D /* OverlayButtonStyle.swift */; };
 		EB352C8C278CEB310015AC5A /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */; };
-		EB352C8E278EB6720015AC5A /* Satchi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBCB4815266762F800E5631C /* Satchi.xcdatamodeld */; };
+		EB352C8E278EB6720015AC5A /* TrackPaw.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */; };
 		EB35885F2970BAEB00CCB235 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35885E2970BAEB00CCB235 /* SceneDelegate.swift */; };
 		EB3588602970BAEB00CCB235 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35885E2970BAEB00CCB235 /* SceneDelegate.swift */; };
 		EB409F3628AD0EB700BA2C23 /* StateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */; };
@@ -40,11 +40,11 @@
 		EB6DC7B32882BA3D009E788A /* SwiftState in Frameworks */ = {isa = PBXBuildFile; productRef = EB6DC7B22882BA3D009E788A /* SwiftState */; };
 		EB7D2145282C6181006CB703 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB7D2144282C6181006CB703 /* CloudKit.framework */; };
 		EB7D2149282C6553006CB703 /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D2148282C6553006CB703 /* UIApplicationExt.swift */; };
-		EB872508260CC0C4008AD8E7 /* SatchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* SatchiApp.swift */; };
+		EB872508260CC0C4008AD8E7 /* TrackPawApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* TrackPawApp.swift */; };
 		EB87250A260CC0C4008AD8E7 /* TrackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872509260CC0C4008AD8E7 /* TrackListView.swift */; };
 		EB87250C260CC0C5008AD8E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB87250B260CC0C5008AD8E7 /* Assets.xcassets */; };
-		EB87251F260CC0C5008AD8E7 /* SatchiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87251E260CC0C5008AD8E7 /* SatchiTests.swift */; };
-		EB87252A260CC0C5008AD8E7 /* SatchiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872529260CC0C5008AD8E7 /* SatchiUITests.swift */; };
+		EB87251F260CC0C5008AD8E7 /* TrackPawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87251E260CC0C5008AD8E7 /* TrackPawTests.swift */; };
+		EB87252A260CC0C5008AD8E7 /* TrackPawUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872529260CC0C5008AD8E7 /* TrackPawUITests.swift */; };
 		EB8D3FD7284567B800D12C38 /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */; };
 		EB8D3FD8284567BE00D12C38 /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */; };
 		EB9726602843B0DD00583007 /* DifficultyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB97265F2843B0DD00583007 /* DifficultyView.swift */; };
@@ -55,13 +55,13 @@
 		EBA6D5B5296B6266000579FC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AD296B6265000579FC /* CoreDataHelper.swift */; };
 		EBA6D5B7296B6266000579FC /* PersistenceController+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AF296B6266000579FC /* PersistenceController+History.swift */; };
 		EBA6D5B9296B6325000579FC /* PersistenceController+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5B8296B6325000579FC /* PersistenceController+Track.swift */; };
-		EBA6D5BE296B6738000579FC /* Satchi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBCB4815266762F800E5631C /* Satchi.xcdatamodeld */; };
+		EBA6D5BE296B6738000579FC /* TrackPaw.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */; };
 		EBA6D5C1296B6738000579FC /* StateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */; };
 		EBA6D5C2296B6738000579FC /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */; };
 		EBA6D5C3296B6738000579FC /* OverlayButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F91252624B8DF0026773D /* OverlayButtonStyle.swift */; };
 		EBA6D5C4296B6738000579FC /* TrackMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */; };
 		EBA6D5C7296B6738000579FC /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */; };
-		EBA6D5C9296B6738000579FC /* SatchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* SatchiApp.swift */; };
+		EBA6D5C9296B6738000579FC /* TrackPawApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* TrackPawApp.swift */; };
 		EBA6D5CC296B6738000579FC /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D2148282C6553006CB703 /* UIApplicationExt.swift */; };
 		EBA6D5CF296B6738000579FC /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA842E7287589CF0061C338 /* TimeFormatter.swift */; };
 		EBA6D5D1296B6738000579FC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AD296B6265000579FC /* CoreDataHelper.swift */; };
@@ -110,14 +110,14 @@
 			containerPortal = EB8724FC260CC0C4008AD8E7 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EB872503260CC0C4008AD8E7;
-			remoteInfo = Satchi;
+			remoteInfo = TrackPaw;
 		};
 		EB872526260CC0C5008AD8E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EB8724FC260CC0C4008AD8E7 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EB872503260CC0C4008AD8E7;
-			remoteInfo = Satchi;
+			remoteInfo = TrackPaw;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -140,22 +140,22 @@
 		EB67AC842E30C69D00B925EA /* TrackMapModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModelTests.swift; sourceTree = "<group>"; };
 		EB690CFA2ABCAF5800652A6F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		EB7539B62DE8E99500BD7288 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
-		EB7D2142282C617E006CB703 /* Satchi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Satchi.entitlements; sourceTree = "<group>"; };
+		EB7D2142282C617E006CB703 /* TrackPaw.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrackPaw.entitlements; sourceTree = "<group>"; };
 		EB7D2144282C6181006CB703 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		EB7D2148282C6553006CB703 /* UIApplicationExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
 		EB80DA992E100D4E0005CBCB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EB80DA9B2E100D660005CBCB /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		EB872504260CC0C4008AD8E7 /* TrackPaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackPaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB872507260CC0C4008AD8E7 /* SatchiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiApp.swift; sourceTree = "<group>"; };
+		EB872507260CC0C4008AD8E7 /* TrackPawApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPawApp.swift; sourceTree = "<group>"; };
 		EB872509260CC0C4008AD8E7 /* TrackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListView.swift; sourceTree = "<group>"; };
 		EB87250B260CC0C5008AD8E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB87250E260CC0C5008AD8E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EB872515260CC0C5008AD8E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB87251A260CC0C5008AD8E7 /* TrackPawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackPawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB87251E260CC0C5008AD8E7 /* SatchiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiTests.swift; sourceTree = "<group>"; };
+		EB87251E260CC0C5008AD8E7 /* TrackPawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPawTests.swift; sourceTree = "<group>"; };
 		EB872520260CC0C5008AD8E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB872525260CC0C5008AD8E7 /* TrackPawUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackPawUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB872529260CC0C5008AD8E7 /* SatchiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiUITests.swift; sourceTree = "<group>"; };
+		EB872529260CC0C5008AD8E7 /* TrackPawUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPawUITests.swift; sourceTree = "<group>"; };
 		EB87252B260CC0C5008AD8E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB97265F2843B0DD00583007 /* DifficultyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyView.swift; sourceTree = "<group>"; };
 		EBA6D5AA296B6263000579FC /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		EBC01F4529D048B300693A5F /* NSManagedObject+Clone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Clone.swift"; sourceTree = "<group>"; };
 		EBC1BF0B2E204DA6005525D6 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		EBC6BBDF29D8B64000093EF4 /* ViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
-		EBCB4816266762F800E5631C /* Satchi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Satchi.xcdatamodel; sourceTree = "<group>"; };
+		EBCB4816266762F800E5631C /* TrackPaw.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackPaw.xcdatamodel; sourceTree = "<group>"; };
 		EBCDAAA629B75BC10035809D /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		EBD13A54261AF3760080C4FE /* EditTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackView.swift; sourceTree = "<group>"; };
 		EBD542B428D7971400FAE7FA /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -242,7 +242,7 @@
 				EB80DA992E100D4E0005CBCB /* README.md */,
 				EB7539B62DE8E99500BD7288 /* TODO.md */,
 				EB60D74F2B5D90AF00D60252 /* screenshots */,
-				EB872506260CC0C4008AD8E7 /* Satchi */,
+				EB872506260CC0C4008AD8E7 /* TrackPaw */,
 				EB87251D260CC0C5008AD8E7 /* SatchiTests */,
 				EB872528260CC0C5008AD8E7 /* SatchiUITests */,
 				EB872505260CC0C4008AD8E7 /* Products */,
@@ -261,7 +261,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EB872506260CC0C4008AD8E7 /* Satchi */ = {
+		EB872506260CC0C4008AD8E7 /* TrackPaw */ = {
 			isa = PBXGroup;
 			children = (
 				EBDC075A29B69A010028FC64 /* App */,
@@ -273,7 +273,7 @@
 				EB87253D260CC132008AD8E7 /* TrackList */,
 				EBDC075E29B69F750028FC64 /* MainTabView.swift */,
 				EBA842C428702F0C0061C338 /* SyncMonitor.swift */,
-				EB7D2142282C617E006CB703 /* Satchi.entitlements */,
+				EB7D2142282C617E006CB703 /* TrackPaw.entitlements */,
 				EB87250B260CC0C5008AD8E7 /* Assets.xcassets */,
 				EB2409C828D1A5000027671D /* Colors.xcassets */,
 				EB872515260CC0C5008AD8E7 /* Info.plist */,
@@ -283,7 +283,7 @@
 				EB5BDF0F28181E61009DF497 /* Notes.md */,
 				EBB11B8A29B47935008EE889 /* Settings.bundle */,
 			);
-			path = Satchi;
+			path = TrackPaw;
 			sourceTree = "<group>";
 		};
 		EB87250D260CC0C5008AD8E7 /* Preview Content */ = {
@@ -298,19 +298,19 @@
 			isa = PBXGroup;
 			children = (
 				EB67AC842E30C69D00B925EA /* TrackMapModelTests.swift */,
-				EB87251E260CC0C5008AD8E7 /* SatchiTests.swift */,
+				EB87251E260CC0C5008AD8E7 /* TrackPawTests.swift */,
 				EB872520260CC0C5008AD8E7 /* Info.plist */,
 			);
-			path = SatchiTests;
+			path = TrackPawTests;
 			sourceTree = "<group>";
 		};
 		EB872528260CC0C5008AD8E7 /* SatchiUITests */ = {
 			isa = PBXGroup;
 			children = (
-				EB872529260CC0C5008AD8E7 /* SatchiUITests.swift */,
+				EB872529260CC0C5008AD8E7 /* TrackPawUITests.swift */,
 				EB87252B260CC0C5008AD8E7 /* Info.plist */,
 			);
-			path = SatchiUITests;
+			path = TrackPawUITests;
 			sourceTree = "<group>";
 		};
 		EB87253D260CC132008AD8E7 /* TrackList */ = {
@@ -340,7 +340,7 @@
 				EBA6D5B8296B6325000579FC /* PersistenceController+Track.swift */,
 				EBA6D5AC296B6264000579FC /* PersistenceController+Share.swift */,
 				EB352C89278CEB0D0015AC5A /* Entities */,
-				EBCB4815266762F800E5631C /* Satchi.xcdatamodeld */,
+				EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */,
 				EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */,
 				EBC01F4529D048B300693A5F /* NSManagedObject+Clone.swift */,
 			);
@@ -381,7 +381,7 @@
 		EBDC075A29B69A010028FC64 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				EB872507260CC0C4008AD8E7 /* SatchiApp.swift */,
+				EB872507260CC0C4008AD8E7 /* TrackPawApp.swift */,
 				EBD542B428D7971400FAE7FA /* AppEnvironment.swift */,
 				EB35885E2970BAEB00CCB235 /* SceneDelegate.swift */,
 				EB59DE4328310BF60043DE33 /* AppDelegate.swift */,
@@ -422,7 +422,7 @@
 			packageProductDependencies = (
 				EB6DC7B22882BA3D009E788A /* SwiftState */,
 			);
-			productName = Satchi;
+			productName = TrackPaw;
 			productReference = EB872504260CC0C4008AD8E7 /* TrackPaw.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -440,7 +440,7 @@
 				EB87251C260CC0C5008AD8E7 /* PBXTargetDependency */,
 			);
 			name = TrackPawTests;
-			productName = SatchiTests;
+			productName = TrackPawTests;
 			productReference = EB87251A260CC0C5008AD8E7 /* TrackPawTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -458,7 +458,7 @@
 				EB872527260CC0C5008AD8E7 /* PBXTargetDependency */,
 			);
 			name = TrackPawUITests;
-			productName = SatchiUITests;
+			productName = TrackPawUITests;
 			productReference = EB872525260CC0C5008AD8E7 /* TrackPawUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -478,7 +478,7 @@
 			packageProductDependencies = (
 				EBA6D5BB296B6738000579FC /* SwiftState */,
 			);
-			productName = Satchi;
+			productName = TrackPaw;
 			productReference = EBA6D5F1296B6738000579FC /* InitializeCloudKitSchema.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -578,14 +578,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB352C8E278EB6720015AC5A /* Satchi.xcdatamodeld in Sources */,
+				EB352C8E278EB6720015AC5A /* TrackPaw.xcdatamodeld in Sources */,
 				EB409F3628AD0EB700BA2C23 /* StateButtonView.swift in Sources */,
 				EB59DE40283045A60043DE33 /* Track+CoreDataProperties.swift in Sources */,
 				EB2F91262624B8DF0026773D /* OverlayButtonStyle.swift in Sources */,
 				EB5CE22E261CBFE100D56711 /* TrackMapModel.swift in Sources */,
 				EB87250A260CC0C4008AD8E7 /* TrackListView.swift in Sources */,
 				EB352C8C278CEB310015AC5A /* Track+CoreDataClass.swift in Sources */,
-				EB872508260CC0C4008AD8E7 /* SatchiApp.swift in Sources */,
+				EB872508260CC0C4008AD8E7 /* TrackPawApp.swift in Sources */,
 				EBD13A55261AF3760080C4FE /* EditTrackView.swift in Sources */,
 				EB7D2149282C6553006CB703 /* UIApplicationExt.swift in Sources */,
 				EB35885F2970BAEB00CCB235 /* SceneDelegate.swift in Sources */,
@@ -625,7 +625,7 @@
 				EB67AC872E30C76500B925EA /* LocationManager.swift in Sources */,
 				EB67AC8D2E30C9B500B925EA /* PersistenceController+Track.swift in Sources */,
 				EB67AC8F2E30D1F200B925EA /* PersistenceController+History.swift in Sources */,
-				EB87251F260CC0C5008AD8E7 /* SatchiTests.swift in Sources */,
+				EB87251F260CC0C5008AD8E7 /* TrackPawTests.swift in Sources */,
 				EB67AC8C2E30C90200B925EA /* ValueTransformers.swift in Sources */,
 				EB67AC852E30C69D00B925EA /* TrackMapModelTests.swift in Sources */,
 				EB67AC882E30C77B00B925EA /* TrackTimer.swift in Sources */,
@@ -641,7 +641,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB87252A260CC0C5008AD8E7 /* SatchiUITests.swift in Sources */,
+				EB87252A260CC0C5008AD8E7 /* TrackPawUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,7 +649,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBA6D5BE296B6738000579FC /* Satchi.xcdatamodeld in Sources */,
+				EBA6D5BE296B6738000579FC /* TrackPaw.xcdatamodeld in Sources */,
 				EBA6D5C1296B6738000579FC /* StateButtonView.swift in Sources */,
 				EBA6D5C2296B6738000579FC /* Track+CoreDataProperties.swift in Sources */,
 				EBC6BBE129D8B9BE00093EF4 /* ViewCoordinator.swift in Sources */,
@@ -659,7 +659,7 @@
 				EBA11D1F2E634899007F8F59 /* Logger.swift in Sources */,
 				EBC1BF0C2E204DA6005525D6 /* LocationManager.swift in Sources */,
 				EBA6D5C7296B6738000579FC /* Track+CoreDataClass.swift in Sources */,
-				EBA6D5C9296B6738000579FC /* SatchiApp.swift in Sources */,
+				EBA6D5C9296B6738000579FC /* TrackPawApp.swift in Sources */,
 				EBA6D5CC296B6738000579FC /* UIApplicationExt.swift in Sources */,
 				EB3588602970BAEB00CCB235 /* SceneDelegate.swift in Sources */,
 				EBDC075D29B69B0A0028FC64 /* TrackTimer.swift in Sources */,
@@ -835,13 +835,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Satchi/Satchi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TrackPaw/TrackPaw.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TrackPaw/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Satchi/Info.plist;
+				INFOPLIST_FILE = TrackPaw/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TrackPaw;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -850,7 +850,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.Satchi;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -869,13 +869,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Satchi/Satchi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TrackPaw/TrackPaw.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TrackPaw/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Satchi/Info.plist;
+				INFOPLIST_FILE = TrackPaw/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TrackPaw;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -884,7 +884,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.Satchi;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -902,14 +902,14 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SatchiTests/Info.plist;
+				INFOPLIST_FILE = TrackPawTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.SatchiTests;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPawTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -922,14 +922,14 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SatchiTests/Info.plist;
+				INFOPLIST_FILE = TrackPawTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.SatchiTests;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPawTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -941,17 +941,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SatchiUITests/Info.plist;
+				INFOPLIST_FILE = TrackPawUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.SatchiUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPawUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Satchi;
+				TEST_TARGET_NAME = TrackPaw;
 			};
 			name = Debug;
 		};
@@ -959,17 +959,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SatchiUITests/Info.plist;
+				INFOPLIST_FILE = TrackPawUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.SatchiUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPawUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Satchi;
+				TEST_TARGET_NAME = TrackPaw;
 			};
 			name = Release;
 		};
@@ -978,18 +978,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Satchi/Satchi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TrackPaw/TrackPaw.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TrackPaw/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Satchi/Info.plist;
+				INFOPLIST_FILE = TrackPaw/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.Satchi;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1006,18 +1006,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Satchi/Satchi.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TrackPaw/TrackPaw.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TrackPaw/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Satchi/Info.plist;
+				INFOPLIST_FILE = TrackPaw/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.Satchi;
+				PRODUCT_BUNDLE_IDENTIFIER = se.cjs.TrackPaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1125,13 +1125,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		EBCB4815266762F800E5631C /* Satchi.xcdatamodeld */ = {
+		EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				EBCB4816266762F800E5631C /* Satchi.xcdatamodel */,
+				EBCB4816266762F800E5631C /* TrackPaw.xcdatamodel */,
 			);
-			currentVersion = EBCB4816266762F800E5631C /* Satchi.xcdatamodel */;
-			path = Satchi.xcdatamodeld;
+			currentVersion = EBCB4816266762F800E5631C /* TrackPaw.xcdatamodel */;
+			path = TrackPaw.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

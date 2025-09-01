@@ -29,7 +29,7 @@ A GPS-enabled iOS app for tracking dog training paths and routes. TrackPaw allow
 
 - **PersistenceController**: CloudKit + Core Data integration
   - Single `Track` entity with CloudKit sharing capabilities
-  - Container: `iCloud.se.cjs.Satchi`
+  - Container: `iCloud.se.cjs.TrackPaw`
 
 - **ViewCoordinator**: Navigation management across the app
 - **AppEnvironment**: Shared environment object for dependency injection
@@ -53,13 +53,13 @@ A GPS-enabled iOS app for tracking dog training paths and routes. TrackPaw allow
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/Satchi.git
-cd Satchi
+git clone https://github.com/yourusername/TrackPaw.git
+cd TrackPaw
 ```
 
 2. Open the project in Xcode:
 ```bash
-open Satchi.xcodeproj
+open TrackPaw.xcodeproj
 ```
 
 3. Configure your Apple Developer Team and Bundle Identifier in Xcode project settings
@@ -67,10 +67,10 @@ open Satchi.xcodeproj
 4. Build and run on device or simulator:
 ```bash
 # Build the project
-xcodebuild -project Satchi.xcodeproj -scheme Satchi build
+xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw build
 
 # Build and run on iPhone 15 simulator
-xcodebuild -project Satchi.xcodeproj -scheme Satchi -destination 'platform=iOS Simulator,name=iPhone 15' build
+xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw -destination 'platform=iOS Simulator,name=iPhone 15' build
 ```
 
 ## Development
@@ -79,10 +79,10 @@ xcodebuild -project Satchi.xcodeproj -scheme Satchi -destination 'platform=iOS S
 
 ```bash
 # Build the project
-xcodebuild -project Satchi.xcodeproj -scheme Satchi build
+xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw build
 
 # Run tests
-xcodebuild -project Satchi.xcodeproj -scheme Satchi test
+xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw test
 
 # Reset simulator location permissions (useful for development)
 xcrun simctl privacy booted reset all
@@ -91,7 +91,7 @@ xcrun simctl privacy booted reset all
 ### Project Structure
 
 ```
-Satchi/
+TrackPaw/
 ├── App/                    # Application lifecycle and coordination
 ├── Map/                    # Original map implementation
 ├── TrackList/              # Track listing and management UI
@@ -108,7 +108,7 @@ The app uses CloudKit for data synchronization. To set up CloudKit:
 
 1. Enable CloudKit capability in your Apple Developer account
 2. Use the `InitializeCloudKitSchema` build flag for schema initialization
-3. Configure the CloudKit container: `iCloud.se.cjs.Satchi`
+3. Configure the CloudKit container: `iCloud.se.cjs.TrackPaw`
 
 ### State Management
 
@@ -126,12 +126,12 @@ The project includes basic unit and UI tests:
 
 ```bash
 # Run all tests
-xcodebuild -project Satchi.xcodeproj -scheme Satchi test
+xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw test
 ```
 
 Test files are located in:
-- `SatchiTests/`: Unit tests
-- `SatchiUITests/`: UI automation tests
+- `TrackPawTests/`: Unit tests
+- `TrackPawUITests/`: UI automation tests
 
 ## Localization
 
@@ -153,4 +153,4 @@ Localization files are in respective `.lproj` directories.
 
 This project is open source. Please check the license file for details.
 
-*Satchi - Making dog training paths visible and shareable*
+*TrackPaw - Making dog training paths visible and shareable*
