@@ -20,7 +20,6 @@ public extension Track {
     @NSManaged var created: Date?
     @NSManaged var difficulty: Int16
     @NSManaged var id: UUID?
-    @NSManaged var image: Data?
     @NSManaged var laidPath: [CLLocation]?
     @NSManaged var length: Int32
     @NSManaged var name: String
@@ -63,7 +62,6 @@ public extension Track {
         track.created = created
         track.difficulty = difficulty
         track.id = UUID()
-        track.image = image
         track.laidPath = laidPath
         track.length = length
         track.name = name

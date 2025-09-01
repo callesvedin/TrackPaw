@@ -8,19 +8,27 @@
 import CoreLocation
 import Foundation
 
-@objc(CLLocationValueTransformer)
-final class CLLocationValueTransformer: NSSecureUnarchiveFromDataTransformer {
-    // The name of the transformer. This is what we will use to register the transformer `ValueTransformer.setValueTrandformer(_"forName:)`.
-    static let name = NSValueTransformerName(rawValue: String(describing: CLLocationValueTransformer.self))
+@objc(CLLocationArrayTransformer)
+class CLLocationArrayTransformer: NSSecureUnarchiveFromDataTransformer {
 
-    // Our class `Test` should in the allowed class list. (This is what the unarchiver uses to check for the right class)
-    override static var allowedTopLevelClasses: [AnyClass] {
-        return [NSArray.self, CLLocation.self]
+    override class var allowedTopLevelClasses: [AnyClass] {
+        return super.allowedTopLevelClasses + [NSArray.self, CLLocation.self]
     }
 
-    /// Registers the transformer.
-    public static func register() {
-        let transformer = CLLocationValueTransformer()
-        ValueTransformer.setValueTransformer(transformer, forName: name)
+    override class func allowsReverseTransformation() -> Bool {
+        return true
+    }
+
+    override class func transformedValueClass() -> AnyClass {
+        return NSData.self
+    }
+}
+
+extension CLLocationArrayTransformer {
+    class func register() {
+        CLLocationArrayTransformer.setValueTransformer(
+            CLLocationArrayTransformer(),
+            forName: NSValueTransformerName("CLLocationArrayTransformer")
+        )
     }
 }

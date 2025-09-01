@@ -19,6 +19,7 @@ struct TrackPawApp: App {
     @ObservedObject var coordinator = ViewCoordinator()
 
     init() {
+        CLLocationArrayTransformer.register()
         #if DEBUG
             let paths = NSSearchPathForDirectoriesInDomains(
                 FileManager.SearchPathDirectory.documentDirectory,

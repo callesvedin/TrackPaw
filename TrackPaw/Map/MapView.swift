@@ -36,22 +36,6 @@ struct MapView: View {
                 initialValue: .userLocation(fallback: MapCameraPosition.automatic))
         }
     }
-    
-//    // Convenience init for existing TrackMapModel (for compatibility)
-//    init(trackModel: TrackMapModel) {
-//        self.track = trackModel.track
-//        self.preview = trackModel.preview
-//        self.showButtons = trackModel.showButtons
-//        self._trackModel = State(initialValue: trackModel)
-//        
-//        // Set different camera behavior based on preview mode
-//        if trackModel.preview {
-//            self._cameraPosition = State(initialValue: .automatic)
-//        } else {
-//            self._cameraPosition = State(
-//                initialValue: .userLocation(fallback: MapCameraPosition.automatic))
-//        }
-//    }
 
     fileprivate func isPreviewOrDone() -> Bool {
         if let trackModel = self.viewModel {
@@ -106,9 +90,7 @@ struct MapView: View {
                                         .padding(.top, 12)
                                 }
                                 MapScaleView(scope: mapScope)
-                                if bindableModel.isTracking {
-                                    MapUserLocationButton(scope: mapScope)
-                                }
+                                MapUserLocationButton(scope: mapScope)
                                 MapCompass(scope: mapScope)
                             }
                             .padding(.top, 40)

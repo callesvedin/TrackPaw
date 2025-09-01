@@ -36,7 +36,7 @@ class PersistenceController: NSObject, ObservableObject {
     var trackShare: CKShare?
 
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
-        CLLocationValueTransformer.register()
+        CLLocationArrayTransformer.register()
         /**
          Prepare the containing folder for the Core Data stores.
          A Core Data store has companion files, so it's a good practice to put a store under a folder.
