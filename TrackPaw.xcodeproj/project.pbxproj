@@ -48,6 +48,8 @@
 		EB8D3FD7284567B800D12C38 /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */; };
 		EB8D3FD8284567BE00D12C38 /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */; };
 		EB9726602843B0DD00583007 /* DifficultyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB97265F2843B0DD00583007 /* DifficultyView.swift */; };
+		EBA11D1F2E634899007F8F59 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB85EF129CA19F40058E0B5 /* Logger.swift */; };
+		EBA11D202E6348B9007F8F59 /* SchemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5A5BA829DB79B000F05A4F /* SchemeType.swift */; };
 		EBA6D5B2296B6266000579FC /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AA296B6263000579FC /* PersistenceController.swift */; };
 		EBA6D5B4296B6266000579FC /* PersistenceController+Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AC296B6264000579FC /* PersistenceController+Share.swift */; };
 		EBA6D5B5296B6266000579FC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AD296B6265000579FC /* CoreDataHelper.swift */; };
@@ -58,10 +60,8 @@
 		EBA6D5C2296B6738000579FC /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */; };
 		EBA6D5C3296B6738000579FC /* OverlayButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F91252624B8DF0026773D /* OverlayButtonStyle.swift */; };
 		EBA6D5C4296B6738000579FC /* TrackMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */; };
-		EBA6D5C6296B6738000579FC /* TrackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872509260CC0C4008AD8E7 /* TrackListView.swift */; };
 		EBA6D5C7296B6738000579FC /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */; };
 		EBA6D5C9296B6738000579FC /* SatchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* SatchiApp.swift */; };
-		EBA6D5CA296B6738000579FC /* EditTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD13A54261AF3760080C4FE /* EditTrackView.swift */; };
 		EBA6D5CC296B6738000579FC /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D2148282C6553006CB703 /* UIApplicationExt.swift */; };
 		EBA6D5CF296B6738000579FC /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA842E7287589CF0061C338 /* TimeFormatter.swift */; };
 		EBA6D5D1296B6738000579FC /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6D5AD296B6265000579FC /* CoreDataHelper.swift */; };
@@ -101,7 +101,6 @@
 		EBDC075C29B69B0A0028FC64 /* TrackTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075B29B69B0A0028FC64 /* TrackTimer.swift */; };
 		EBDC075D29B69B0A0028FC64 /* TrackTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075B29B69B0A0028FC64 /* TrackTimer.swift */; };
 		EBDC075F29B69F750028FC64 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075E29B69F750028FC64 /* MainTabView.swift */; };
-		EBDC076029B69F750028FC64 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075E29B69F750028FC64 /* MainTabView.swift */; };
 		EBE9440328D25AE900C1C7A5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE9440228D25AE900C1C7A5 /* Color.swift */; };
 /* End PBXBuildFile section */
 
@@ -135,7 +134,6 @@
 		EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EB59DE4328310BF60043DE33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB5A5BA829DB79B000F05A4F /* SchemeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeType.swift; sourceTree = "<group>"; };
-		EB5BDF0E28181E03009DF497 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EB5BDF0F28181E61009DF497 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
 		EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModel.swift; sourceTree = "<group>"; };
 		EB60D74F2B5D90AF00D60252 /* screenshots */ = {isa = PBXFileReference; lastKnownFileType = folder; path = screenshots; sourceTree = "<group>"; };
@@ -147,16 +145,16 @@
 		EB7D2148282C6553006CB703 /* UIApplicationExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
 		EB80DA992E100D4E0005CBCB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EB80DA9B2E100D660005CBCB /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
-		EB872504260CC0C4008AD8E7 /* Satchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Satchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB872504260CC0C4008AD8E7 /* TrackPaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackPaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB872507260CC0C4008AD8E7 /* SatchiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiApp.swift; sourceTree = "<group>"; };
 		EB872509260CC0C4008AD8E7 /* TrackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListView.swift; sourceTree = "<group>"; };
 		EB87250B260CC0C5008AD8E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB87250E260CC0C5008AD8E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EB872515260CC0C5008AD8E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB87251A260CC0C5008AD8E7 /* SatchiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SatchiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB87251A260CC0C5008AD8E7 /* TrackPawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackPawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB87251E260CC0C5008AD8E7 /* SatchiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiTests.swift; sourceTree = "<group>"; };
 		EB872520260CC0C5008AD8E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB872525260CC0C5008AD8E7 /* SatchiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SatchiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB872525260CC0C5008AD8E7 /* TrackPawUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackPawUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB872529260CC0C5008AD8E7 /* SatchiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatchiUITests.swift; sourceTree = "<group>"; };
 		EB87252B260CC0C5008AD8E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB97265F2843B0DD00583007 /* DifficultyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyView.swift; sourceTree = "<group>"; };
@@ -255,9 +253,9 @@
 		EB872505260CC0C4008AD8E7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EB872504260CC0C4008AD8E7 /* Satchi.app */,
-				EB87251A260CC0C5008AD8E7 /* SatchiTests.xctest */,
-				EB872525260CC0C5008AD8E7 /* SatchiUITests.xctest */,
+				EB872504260CC0C4008AD8E7 /* TrackPaw.app */,
+				EB87251A260CC0C5008AD8E7 /* TrackPawTests.xctest */,
+				EB872525260CC0C5008AD8E7 /* TrackPawUITests.xctest */,
 				EBA6D5F1296B6738000579FC /* InitializeCloudKitSchema.app */,
 			);
 			name = Products;
@@ -282,7 +280,6 @@
 				EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */,
 				EB1DA6612AFED152001CF587 /* InfoPlist.xcstrings */,
 				EB87250D260CC0C5008AD8E7 /* Preview Content */,
-				EB5BDF0E28181E03009DF497 /* README.md */,
 				EB5BDF0F28181E61009DF497 /* Notes.md */,
 				EBB11B8A29B47935008EE889 /* Settings.bundle */,
 			);
@@ -408,9 +405,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EB872503260CC0C4008AD8E7 /* Satchi */ = {
+		EB872503260CC0C4008AD8E7 /* TrackPaw */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB87252E260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "Satchi" */;
+			buildConfigurationList = EB87252E260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "TrackPaw" */;
 			buildPhases = (
 				EB872500260CC0C4008AD8E7 /* Sources */,
 				EB872501260CC0C4008AD8E7 /* Frameworks */,
@@ -421,17 +418,17 @@
 			dependencies = (
 				EB386FE62E12BF1900557A54 /* PBXTargetDependency */,
 			);
-			name = Satchi;
+			name = TrackPaw;
 			packageProductDependencies = (
 				EB6DC7B22882BA3D009E788A /* SwiftState */,
 			);
 			productName = Satchi;
-			productReference = EB872504260CC0C4008AD8E7 /* Satchi.app */;
+			productReference = EB872504260CC0C4008AD8E7 /* TrackPaw.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EB872519260CC0C5008AD8E7 /* SatchiTests */ = {
+		EB872519260CC0C5008AD8E7 /* TrackPawTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB872531260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "SatchiTests" */;
+			buildConfigurationList = EB872531260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "TrackPawTests" */;
 			buildPhases = (
 				EB872516260CC0C5008AD8E7 /* Sources */,
 				EB872517260CC0C5008AD8E7 /* Frameworks */,
@@ -442,14 +439,14 @@
 			dependencies = (
 				EB87251C260CC0C5008AD8E7 /* PBXTargetDependency */,
 			);
-			name = SatchiTests;
+			name = TrackPawTests;
 			productName = SatchiTests;
-			productReference = EB87251A260CC0C5008AD8E7 /* SatchiTests.xctest */;
+			productReference = EB87251A260CC0C5008AD8E7 /* TrackPawTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		EB872524260CC0C5008AD8E7 /* SatchiUITests */ = {
+		EB872524260CC0C5008AD8E7 /* TrackPawUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB872534260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "SatchiUITests" */;
+			buildConfigurationList = EB872534260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "TrackPawUITests" */;
 			buildPhases = (
 				EB872521260CC0C5008AD8E7 /* Sources */,
 				EB872522260CC0C5008AD8E7 /* Frameworks */,
@@ -460,9 +457,9 @@
 			dependencies = (
 				EB872527260CC0C5008AD8E7 /* PBXTargetDependency */,
 			);
-			name = SatchiUITests;
+			name = TrackPawUITests;
 			productName = SatchiUITests;
-			productReference = EB872525260CC0C5008AD8E7 /* SatchiUITests.xctest */;
+			productReference = EB872525260CC0C5008AD8E7 /* TrackPawUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		EBA6D5BA296B6738000579FC /* InitializeCloudKitSchema */ = {
@@ -508,7 +505,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EB8724FF260CC0C4008AD8E7 /* Build configuration list for PBXProject "Satchi" */;
+			buildConfigurationList = EB8724FF260CC0C4008AD8E7 /* Build configuration list for PBXProject "TrackPaw" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -526,10 +523,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EB872503260CC0C4008AD8E7 /* Satchi */,
+				EB872503260CC0C4008AD8E7 /* TrackPaw */,
 				EBA6D5BA296B6738000579FC /* InitializeCloudKitSchema */,
-				EB872519260CC0C5008AD8E7 /* SatchiTests */,
-				EB872524260CC0C5008AD8E7 /* SatchiUITests */,
+				EB872519260CC0C5008AD8E7 /* TrackPawTests */,
+				EB872524260CC0C5008AD8E7 /* TrackPawUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -659,15 +656,13 @@
 				EBA6D5C3296B6738000579FC /* OverlayButtonStyle.swift in Sources */,
 				EBA6D5C4296B6738000579FC /* TrackMapModel.swift in Sources */,
 				EBB85EF529CA22AD0058E0B5 /* ValueTransformers.swift in Sources */,
+				EBA11D1F2E634899007F8F59 /* Logger.swift in Sources */,
 				EBC1BF0C2E204DA6005525D6 /* LocationManager.swift in Sources */,
-				EBA6D5C6296B6738000579FC /* TrackListView.swift in Sources */,
 				EBA6D5C7296B6738000579FC /* Track+CoreDataClass.swift in Sources */,
 				EBA6D5C9296B6738000579FC /* SatchiApp.swift in Sources */,
-				EBA6D5CA296B6738000579FC /* EditTrackView.swift in Sources */,
 				EBA6D5CC296B6738000579FC /* UIApplicationExt.swift in Sources */,
 				EB3588602970BAEB00CCB235 /* SceneDelegate.swift in Sources */,
 				EBDC075D29B69B0A0028FC64 /* TrackTimer.swift in Sources */,
-				EBDC076029B69F750028FC64 /* MainTabView.swift in Sources */,
 				EBA6D5CF296B6738000579FC /* TimeFormatter.swift in Sources */,
 				EBA6D5D1296B6738000579FC /* CoreDataHelper.swift in Sources */,
 				EBA6D5D2296B6738000579FC /* PathAnnotation.swift in Sources */,
@@ -678,6 +673,7 @@
 				EBA6D5D9296B6738000579FC /* AppDelegate.swift in Sources */,
 				EBA6D5DC296B6738000579FC /* PersistenceController.swift in Sources */,
 				EBA6D5DD296B6738000579FC /* AppEnvironment.swift in Sources */,
+				EBA11D202E6348B9007F8F59 /* SchemeType.swift in Sources */,
 				EBA6D5DE296B6738000579FC /* DistanceFormatter.swift in Sources */,
 				EBA6D5E1296B6738000579FC /* Color.swift in Sources */,
 				EBA6D5E2296B6738000579FC /* DifficultyView.swift in Sources */,
@@ -695,12 +691,12 @@
 		};
 		EB87251C260CC0C5008AD8E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EB872503260CC0C4008AD8E7 /* Satchi */;
+			target = EB872503260CC0C4008AD8E7 /* TrackPaw */;
 			targetProxy = EB87251B260CC0C5008AD8E7 /* PBXContainerItemProxy */;
 		};
 		EB872527260CC0C5008AD8E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EB872503260CC0C4008AD8E7 /* Satchi */;
+			target = EB872503260CC0C4008AD8E7 /* TrackPaw */;
 			targetProxy = EB872526260CC0C5008AD8E7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -842,10 +838,11 @@
 				CODE_SIGN_ENTITLEMENTS = Satchi/Satchi.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Satchi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TrackPaw;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -875,10 +872,11 @@
 				CODE_SIGN_ENTITLEMENTS = Satchi/Satchi.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Satchi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TrackPaw;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -915,7 +913,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Satchi.app/Satchi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackPaw.app/TrackPaw";
 			};
 			name = Debug;
 		};
@@ -935,7 +933,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Satchi.app/Satchi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackPaw.app/TrackPaw";
 			};
 			name = Release;
 		};
@@ -985,7 +983,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Satchi copy-Info.plist";
+				INFOPLIST_FILE = Satchi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1013,7 +1011,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Satchi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Satchi copy-Info.plist";
+				INFOPLIST_FILE = Satchi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1034,7 +1032,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EB8724FF260CC0C4008AD8E7 /* Build configuration list for PBXProject "Satchi" */ = {
+		EB8724FF260CC0C4008AD8E7 /* Build configuration list for PBXProject "TrackPaw" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EB87252C260CC0C5008AD8E7 /* Debug */,
@@ -1043,7 +1041,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB87252E260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "Satchi" */ = {
+		EB87252E260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "TrackPaw" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EB87252F260CC0C5008AD8E7 /* Debug */,
@@ -1052,7 +1050,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB872531260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "SatchiTests" */ = {
+		EB872531260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "TrackPawTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EB872532260CC0C5008AD8E7 /* Debug */,
@@ -1061,7 +1059,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB872534260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "SatchiUITests" */ = {
+		EB872534260CC0C5008AD8E7 /* Build configuration list for PBXNativeTarget "TrackPawUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EB872535260CC0C5008AD8E7 /* Debug */,

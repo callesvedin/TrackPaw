@@ -56,7 +56,7 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
         }
     }
 
-    public var isTracking = false
+    @MainActor public var isTracking = false
     // private var followUser: Bool = true
     var timer: TrackTimer = .init()
     var distance: CLLocationDistance = 0
@@ -353,13 +353,15 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
         return length
     }
 
-    @MainActor public func startTracking() {
+    public func startTracking() async {
         Logger.mapView.debug("Start tracking.")
         if preview {
             Logger.mapView.debug("Preview mode - skipping location tracking")
             return
         }
-        isTracking = true
+        await MainActor.run {
+            isTracking = true
+        }
     }
 
     fileprivate func trailStartUpdated() {
@@ -435,7 +437,6 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 }
 
 extension TrackMapModel {
-    @MainActor
     func locationManager(
         _ manager: LocationManager,
         didUpdateLocations locations: [CLLocation]
@@ -455,11 +456,10 @@ extension TrackMapModel {
         gotUserLocation = true
     }
 
-    @MainActor
     func locationManager(
         _ manager: LocationManager,
         didChangeAuthorization status: CLAuthorizationStatus
-    ) {
+    )  {
         Logger.mapView.debug(
             "locationManagerDidChangeAuthorization. Status:\(String(describing: status))"
         )
@@ -481,7 +481,9 @@ extension TrackMapModel {
             LocationManager.shared.requestAlwaysAuthorization()
         case .authorizedWhenInUse, .authorizedAlways:
             showAccessDenied = false
-            startTracking()
+            Task {
+                await startTracking()
+            }
         case .denied, .restricted:
             showAccessDenied = true
             Logger.mapView.info(

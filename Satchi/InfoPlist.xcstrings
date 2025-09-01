@@ -20,13 +20,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Satchi"
+            "value" : "TrackPaw"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Satchi"
+            "state" : "needs_review",
+            "value" : "TrackPaw"
           }
         }
       }

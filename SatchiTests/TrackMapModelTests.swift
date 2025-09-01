@@ -19,7 +19,6 @@ class TrackMapModelTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-//        let context = PersistenceController.shared.container.viewContext
         let context = PersistenceController.shared
             .persistentContainer.viewContext
         mockTrack = Track(context: context, name: "Test Track", id: UUID())

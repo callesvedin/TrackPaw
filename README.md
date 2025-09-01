@@ -1,6 +1,6 @@
-# Satchi 🐕
+# TrackPaw 🐕
 
-A GPS-enabled iOS app for tracking dog training paths and routes. Satchi allows dog trainers and owners to create, record, and manage training tracks with CloudKit synchronization across devices.
+A GPS-enabled iOS app for tracking dog training paths and routes. TrackPaw allows dog trainers and owners to create, record, and manage training tracks with CloudKit synchronization across devices.
 
 ## Screenshots
 
@@ -135,7 +135,7 @@ Test files are located in:
 
 ## Localization
 
-Satchi supports multiple languages:
+TrackPaw supports multiple languages:
 - **English** (`en`): Default language
 - **Swedish** (`sv`): Full translation
 
@@ -152,12 +152,5 @@ Localization files are in respective `.lproj` directories.
 ## License
 
 This project is open source. Please check the license file for details.
-
-## Acknowledgments
-
-- App icon created using [Icon Fonts](http://www.onlinewebfonts.com/icon) licensed under CC BY 3.0
-- Built with love for dog training enthusiasts 🐕‍🦺
-
----
 
 *Satchi - Making dog training paths visible and shareable*

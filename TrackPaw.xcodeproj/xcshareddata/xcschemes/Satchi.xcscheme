@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EB872503260CC0C4008AD8E7"
-               BuildableName = "Satchi.app"
-               BlueprintName = "Satchi"
-               ReferencedContainer = "container:Satchi.xcodeproj">
+               BuildableName = "TrackPaw.app"
+               BlueprintName = "TrackPaw"
+               ReferencedContainer = "container:TrackPaw.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EB872519260CC0C5008AD8E7"
-               BuildableName = "SatchiTests.xctest"
-               BlueprintName = "SatchiTests"
-               ReferencedContainer = "container:Satchi.xcodeproj">
+               BuildableName = "TrackPawTests.xctest"
+               BlueprintName = "TrackPawTests"
+               ReferencedContainer = "container:TrackPaw.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EB872524260CC0C5008AD8E7"
-               BuildableName = "SatchiUITests.xctest"
-               BlueprintName = "SatchiUITests"
-               ReferencedContainer = "container:Satchi.xcodeproj">
+               BuildableName = "TrackPawUITests.xctest"
+               BlueprintName = "TrackPawUITests"
+               ReferencedContainer = "container:TrackPaw.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EB872503260CC0C4008AD8E7"
-            BuildableName = "Satchi.app"
-            BlueprintName = "Satchi"
-            ReferencedContainer = "container:Satchi.xcodeproj">
+            BuildableName = "TrackPaw.app"
+            BlueprintName = "TrackPaw"
+            ReferencedContainer = "container:TrackPaw.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -112,9 +112,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EB872503260CC0C4008AD8E7"
-            BuildableName = "Satchi.app"
-            BlueprintName = "Satchi"
-            ReferencedContainer = "container:Satchi.xcodeproj">
+            BuildableName = "TrackPaw.app"
+            BlueprintName = "TrackPaw"
+            ReferencedContainer = "container:TrackPaw.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

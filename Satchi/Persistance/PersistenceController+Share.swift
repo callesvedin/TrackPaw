@@ -31,7 +31,7 @@ extension ShareError: CustomStringConvertible {
 //
 extension PersistenceController {
     func presentCloudSharingController(track: Track) {
-        Logger.sharing.debug("presentCloudSharingController called with track: \(track)")
+        Logger.sharing.debug("presentCloudSharingController")
 
         sharedTrack = track
         /**
