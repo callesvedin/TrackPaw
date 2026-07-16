@@ -89,7 +89,6 @@ struct EditTrackView: View {
                 actionsMenu.foregroundStyle(palette.link)
             }
         }
-        .toolbarBackground(palette.mainBackground)
         .background(palette.mainBackground)
         .navigationBarTitle(theTrack.name)
         .navigationBarHidden(false)
@@ -224,16 +223,6 @@ struct FieldsView: View {
     private func getTimeSinceCreated() -> String {
         guard let timeDistance = theTrack.created?.distance(to: Date()) else { return "-" }
         return TimeFormatter.shortTimeWithMinutesFor(seconds: timeDistance)
-    }
-}
-
-extension View {
-    @available(iOS 14, *)
-    func navigationBarTitleTextColor(_ color: Color) -> some View {
-        let uiColor = UIColor(color)
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor]
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor]
-        return self
     }
 }
 

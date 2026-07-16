@@ -46,9 +46,7 @@ struct TrackListView: View {
     }
 
     var body: some View {
-        UITableView.appearance().backgroundColor = .clear
-        UITableViewCell.appearance().backgroundColor = .clear
-        return ZStack {
+        ZStack {
             palette.mainBackground.ignoresSafeArea(.all)
             if tracks.isEmpty {
                 NoTracksView(callback: createNewTrack)
@@ -158,12 +156,7 @@ struct TrackListView: View {
 
 struct HideScrollModifier: ViewModifier {
     func body(content: Content) -> some View {
-        if #available(iOS 16.0, *) {
-            content
-                .scrollContentBackground(Visibility.hidden)
-        } else {
-            content
-        }
+        content.scrollContentBackground(.hidden)
     }
 }
 
