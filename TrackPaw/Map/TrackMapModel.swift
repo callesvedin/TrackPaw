@@ -56,7 +56,7 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
         }
     }
 
-    @MainActor public var isTracking = false
+    public var isTracking = false
     // private var followUser: Bool = true
     var timer: TrackTimer = .init()
     var distance: CLLocationDistance = 0
@@ -127,7 +127,7 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 
         if !self.preview {
             LocationManager.shared.subscribe(self)
-            if locationAuthorizationStatus == .notDetermined || locationAuthorizationStatus == .denied || locationAuthorizationStatus == .restricted {
+            if locationAuthorizationStatus == .denied || locationAuthorizationStatus == .restricted {
                 showAccessDenied = true
             }
             if locationAuthorizationStatus == .notDetermined || locationAuthorizationStatus == .restricted {
@@ -141,28 +141,15 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
 
          if track.getState() == .trailTracked {
             trackStartLocation = trackPath.first?.coordinate
-//            self.mapAnnotations.append(
-//                PathAnnotationKind.trackingStart(location: trackStartLocation!)
-//            )
             trackEndLocation = trackPath.last?.coordinate
-//            self.mapAnnotations.append(
-//                PathAnnotationKind.trackingEnd(location: trackEndLocation!)
-//            )
          }
 
         if track.getState() == .trailAdded || track.getState() == .trailTracked
         {
             trailStartLocation = laidPath.first?.coordinate
-//            self.mapAnnotations.append(
-//                PathAnnotationKind.trailStart(location: trailStartLocation!)
-//            )
             trailEndLocation = laidPath.last?.coordinate
-//            self.mapAnnotations.append(
-//                PathAnnotationKind.trailEnd(location: trailEndLocation!)
-//            )
         }
         stateMachine.addRouteMapping { event, fromState, _ -> RunningState? in
-            // no route for no-event
             guard let event = event else { return nil }
 
             switch (event, fromState) {
@@ -353,15 +340,13 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
         return length
     }
 
-    public func startTracking() async {
+    public func startTracking() {
         Logger.mapView.debug("Start tracking.")
         if preview {
             Logger.mapView.debug("Preview mode - skipping location tracking")
             return
         }
-        await MainActor.run {
-            isTracking = true
-        }
+        isTracking = true
     }
 
     fileprivate func trailStartUpdated() {
@@ -477,13 +462,11 @@ extension TrackMapModel {
             Logger.mapView.info(
                 "Status not determined. Requesting authorization"
             )
-            showAccessDenied = true
+            showAccessDenied = false
             LocationManager.shared.requestAlwaysAuthorization()
         case .authorizedWhenInUse, .authorizedAlways:
             showAccessDenied = false
-            Task {
-                await startTracking()
-            }
+            startTracking()
         case .denied, .restricted:
             showAccessDenied = true
             Logger.mapView.info(

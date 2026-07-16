@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct StateButtonView: View {    @Environment(\.preferredColorPalette) private var palette
+struct StateButtonView: View {
+    @Environment(\.preferredColorPalette) private var palette
 
     @Bindable var mapModel: TrackMapModel
 
