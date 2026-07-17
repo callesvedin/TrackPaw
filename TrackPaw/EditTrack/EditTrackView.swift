@@ -38,7 +38,7 @@ struct EditTrackView: View {
         } label: {
             Image(systemName: "ellipsis.circle")
         }
-        .accentColor(palette.link)
+        .tint(palette.link)
     }
 
     @ViewBuilder
@@ -67,23 +67,25 @@ struct EditTrackView: View {
     }
 
     var body: some View {
-        ScrollView {
-            HStack {
-                Spacer()
+        Form {
+            Section {
                 MapView(track: theTrack, preview: true, showButtons: false)
-                .id(mapRefreshTrigger)
-                .scaledToFit()
-                .cornerRadius(10)
-                .padding(.bottom, 30)
-                Spacer()
+                    .id(mapRefreshTrigger)
+                    .scaledToFit()
+                    .cornerRadius(10)
+                    .frame(maxWidth: .infinity)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
             }
             FieldsView(theTrack: theTrack)
         }
+        .scrollContentBackground(.hidden)
         .foregroundColor(palette.primaryText)
-        .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                showMapViewButton.foregroundStyle(palette.link)
+                showMapViewButton
+                    .buttonStyle(.glassProminent)
+                    .tint(palette.link)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 actionsMenu.foregroundStyle(palette.link)
@@ -126,93 +128,51 @@ struct EditTrackView: View {
     }
 }
 
-struct EditRow: View {
-    var textOne: String
-    var textTwo: String
-
-    var body: some View {
-        HStack {
-            Text(LocalizedStringKey(textOne)).frame(alignment: .leading)
-            Spacer()
-            Text(LocalizedStringKey(textTwo)).frame(alignment: .trailing)
-        }
-    }
-}
-
 struct FieldsView: View {
     @Environment(\.preferredColorPalette) private var palette
     @ObservedObject var theTrack: Track
 
     var body: some View {
-        Group {
-            HStack {
-                TextField("Name", text: $theTrack.name)
-                    .font(Font.title2)
-                    .padding(.horizontal, 8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(palette.midBackground)
-                    )
-            }.padding(.bottom, 18)
-
-            VStack {
-                EditRow(
-                    textOne: "Created:",
-                    textTwo:
-                        "\(theTrack.created != nil ? TimeFormatter.dateStringFrom(date: theTrack.created) : "-")"
-                )
-                EditRow(
-                    textOne: "Time to create:",
-                    textTwo:
-                        "\(TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToCreate))")
-                EditRow(textOne: "Time since created:", textTwo: "\(getTimeSinceCreated())")
-
-            }.padding(.vertical, 4)
-
-            VStack {
-                EditRow(
-                    textOne: "Length:",
-                    textTwo: "\(DistanceFormatter.distanceFor(meters: Double(theTrack.length)))")
-
-                HStack {
-                    Text("Difficulty:").frame(alignment: .leading)
-                    Spacer()
-                    DifficultyView(difficulty: $theTrack.difficulty).frame(
-                        maxWidth: .infinity, alignment: .trailing)
-                }
-            }.padding(.vertical, 4)
-
-            VStack {
-                EditRow(
-                    textOne: "Track rested:",
-                    textTwo: "\(getTimeBetween(date: theTrack.created, and: theTrack.started))")
-            }.padding(.vertical, 4)
-
-            VStack {
-                EditRow(
-                    textOne: "Tracking started:",
-                    textTwo:
-                        "\(theTrack.started != nil ? TimeFormatter.dateStringFrom(date: theTrack.started!) : "-")"
-                )
-                EditRow(
-                    textOne: "Time to finish:",
-                    textTwo:
-                        "\(theTrack.timeToFinish > 0 ? TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToFinish) : "-")"
-                )
-            }.padding(.vertical, 4)
-            VStack(alignment: .leading) {
-                Text("Comments:").padding(.bottom, 0)
-                TextField("Comments", text: $theTrack.comments)
-                    .padding()
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .frame(minHeight: 80)
-                    .border(Color.gray, width: 1)
-            }
+        Section("Name") {
+            TextField("Name", text: $theTrack.name)
+                .font(.title2)
         }
-        .font(
-            .body
-        )
-        .padding(.horizontal, 10)
+
+        Section {
+            LabeledContent(
+                "Created:",
+                value: theTrack.created != nil ? TimeFormatter.dateStringFrom(date: theTrack.created) : "-"
+            )
+            LabeledContent(
+                "Time to create:",
+                value: TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToCreate)
+            )
+            LabeledContent("Time since created:", value: getTimeSinceCreated())
+            LabeledContent(
+                "Length:",
+                value: DistanceFormatter.distanceFor(meters: Double(theTrack.length))
+            )
+            LabeledContent("Difficulty:") {
+                DifficultyView(difficulty: $theTrack.difficulty)
+            }
+            LabeledContent(
+                "Track rested:",
+                value: getTimeBetween(date: theTrack.created, and: theTrack.started)
+            )
+            LabeledContent(
+                "Tracking started:",
+                value: theTrack.started != nil ? TimeFormatter.dateStringFrom(date: theTrack.started!) : "-"
+            )
+            LabeledContent(
+                "Time to finish:",
+                value: theTrack.timeToFinish > 0 ? TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToFinish) : "-"
+            )
+        }
+
+        Section("Comments") {
+            TextField("Comments", text: $theTrack.comments, axis: .vertical)
+                .lineLimit(3...6)
+        }
     }
 
     private func getTimeBetween(date: Date?, and toDate: Date?) -> String {
