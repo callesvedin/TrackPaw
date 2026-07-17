@@ -23,6 +23,7 @@ struct MainTabView: View {
             return nil
         }
     }
+
     var body: some View {
         NavigationStack(path: $coordinator.path) {
             TrackListView()

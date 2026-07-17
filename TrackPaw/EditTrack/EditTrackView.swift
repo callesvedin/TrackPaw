@@ -129,7 +129,6 @@ struct EditTrackView: View {
 }
 
 struct FieldsView: View {
-    @Environment(\.preferredColorPalette) private var palette
     @ObservedObject var theTrack: Track
 
     var body: some View {
@@ -147,7 +146,10 @@ struct FieldsView: View {
                 "Time to create:",
                 value: TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToCreate)
             )
-            LabeledContent("Time since created:", value: getTimeSinceCreated())
+            LabeledContent(
+                "Time since created:",
+                value: getTimeSinceCreated()
+            )
             LabeledContent(
                 "Length:",
                 value: DistanceFormatter.distanceFor(meters: Double(theTrack.length))
