@@ -109,19 +109,20 @@ struct TrackListView: View {
         }
         .foregroundColor(palette.primaryText)
         .navigationTitle(LocalizedStringKey("Tracks"))
-        .toolbar {
-            HStack {
-                Button(
-                    action: {
-                        createNewTrack()
-                    },
-                    label: {
-                        Text("Add track")
-                    }
-                )
-                .foregroundColor(palette.link)
-                .padding(0)
+        .overlay(alignment: .bottomTrailing) {
+            Button {
+                createNewTrack()
+            } label: {
+                Image(systemName: "plus")
+                    .font(.title2.weight(.semibold))
+                    .padding(6)
             }
+            .buttonStyle(.glassProminent)
+            .buttonBorderShape(.circle)
+            .controlSize(.large)
+            .tint(palette.link)
+            .padding(24)
+            .accessibilityLabel(Text("Add track"))
         }
         .onReceive(NotificationCenter.default.storeDidChangePublisher) { notification in
             processStoreChangeNotification(notification)
