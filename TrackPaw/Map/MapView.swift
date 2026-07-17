@@ -83,10 +83,7 @@ struct MapView: View {
                                         .font(.title2)
                                         .foregroundColor(.red)
                                         .padding(8)
-                                        .background(
-                                            .regularMaterial,
-                                            in: Circle()
-                                        )
+                                        .glassEffect(.regular, in: Circle())
                                         .padding(.top, 12)
                                 }
                                 MapScaleView(scope: mapScope)

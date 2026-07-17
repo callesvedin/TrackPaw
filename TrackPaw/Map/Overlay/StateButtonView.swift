@@ -13,51 +13,45 @@ struct StateButtonView: View {
     @Bindable var mapModel: TrackMapModel
 
     var body: some View {
-        HStack {
-            if !mapModel.showButtons {
-                // No buttons mode - hide all buttons (e.g., when embedded in EditTrackView)
-                EmptyView()
-            } else if mapModel.preview {
-                // Preview mode - only show Close button regardless of state
-                Button(action: { mapModel.stop() }, label: { Text("Close") })
-                    .buttonStyle(OverlayButtonStyle(backgroundColor: palette.confirm))
-                    .padding(15)
-            } else {
-                // Normal mode - show state-based buttons
-                if mapModel.currentState == .notStarted {
-                    Button(action: { mapModel.stop() }, label: { Text("Close") })
-                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
-                        .padding(15)
-                    if mapModel.locationAuthorizationStatus != .denied {
-                        Button(action: { mapModel.start() }, label: { Text("Start") })
-                            .buttonStyle(
-                                OverlayButtonStyle(backgroundColor: palette.confirm)
-                            )
-                            .disabled(mapModel.accuracy > 10)
-                            .padding(15)
+        GlassEffectContainer(spacing: 12) {
+            HStack(spacing: 12) {
+                if !mapModel.showButtons {
+                    EmptyView()
+                } else if mapModel.preview {
+                    Button("Close") { mapModel.stop() }
+                        .buttonStyle(.glass)
+                } else {
+                    if mapModel.currentState == .notStarted {
+                        Button("Close") { mapModel.stop() }
+                            .buttonStyle(.glass)
+                        if mapModel.locationAuthorizationStatus != .denied {
+                            Button("Start") { mapModel.start() }
+                                .buttonStyle(.glassProminent)
+                                .tint(palette.confirm)
+                                .disabled(mapModel.accuracy > 10)
+                        }
+                    }
+                    if mapModel.currentState == .running {
+                        Button("Pause") { mapModel.pause() }
+                            .buttonStyle(.glass)
+                    }
+                    if mapModel.currentState == .paused {
+                        Button("Continue") { mapModel.resume() }
+                            .buttonStyle(.glassProminent)
+                            .tint(palette.confirm)
+                        Button("Stop") { mapModel.stop() }
+                            .buttonStyle(.glassProminent)
+                            .tint(palette.warning)
+                    }
+                    if mapModel.currentState == .viewing {
+                        Button("Close") { mapModel.stop() }
+                            .buttonStyle(.glassProminent)
+                            .tint(palette.confirm)
                     }
                 }
-                if mapModel.currentState == .running {
-                    Button(action: { mapModel.pause() }, label: { Text("Pause") })
-                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
-                        .padding(15)
-                }
-                if mapModel.currentState == .paused {
-                    Button(action: { mapModel.resume() }, label: { Text("Continue") })
-                        .buttonStyle(
-                            OverlayButtonStyle(backgroundColor: palette.confirm)
-                        )
-                        .padding(15)
-                    Button(action: { mapModel.stop() }, label: { Text("Stop") })
-                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.warning))
-                        .padding(15)
-                }
-                if mapModel.currentState == .viewing {
-                    Button(action: { mapModel.stop() }, label: { Text("Close") })
-                        .buttonStyle(OverlayButtonStyle(backgroundColor: palette.confirm))
-                        .padding(15)
-                }
             }
+            .controlSize(.large)
+            .font(.headline)
         }
     }
 }

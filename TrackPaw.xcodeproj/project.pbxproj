@@ -14,7 +14,6 @@
 		EB1DA6622AFED152001CF587 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA6612AFED152001CF587 /* InfoPlist.xcstrings */; };
 		EB1DA6632AFED152001CF587 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA6612AFED152001CF587 /* InfoPlist.xcstrings */; };
 		EB2409C928D1A5000027671D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB2409C828D1A5000027671D /* Colors.xcassets */; };
-		EB2F91262624B8DF0026773D /* OverlayButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F91252624B8DF0026773D /* OverlayButtonStyle.swift */; };
 		EB352C8C278CEB310015AC5A /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */; };
 		EB352C8E278EB6720015AC5A /* TrackPaw.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */; };
 		EB35885F2970BAEB00CCB235 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35885E2970BAEB00CCB235 /* SceneDelegate.swift */; };
@@ -58,7 +57,6 @@
 		EBA6D5BE296B6738000579FC /* TrackPaw.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */; };
 		EBA6D5C1296B6738000579FC /* StateButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */; };
 		EBA6D5C2296B6738000579FC /* Track+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59DE3F283045A60043DE33 /* Track+CoreDataProperties.swift */; };
-		EBA6D5C3296B6738000579FC /* OverlayButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F91252624B8DF0026773D /* OverlayButtonStyle.swift */; };
 		EBA6D5C4296B6738000579FC /* TrackMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */; };
 		EBA6D5C7296B6738000579FC /* Track+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */; };
 		EBA6D5C9296B6738000579FC /* TrackPawApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB872507260CC0C4008AD8E7 /* TrackPawApp.swift */; };
@@ -126,7 +124,6 @@
 		EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		EB1DA6612AFED152001CF587 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		EB2409C828D1A5000027671D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		EB2F91252624B8DF0026773D /* OverlayButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayButtonStyle.swift; sourceTree = "<group>"; };
 		EB352C8A278CEB310015AC5A /* Track+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+CoreDataClass.swift"; sourceTree = "<group>"; };
 		EB35885E2970BAEB00CCB235 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateButtonView.swift; sourceTree = "<group>"; };
@@ -372,7 +369,6 @@
 		EBDC075729B6995E0028FC64 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				EB2F91252624B8DF0026773D /* OverlayButtonStyle.swift */,
 				EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */,
 			);
 			path = Overlay;
@@ -581,7 +577,6 @@
 				EB352C8E278EB6720015AC5A /* TrackPaw.xcdatamodeld in Sources */,
 				EB409F3628AD0EB700BA2C23 /* StateButtonView.swift in Sources */,
 				EB59DE40283045A60043DE33 /* Track+CoreDataProperties.swift in Sources */,
-				EB2F91262624B8DF0026773D /* OverlayButtonStyle.swift in Sources */,
 				EB5CE22E261CBFE100D56711 /* TrackMapModel.swift in Sources */,
 				EB87250A260CC0C4008AD8E7 /* TrackListView.swift in Sources */,
 				EB352C8C278CEB310015AC5A /* Track+CoreDataClass.swift in Sources */,
@@ -653,7 +648,6 @@
 				EBA6D5C1296B6738000579FC /* StateButtonView.swift in Sources */,
 				EBA6D5C2296B6738000579FC /* Track+CoreDataProperties.swift in Sources */,
 				EBC6BBE129D8B9BE00093EF4 /* ViewCoordinator.swift in Sources */,
-				EBA6D5C3296B6738000579FC /* OverlayButtonStyle.swift in Sources */,
 				EBA6D5C4296B6738000579FC /* TrackMapModel.swift in Sources */,
 				EBB85EF529CA22AD0058E0B5 /* ValueTransformers.swift in Sources */,
 				EBA11D1F2E634899007F8F59 /* Logger.swift in Sources */,
