@@ -20,6 +20,7 @@ struct TrackPawApp: App {
 
     init() {
         CLLocationArrayTransformer.register()
+        configureNavigationTitleColor()
         #if DEBUG
             let paths = NSSearchPathForDirectoriesInDomains(
                 FileManager.SearchPathDirectory.documentDirectory,
@@ -28,6 +29,21 @@ struct TrackPawApp: App {
             )
             Logger.trackPawApp.debug("Path to device content \(paths[0])")
         #endif
+    }
+
+    /// Renders navigation titles in the app's light text color while keeping the
+    /// iOS 26 Liquid Glass bar. Uses `configureWithDefaultBackground()` (the system
+    /// default background, which is Liquid Glass) so only the title color changes —
+    /// unlike a transparent+solid-color config, which would flatten the glass.
+    private func configureNavigationTitleColor() {
+        let titleColor = UIColor(named: "Satchi/text-primary") ?? .white
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+        appearance.largeTitleTextAttributes = [.foregroundColor: titleColor]
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
     }
 
     var body: some Scene {
