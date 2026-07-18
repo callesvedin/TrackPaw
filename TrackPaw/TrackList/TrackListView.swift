@@ -120,7 +120,7 @@ struct TrackListView: View {
             .buttonStyle(.glassProminent)
             .buttonBorderShape(.circle)
             .controlSize(.large)
-            .tint(palette.link)
+            .tint(palette.accent)
             .padding(24)
             .accessibilityLabel(Text("Add track"))
         }

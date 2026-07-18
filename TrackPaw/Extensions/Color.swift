@@ -52,6 +52,10 @@ extension Color {
             Color(fromPalette: self.name, semanticName: "link")
         }
 
+        var accent: Color {
+            Color(fromPalette: self.name, semanticName: "accent")
+        }
+
         var warning: Color {
             .red
         }

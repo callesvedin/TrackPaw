@@ -85,7 +85,7 @@ struct EditTrackView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 showMapViewButton
                     .buttonStyle(.glassProminent)
-                    .tint(palette.link)
+                    .tint(palette.accent)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 actionsMenu.foregroundStyle(palette.link)
