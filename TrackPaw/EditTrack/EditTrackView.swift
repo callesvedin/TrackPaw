@@ -78,6 +78,7 @@ struct EditTrackView: View {
                     .listRowBackground(Color.clear)
             }
             FieldsView(theTrack: theTrack)
+                .listRowBackground(palette.midBackground)
         }
         .scrollContentBackground(.hidden)
         .foregroundColor(palette.primaryText)
