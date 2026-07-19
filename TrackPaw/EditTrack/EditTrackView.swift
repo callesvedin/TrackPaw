@@ -94,6 +94,7 @@ struct EditTrackView: View {
         }
         .background(palette.mainBackground)
         .navigationBarTitle(theTrack.name)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(false)
         .onChange(of: theTrack.state) { _, _ in
