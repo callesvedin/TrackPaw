@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		578DDC1CE2DDD4F865FD74CA /* TrackSharingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */; };
+		5938FA24C59D0CE654699F3E /* TrackSharingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */; };
+		D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2020FC0563357CA9478BE36 /* TrackSharingService.swift */; };
 		EB05E19526277868002941B6 /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
 		EB10D38C2E31517C00B59BDE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBB11B8A29B47935008EE889 /* Settings.bundle */; };
 		EB1DA65F2AFED152001CF587 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */; };
@@ -120,6 +123,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingInfo.swift; sourceTree = "<group>"; };
+		A2020FC0563357CA9478BE36 /* TrackSharingService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingService.swift; sourceTree = "<group>"; };
+		D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingTests.swift; sourceTree = "<group>"; };
 		EB05E19426277868002941B6 /* PathAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathAnnotation.swift; sourceTree = "<group>"; };
 		EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		EB1DA6612AFED152001CF587 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -215,6 +221,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD67002782E1E427D4113F97 /* Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */,
+				A2020FC0563357CA9478BE36 /* TrackSharingService.swift */,
+			);
+			name = Sharing;
+			path = Sharing;
+			sourceTree = "<group>";
+		};
 		EB352C89278CEB0D0015AC5A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,8 +256,8 @@
 				EB7539B62DE8E99500BD7288 /* TODO.md */,
 				EB60D74F2B5D90AF00D60252 /* screenshots */,
 				EB872506260CC0C4008AD8E7 /* TrackPaw */,
-				EB87251D260CC0C5008AD8E7 /* SatchiTests */,
-				EB872528260CC0C5008AD8E7 /* SatchiUITests */,
+				EB87251D260CC0C5008AD8E7 /* TrackPawTests */,
+				EB872528260CC0C5008AD8E7 /* TrackPawUITests */,
 				EB872505260CC0C4008AD8E7 /* Products */,
 				EB7D2143282C6181006CB703 /* Frameworks */,
 			);
@@ -279,6 +295,7 @@
 				EB87250D260CC0C5008AD8E7 /* Preview Content */,
 				EB5BDF0F28181E61009DF497 /* Notes.md */,
 				EBB11B8A29B47935008EE889 /* Settings.bundle */,
+				AD67002782E1E427D4113F97 /* Sharing */,
 			);
 			path = TrackPaw;
 			sourceTree = "<group>";
@@ -291,17 +308,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		EB87251D260CC0C5008AD8E7 /* SatchiTests */ = {
+		EB87251D260CC0C5008AD8E7 /* TrackPawTests */ = {
 			isa = PBXGroup;
 			children = (
 				EB67AC842E30C69D00B925EA /* TrackMapModelTests.swift */,
 				EB87251E260CC0C5008AD8E7 /* TrackPawTests.swift */,
 				EB872520260CC0C5008AD8E7 /* Info.plist */,
+				D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */,
 			);
 			path = TrackPawTests;
 			sourceTree = "<group>";
 		};
-		EB872528260CC0C5008AD8E7 /* SatchiUITests */ = {
+		EB872528260CC0C5008AD8E7 /* TrackPawUITests */ = {
 			isa = PBXGroup;
 			children = (
 				EB872529260CC0C5008AD8E7 /* TrackPawUITests.swift */,
@@ -608,6 +626,8 @@
 				EB9726602843B0DD00583007 /* DifficultyView.swift in Sources */,
 				EBB85EF429CA22AD0058E0B5 /* ValueTransformers.swift in Sources */,
 				EBA842C528702F0C0061C338 /* SyncMonitor.swift in Sources */,
+				578DDC1CE2DDD4F865FD74CA /* TrackSharingInfo.swift in Sources */,
+				D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +649,7 @@
 				EB67AC8A2E30C8AB00B925EA /* PathAnnotation.swift in Sources */,
 				EB67AC892E30C7C500B925EA /* Logger.swift in Sources */,
 				EB67AC8B2E30C8DF00B925EA /* PersistenceController.swift in Sources */,
+				5938FA24C59D0CE654699F3E /* TrackSharingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,7 +702,7 @@
 /* Begin PBXTargetDependency section */
 		EB386FE62E12BF1900557A54 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = EB386FE52E12BF1900557A54 /* SwiftLintBuildToolPlugin */;
+			productRef = EB386FE52E12BF1900557A54 /* plugin:SwiftLintBuildToolPlugin */;
 		};
 		EB87251C260CC0C5008AD8E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1101,7 +1122,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EB386FE52E12BF1900557A54 /* SwiftLintBuildToolPlugin */ = {
+		EB386FE52E12BF1900557A54 /* plugin:SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EB386FE42E12BE6E00557A54 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
