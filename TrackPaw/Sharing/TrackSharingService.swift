@@ -18,6 +18,9 @@ final class TrackSharingService: TrackSharing {
     private var infoCache: [NSManagedObjectID: TrackSharingInfo] = [:]
     private var shareCache: [NSManagedObjectID: CKShare] = [:]
     private let lock = NSLock()
+    /// Bumped under `lock` on every `invalidate()`. Lets in-flight lookups that
+    /// started before an invalidation detect it and skip their stale write-back.
+    private var generation = 0
 
     init(controller: PersistenceController = .shared) {
         self.controller = controller
@@ -33,28 +36,39 @@ final class TrackSharingService: TrackSharing {
 
     func invalidate() {
         lock.lock(); defer { lock.unlock() }
+        generation += 1
         infoCache.removeAll()
         shareCache.removeAll()
     }
 
     func share(for track: Track) -> CKShare? {
-        lock.lock(); defer { lock.unlock() }
-        if let cached = shareCache[track.objectID] { return cached }
+        lock.lock()
+        if let cached = shareCache[track.objectID] { lock.unlock(); return cached }
+        let gen = generation
+        lock.unlock()
+
         guard let shares = try? controller.persistentContainer
             .fetchShares(matching: [track.objectID]),
               let share = shares.first?.value else { return nil }
-        shareCache[track.objectID] = share
+
+        lock.lock()
+        if generation == gen { shareCache[track.objectID] = share }
+        lock.unlock()
         return share
     }
 
     func sharingInfo(for track: Track) -> TrackSharingInfo {
         lock.lock()
         if let cached = infoCache[track.objectID] { lock.unlock(); return cached }
+        let gen = generation
         lock.unlock()
 
         let facts = facts(for: track)
         let info = TrackSharingInfo(facts: facts)
-        lock.lock(); infoCache[track.objectID] = info; lock.unlock()
+
+        lock.lock()
+        if generation == gen { infoCache[track.objectID] = info }
+        lock.unlock()
         return info
     }
 
