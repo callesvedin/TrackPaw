@@ -477,6 +477,15 @@ class TrackMapModelTests: XCTestCase {
     }
 
     @MainActor
+    func testLocationAuthorizationChange_NotDetermined_DoesNotShowLocationAlert() throws {
+        trackMapModel = TrackMapModel(track: mockTrack)
+
+        trackMapModel.locationManager(LocationManager.shared, didChangeAuthorization: .notDetermined)
+
+        XCTAssertFalse(trackMapModel.showLocationAlert)
+    }
+
+    @MainActor
     func testLocationAuthorizationChange_InPreviewMode_IgnoresChanges() throws {
         trackMapModel = TrackMapModel(track: mockTrack, preview: true)
         

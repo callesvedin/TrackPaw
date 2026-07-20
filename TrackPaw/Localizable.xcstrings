@@ -49,7 +49,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You must allow the application to track you. Prefferably while the application is not in use to be able to put away your phone while tracking with your dog.\nYou may always change this setting in Settings->TrackPaw->Location"
+            "value" : "You must allow the application to track you. Preferably while the application is not in use to be able to put away your phone while tracking with your dog.\nYou may always change this setting in Settings->TrackPaw->Location"
           }
         },
         "sv" : {
