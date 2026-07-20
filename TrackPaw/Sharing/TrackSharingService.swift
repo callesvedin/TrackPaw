@@ -112,8 +112,13 @@ extension TrackSharingService {
                     continuation.resume(throwing: error)
                 } else if let share = share {
                     share[CKShare.SystemFieldKey.title] = track.name as CKRecordValue
-                    self.invalidate()
-                    continuation.resume(returning: share)
+                    self.controller.persistentContainer.persistUpdatedShare(share, in: self.controller.privatePersistentStore) { persisted, persistError in
+                        if let persistError = persistError {
+                            Logger.sharing.error("\(#function): Failed to persist share title: \(persistError)")
+                        }
+                        self.invalidate()
+                        continuation.resume(returning: persisted ?? share)
+                    }
                 } else {
                     continuation.resume(throwing: CKError(.internalError))
                 }

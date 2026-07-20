@@ -71,12 +71,7 @@ struct TrackListView: View {
                                     }
                                 )
                                 .swipeActions(allowsFullSwipe: false) {
-                                    ShareLink(item: TrackSharingService.shared
-                                        .makeTransferable(for: track),
-                                        preview: SharePreview(track.name)) {
-                                        Label("Share", systemImage: "square.and.arrow.up")
-                                    }
-                                    .tint(.green)
+                                    shareLink(for: track)
                                     Button(role: .destructive) {
                                         deleteTrack(track)
                                     } label: {
@@ -148,6 +143,15 @@ struct TrackListView: View {
 
     func deleteTrack(_ track: Track) {
         PersistenceController.shared.delete(track: track)
+    }
+
+    @ViewBuilder
+    private func shareLink(for track: Track) -> some View {
+        ShareLink(item: TrackSharingService.shared.makeTransferable(for: track),
+                  preview: SharePreview(track.name)) {
+            Label("Share", systemImage: "square.and.arrow.up")
+        }
+        .tint(.green)
     }
 }
 
