@@ -13,5 +13,6 @@
         <attribute name="timeToCreate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="timeToFinish" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="trackPath" optional="YES" attributeType="Transformable" valueTransformerName="CLLocationArrayTransformer" customClassName="[CLLocation]"/>
+        <attribute name="trackerComments" optional="YES" attributeType="String"/>
     </entity>
 </model>
