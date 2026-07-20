@@ -25,4 +25,33 @@ final class TrackSharingTests: XCTestCase {
         context.delete(copy)
         try? context.save()
     }
+
+    func test_notPersisted_isOwner_notShared_canEdit() {
+        let info = TrackSharingInfo(facts: .init(
+            storeKind: .notPersisted, isShared: false,
+            ownerName: nil, participantNames: []))
+        XCTAssertEqual(info.role, .owner)
+        XCTAssertEqual(info.status, .notShared)
+        XCTAssertTrue(info.canEditMetadata)
+    }
+
+    func test_privateStoreShared_isOwner_sharedByMe_canEdit() {
+        let info = TrackSharingInfo(facts: .init(
+            storeKind: .privateStore, isShared: true,
+            ownerName: "Me", participantNames: ["Alex"]))
+        XCTAssertEqual(info.role, .owner)
+        XCTAssertEqual(info.status, .sharedByMe)
+        XCTAssertTrue(info.canEditMetadata)
+        XCTAssertEqual(info.participantNames, ["Alex"])
+    }
+
+    func test_sharedStore_isParticipant_sharedWithMe_cannotEdit() {
+        let info = TrackSharingInfo(facts: .init(
+            storeKind: .sharedStore, isShared: true,
+            ownerName: "Owner", participantNames: []))
+        XCTAssertEqual(info.role, .participant)
+        XCTAssertEqual(info.status, .sharedWithMe)
+        XCTAssertFalse(info.canEditMetadata)
+        XCTAssertEqual(info.ownerName, "Owner")
+    }
 }
