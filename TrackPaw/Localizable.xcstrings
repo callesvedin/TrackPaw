@@ -90,16 +90,6 @@
         }
       }
     },
-    "Comments:" : {
-      "localizations" : {
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kommentarer:"
-          }
-        }
-      }
-    },
     "Continue" : {
       "localizations" : {
         "sv" : {
@@ -191,7 +181,7 @@
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Är du säker på att du vill radera det här spåret? Denna åtgärd går inte att ångra."
           }
         }
@@ -234,19 +224,15 @@
         }
       }
     },
-    "Distance: %@" : {
-      "extractionState" : "stale",
+    "Dummy" : {
       "localizations" : {
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Längd: %@"
+            "value" : "Dummy"
           }
         }
       }
-    },
-    "Dummy" : {
-
     },
     "Finished tracks" : {
       "extractionState" : "migrated",
@@ -266,10 +252,6 @@
       }
     },
     "Follow track" : {
-
-    },
-    "Follow Track" : {
-      "extractionState" : "stale",
       "localizations" : {
         "sv" : {
           "stringUnit" : {
@@ -280,7 +262,14 @@
       }
     },
     "Initializing CloudKit Schema..." : {
-
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Initierar CloudKit Schemat…"
+          }
+        }
+      }
     },
     "laidStart" : {
       "extractionState" : "manual",
@@ -339,17 +328,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Längd:"
-          }
-        }
-      }
-    },
-    "Location tracking denied" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spårning ej tillåtet"
           }
         }
       }
@@ -424,17 +402,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dela spår"
-          }
-        }
-      }
-    },
-    "Show me the settings" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visa inställningarna"
           }
         }
       }
@@ -533,17 +500,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tid att spåra:"
-          }
-        }
-      }
-    },
-    "Time: %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tid: %@"
           }
         }
       }
