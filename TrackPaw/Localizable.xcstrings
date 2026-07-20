@@ -70,6 +70,26 @@
         }
       }
     },
+    "Location tracking denied" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spårning ej tillåtet"
+          }
+        }
+      }
+    },
+    "Show me the settings" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visa inställningarna"
+          }
+        }
+      }
+    },
     "Close" : {
       "localizations" : {
         "sv" : {
