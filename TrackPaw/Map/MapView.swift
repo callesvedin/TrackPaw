@@ -8,6 +8,7 @@
 import MapKit
 import SwiftUI
 import Combine
+import UIKit
 import os.log
 
 // Maybe use edge insets like https://medium.com/appcoda-tutorials/working-with-mapkit-and-annotation-for-swiftui-f7c30c4f0da6
@@ -106,6 +107,21 @@ struct MapView: View {
                 .navigationBarBackButtonHidden(true)
                 .ignoresSafeArea(.all)
                 .tint(.blue)
+                // Urges the user to grant tracking access when denied/restricted;
+                // "Show me the settings" deep-links to the app's Settings page.
+                .alert(
+                    "Location tracking denied",
+                    isPresented: $bindableModel.showLocationAlert
+                ) {
+                    Button("Show me the settings") {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    Button("Cancel", role: .cancel) { }
+                } message: {
+                    Text("allow.tracking.info")
+                }
             } else {
                 Color.clear
                     .onAppear {
