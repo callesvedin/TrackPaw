@@ -24,9 +24,9 @@ struct EditTrackView: View {
 
     var actionsMenu: some View {
         Menu {
-            Button {
-                showShareView(track: theTrack)
-            } label: {
+            ShareLink(item: TrackSharingService.shared
+                .makeTransferable(for: theTrack),
+                preview: SharePreview(theTrack.name)) {
                 Label("Share Track", systemImage: "square.and.arrow.up")
             }
 
@@ -118,10 +118,6 @@ struct EditTrackView: View {
                 }
             }
         }
-    }
-
-    private func showShareView(track: Track) {
-        PersistenceController.shared.presentCloudSharingController(track: track)
     }
 
     private func deleteTrack() {

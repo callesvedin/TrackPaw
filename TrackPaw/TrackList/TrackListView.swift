@@ -71,9 +71,9 @@ struct TrackListView: View {
                                     }
                                 )
                                 .swipeActions(allowsFullSwipe: false) {
-                                    Button {
-                                        showShareView(track: track)
-                                    } label: {
+                                    ShareLink(item: TrackSharingService.shared
+                                        .makeTransferable(for: track),
+                                        preview: SharePreview(track.name)) {
                                         Label("Share", systemImage: "square.and.arrow.up")
                                     }
                                     .tint(.green)
@@ -144,10 +144,6 @@ struct TrackListView: View {
         if !transactions.isEmpty {
             persistenceController.mergeTransactions(transactions, to: viewContext)
         }
-    }
-
-    private func showShareView(track: Track) {
-        PersistenceController.shared.presentCloudSharingController(track: track)
     }
 
     func deleteTrack(_ track: Track) {

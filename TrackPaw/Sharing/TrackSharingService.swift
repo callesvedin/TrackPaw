@@ -1,5 +1,6 @@
 import CloudKit
 import CoreData
+import CoreTransferable
 import Foundation
 import os.log
 
@@ -97,5 +98,53 @@ final class TrackSharingService: TrackSharing {
         guard let components = participant.userIdentity.nameComponents else { return nil }
         let name = PersonNameComponentsFormatter().string(from: components)
         return name.isEmpty ? nil : name
+    }
+}
+
+extension TrackSharingService {
+    /// Create (or reuse) a CKShare for the track. Wraps the completion-based
+    /// NSPersistentCloudKitContainer API so `ShareLink` can await it.
+    func prepareShare(for track: Track) async throws -> CKShare {
+        if let existing = share(for: track) { return existing }
+        return try await withCheckedThrowingContinuation { continuation in
+            controller.persistentContainer.share([track], to: nil) { _, share, _, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let share = share {
+                    share[CKShare.SystemFieldKey.title] = track.name as CKRecordValue
+                    self.invalidate()
+                    continuation.resume(returning: share)
+                } else {
+                    continuation.resume(throwing: CKError(.internalError))
+                }
+            }
+        }
+    }
+
+    func makeTransferable(for track: Track) -> TrackShareTransferable {
+        TrackShareTransferable(
+            existingShare: share(for: track),
+            container: controller.cloudKitContainer,
+            prepare: { [weak self] in
+                guard let self else { throw CKError(.internalError) }
+                return try await self.prepareShare(for: track)
+            })
+    }
+}
+
+struct TrackShareTransferable: Transferable {
+    let existingShare: CKShare?
+    let container: CKContainer
+    let prepare: () async throws -> CKShare
+
+    static var transferRepresentation: some TransferRepresentation {
+        CKShareTransferRepresentation { item in
+            if let share = item.existingShare {
+                return .existing(share, container: item.container)
+            }
+            return .prepareShare(container: item.container) {
+                try await item.prepare()
+            }
+        }
     }
 }
