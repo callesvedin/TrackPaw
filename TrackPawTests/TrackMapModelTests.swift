@@ -56,6 +56,7 @@ class TrackMapModelTests: XCTestCase {
         XCTAssertFalse(trackMapModel.gotUserLocation)
         XCTAssertFalse(trackMapModel.done)
         XCTAssertFalse(trackMapModel.showAccessDenied)
+        XCTAssertFalse(trackMapModel.showLocationAlert)
         XCTAssertEqual(trackMapModel.distance, 0)
         XCTAssertEqual(trackMapModel.accuracy, 0)
         XCTAssertTrue(trackMapModel.laidPath.isEmpty)
@@ -444,18 +445,37 @@ class TrackMapModelTests: XCTestCase {
         XCTAssertEqual(trackMapModel.locationAuthorizationStatus, .authorizedWhenInUse)
         XCTAssertTrue(trackMapModel.isTracking)
         XCTAssertFalse(trackMapModel.showAccessDenied)
+        XCTAssertFalse(trackMapModel.showLocationAlert)
     }
-    
+
     @MainActor
     func testLocationAuthorizationChange_Denied_ShowsAccessDenied() throws {
         trackMapModel = TrackMapModel(track: mockTrack)
-        
+
         trackMapModel.locationManager(LocationManager.shared, didChangeAuthorization: .denied)
-        
+
         XCTAssertEqual(trackMapModel.locationAuthorizationStatus, .denied)
         XCTAssertTrue(trackMapModel.showAccessDenied)
     }
-    
+
+    @MainActor
+    func testLocationAuthorizationChange_Denied_ShowsLocationAlert() throws {
+        trackMapModel = TrackMapModel(track: mockTrack)
+
+        trackMapModel.locationManager(LocationManager.shared, didChangeAuthorization: .denied)
+
+        XCTAssertTrue(trackMapModel.showLocationAlert)
+    }
+
+    @MainActor
+    func testLocationAuthorizationChange_Restricted_ShowsLocationAlert() throws {
+        trackMapModel = TrackMapModel(track: mockTrack)
+
+        trackMapModel.locationManager(LocationManager.shared, didChangeAuthorization: .restricted)
+
+        XCTAssertTrue(trackMapModel.showLocationAlert)
+    }
+
     @MainActor
     func testLocationAuthorizationChange_InPreviewMode_IgnoresChanges() throws {
         trackMapModel = TrackMapModel(track: mockTrack, preview: true)

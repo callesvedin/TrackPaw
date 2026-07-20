@@ -65,6 +65,9 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
     public var accuracy: Double = 0
     public var done: Bool = false
     public var showAccessDenied: Bool = false
+    // Drives the one-time permission alert; separate from showAccessDenied,
+    // which drives the persistent corner icon.
+    public var showLocationAlert: Bool = false
     public var mapAnnotations: [PathAnnotationKind] = []
 
     public var locationAuthorizationStatus: CLAuthorizationStatus = .notDetermined
@@ -129,6 +132,8 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
             LocationManager.shared.subscribe(self)
             if locationAuthorizationStatus == .denied || locationAuthorizationStatus == .restricted {
                 showAccessDenied = true
+                // No access at track start: also raise the permission alert.
+                showLocationAlert = true
             }
             if locationAuthorizationStatus == .notDetermined || locationAuthorizationStatus == .restricted {
                 LocationManager.shared.requestAlwaysAuthorization()
@@ -469,6 +474,8 @@ extension TrackMapModel {
             startTracking()
         case .denied, .restricted:
             showAccessDenied = true
+            // Access revoked/denied: raise the permission alert.
+            showLocationAlert = true
             Logger.mapView.info(
                 "LocationAuthorizationStatus prohibits tracking"
             )
