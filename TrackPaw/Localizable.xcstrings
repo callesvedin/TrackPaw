@@ -426,6 +426,46 @@
         }
       }
     },
+    "Shared" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delad"
+          }
+        }
+      }
+    },
+    "Shared by %@" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delad av %@"
+          }
+        }
+      }
+    },
+    "Shared with %@" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delad med %@"
+          }
+        }
+      }
+    },
+    "Shared with you" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delad med dig"
+          }
+        }
+      }
+    },
     "Show track" : {
       "localizations" : {
         "sv" : {

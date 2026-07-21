@@ -13,7 +13,6 @@ struct TrackCellView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.preferredColorPalette) private var palette
 
-    let persistenceController = PersistenceController.shared
     let deleteFunction: DeleteFunction
     var track: Track
     var waitingForShare = false
@@ -22,6 +21,10 @@ struct TrackCellView: View {
         GridItem(.flexible(maximum: 140)),
         GridItem(.flexible())
     ]
+
+    private var sharingInfo: TrackSharingInfo {
+        TrackSharingService.shared.sharingInfo(for: track)
+    }
 
     var body: some View {
         VStack {
@@ -48,12 +51,21 @@ struct TrackCellView: View {
                     }
                 }
                 Text("Difficulty: \(track.difficulty)")
-                if persistenceController.existingShare(track: track) != nil {
-                    Image(systemName: "person.3.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 20)
-                        .padding(.vertical, 4)
+                switch sharingInfo.status {
+                case .sharedByMe:
+                    Label(sharingInfo.participantNames.first
+                        .map { String(localized: "Shared with \($0)") }
+                        ?? String(localized: "Shared"),
+                        systemImage: "person.crop.circle.badge.checkmark")
+                case .sharedWithMe:
+                    Label(sharingInfo.ownerName
+                        .map { String(localized: "Shared by \($0)") }
+                        ?? String(localized: "Shared with you"),
+                        systemImage: "person.crop.circle.badge.plus")
+                        .foregroundStyle(
+                            track.getState() == .trailAdded ? palette.accent : palette.primaryText)
+                case .notShared:
+                    EmptyView()
                 }
             }.font(.body)
         }
