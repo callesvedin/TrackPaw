@@ -387,6 +387,21 @@ extension PersistenceController {
     }
 }
 
+extension PersistenceController {
+    /// Best-effort lookup of the `Track` a just-accepted share resolves to. Matches
+    /// by record zone since the imported track's own record id isn't known upfront;
+    /// call again on each `.cdcksStoreDidChange` until the CloudKit import lands.
+    func track(forShareRoot recordID: CKRecord.ID) -> Track? {
+        let request = Track.fetchRequest()
+        request.affectedStores = [sharedPersistentStore]
+        let tracks = (try? persistentContainer.viewContext.fetch(request)) ?? []
+        return tracks.first { track in
+            guard let shares = try? persistentContainer.fetchShares(matching: [track.objectID]) else { return false }
+            return shares.first?.value.recordID.zoneID == recordID.zoneID
+        }
+    }
+}
+
 extension CKShare.ParticipantAcceptanceStatus {
     var stringValue: String {
         return ["Unknown", "Pending", "Accepted", "Removed"][rawValue]
