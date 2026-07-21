@@ -4,9 +4,19 @@ import CoreData
 import os.log
 
 @available(iOS 14.0, *)
-class SyncMonitor {
+class SyncMonitor: ObservableObject {
     /// Where we store Combine cancellables for publishers we're listening to, e.g. NSPersistentCloudKitContainer's notifications.
     fileprivate var disposables = Set<AnyCancellable>()
+
+    /// A short, human-readable message for the most recent sync error worth surfacing to the user, or nil if none.
+    /// Always updated on the main queue so views can bind to it directly.
+    @Published var lastUserFacingError: String?
+
+    private func setUserFacingError(_ message: String) {
+        DispatchQueue.main.async {
+            self.lastUserFacingError = message
+        }
+    }
 
     fileprivate func logErrorCode(_ error: NSError) {
         // The nsError.domain is most likely `NSCocoaErrorDomain`
@@ -16,7 +26,9 @@ class SyncMonitor {
         case 134301: Logger.persistance.warning("NSError: 134301 ???")
         case 134400: Logger.persistance.warning("NSError: Not logged in to iCloud")
         case 134404: Logger.persistance.warning("NSError: Constraint conflict")
-        case 134405: Logger.persistance.warning("NSError: iCloud account changed")
+        case 134405:
+            Logger.persistance.warning("NSError: iCloud account changed")
+            setUserFacingError(String(localized: "Your iCloud account changed. Restart the app to keep syncing."))
         case 134407: Logger.persistance.warning("NSError: 134407 ???")
         case 134419: Logger.persistance.warning("NSError: Too much work to do")
         case 134421: Logger.persistance.warning("NSError: Unhandled exception")
@@ -65,12 +77,14 @@ class SyncMonitor {
         switch error.code {
         case .quotaExceeded:
             Logger.persistance.trace("CKError quotaExceeded")
+            setUserFacingError(String(localized: "iCloud storage is full. Free up space to keep syncing."))
         case .internalError:
             Logger.persistance.trace("CKError internalError")
         case .partialFailure:
             Logger.persistance.trace("CKError partialFailure")
         case .networkUnavailable:
             Logger.persistance.trace("CKError networkUnavailable")
+            setUserFacingError(String(localized: "No internet connection. Changes will sync when you're back online."))
         case .networkFailure:
             Logger.persistance.trace("CKError networkFailure")
         case .badContainer:
@@ -83,6 +97,7 @@ class SyncMonitor {
             Logger.persistance.trace("CKError missingEntitlement")
         case .notAuthenticated:
             Logger.persistance.trace("CKError notAuthenticated")
+            setUserFacingError(String(localized: "Sign in to iCloud to sync your tracks."))
         case .permissionFailure:
             Logger.persistance.trace("CKError permissionFailure")
         case .unknownItem:

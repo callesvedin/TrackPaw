@@ -763,6 +763,66 @@
           }
         }
       }
+    },
+    "Sign in to iCloud to share tracks." : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logga in på iCloud för att dela spår."
+          }
+        }
+      }
+    },
+    "Sign in to iCloud to sync your tracks." : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logga in på iCloud för att synka dina spår."
+          }
+        }
+      }
+    },
+    "iCloud storage is full. Free up space to keep syncing." : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud-lagringen är full. Frigör utrymme för att fortsätta synka."
+          }
+        }
+      }
+    },
+    "No internet connection. Changes will sync when you're back online." : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen internetanslutning. Ändringar synkas när du är uppkopplad igen."
+          }
+        }
+      }
+    },
+    "Your iCloud account changed. Restart the app to keep syncing." : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ditt iCloud-konto ändrades. Starta om appen för att fortsätta synka."
+          }
+        }
+      }
+    },
+    "Dismiss" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stäng"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

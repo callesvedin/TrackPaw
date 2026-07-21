@@ -35,6 +35,11 @@ class PersistenceController: NSObject, ObservableObject {
     var sharedTrack: Track?
     var trackShare: CKShare?
 
+    /// Whether the device is signed into an iCloud account. CloudKit sync and sharing both require this.
+    var isCloudAvailable: Bool {
+        FileManager.default.ubiquityIdentityToken != nil
+    }
+
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         CLLocationArrayTransformer.register()
         /**
@@ -153,12 +158,20 @@ class PersistenceController: NSObject, ObservableObject {
 
     private var _privatePersistentStore: NSPersistentStore?
     var privatePersistentStore: NSPersistentStore {
-        return _privatePersistentStore!
+        guard let store = _privatePersistentStore else {
+            Logger.persistance.error("\(#function): Private persistent store accessed before the Core Data stack finished loading.")
+            fatalError("Private persistent store accessed before the Core Data stack finished loading.")
+        }
+        return store
     }
 
     private var _sharedPersistentStore: NSPersistentStore?
     var sharedPersistentStore: NSPersistentStore {
-        return _sharedPersistentStore!
+        guard let store = _sharedPersistentStore else {
+            Logger.persistance.error("\(#function): Shared persistent store accessed before the Core Data stack finished loading.")
+            fatalError("Shared persistent store accessed before the Core Data stack finished loading.")
+        }
+        return store
     }
 
     lazy var cloudKitContainer: CKContainer = .init(identifier: gCloudKitContainerIdentifier)

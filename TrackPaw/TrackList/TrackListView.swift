@@ -14,6 +14,7 @@ struct TrackListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var environment: AppEnvironment
     @EnvironmentObject var coordinator: ViewCoordinator
+    @EnvironmentObject var syncMonitor: SyncMonitor
     @Environment(\.preferredColorPalette) private var palette
     @Environment(\.colorScheme) private var colorScheme
 
@@ -46,6 +47,63 @@ struct TrackListView: View {
     }
 
     var body: some View {
+        VStack(spacing: 0) {
+            banners
+            content
+        }
+        .foregroundColor(palette.primaryText)
+        .navigationTitle(LocalizedStringKey("Tracks"))
+        .overlay(alignment: .bottomTrailing) {
+            Button {
+                createNewTrack()
+            } label: {
+                Image(systemName: "plus")
+                    .font(.title2.weight(.semibold))
+                    .padding(6)
+            }
+            .buttonStyle(.glassProminent)
+            .buttonBorderShape(.circle)
+            .controlSize(.large)
+            .tint(palette.accent)
+            .padding(24)
+            .accessibilityLabel(Text("Add track"))
+        }
+        .onReceive(NotificationCenter.default.storeDidChangePublisher) { notification in
+            processStoreChangeNotification(notification)
+        }.preferredColorScheme(selectedScheme)
+    }
+
+    @ViewBuilder
+    private var banners: some View {
+        if !persistenceController.isCloudAvailable {
+            banner(Text("Sign in to iCloud to share tracks."))
+        }
+        if let message = syncMonitor.lastUserFacingError {
+            banner(Text(message), dismissAction: { syncMonitor.lastUserFacingError = nil })
+        }
+    }
+
+    @ViewBuilder
+    private func banner(_ text: Text, dismissAction: (() -> Void)? = nil) -> some View {
+        HStack {
+            text
+                .font(.footnote)
+            Spacer()
+            if let dismissAction {
+                Button(action: dismissAction) {
+                    Image(systemName: "xmark.circle.fill")
+                }
+                .accessibilityLabel(Text("Dismiss"))
+            }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background(palette.warning.opacity(0.15))
+        .foregroundColor(palette.primaryText)
+    }
+
+    @ViewBuilder
+    private var content: some View {
         ZStack {
             palette.mainBackground.ignoresSafeArea(.all)
             if tracks.isEmpty {
@@ -102,26 +160,6 @@ struct TrackListView: View {
                 }
             }
         }
-        .foregroundColor(palette.primaryText)
-        .navigationTitle(LocalizedStringKey("Tracks"))
-        .overlay(alignment: .bottomTrailing) {
-            Button {
-                createNewTrack()
-            } label: {
-                Image(systemName: "plus")
-                    .font(.title2.weight(.semibold))
-                    .padding(6)
-            }
-            .buttonStyle(.glassProminent)
-            .buttonBorderShape(.circle)
-            .controlSize(.large)
-            .tint(palette.accent)
-            .padding(24)
-            .accessibilityLabel(Text("Add track"))
-        }
-        .onReceive(NotificationCenter.default.storeDidChangePublisher) { notification in
-            processStoreChangeNotification(notification)
-        }.preferredColorScheme(selectedScheme)
     }
 
     private func createNewTrack() {
@@ -147,11 +185,21 @@ struct TrackListView: View {
 
     @ViewBuilder
     private func shareLink(for track: Track) -> some View {
-        ShareLink(item: TrackSharingService.shared.makeTransferable(for: track),
-                  preview: SharePreview(track.name)) {
-            Label("Share", systemImage: "square.and.arrow.up")
+        if persistenceController.isCloudAvailable {
+            ShareLink(item: TrackSharingService.shared.makeTransferable(for: track),
+                      preview: SharePreview(track.name)) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+            .tint(.green)
+        } else {
+            Button {
+                // No-op: sharing requires iCloud, disabled below.
+            } label: {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+            .tint(.gray)
+            .disabled(true)
         }
-        .tint(.green)
     }
 }
 

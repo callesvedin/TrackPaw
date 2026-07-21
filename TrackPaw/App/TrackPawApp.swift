@@ -10,7 +10,7 @@ import os
 
 @main
 struct TrackPawApp: App {
-    let syncMonitor = SyncMonitor()
+    @StateObject private var syncMonitor = SyncMonitor()
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
     private let persistentContainer = PersistenceController.shared
         .persistentContainer
@@ -65,6 +65,7 @@ struct TrackPawApp: App {
                     .environment(\.preferredColorPalette, environment.palette)
                     .environmentObject(environment)
                     .environmentObject(coordinator)
+                    .environmentObject(syncMonitor)
                     .onChange(of: coordinator.path) { _, newValue in
                         Logger.trackPawApp.debug(
                             "Coordinator changed path count:\(newValue.count)"
