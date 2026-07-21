@@ -30,10 +30,23 @@ struct EditTrackView: View {
                 Label("Share Track", systemImage: "square.and.arrow.up")
             }
 
-            Button(role: .destructive) {
-                showingDeleteAlert = true
-            } label: {
-                Label("Delete Track", systemImage: "trash")
+            if TrackSharingService.shared
+                .sharingInfo(for: theTrack).canEditMetadata {
+                Button(role: .destructive) {
+                    showingDeleteAlert = true
+                } label: {
+                    Label("Delete Track", systemImage: "trash")
+                }
+            } else {
+                Button(role: .destructive) {
+                    Task {
+                        try? await TrackSharingService.shared
+                            .removeSelf(from: theTrack)
+                        dismiss()
+                    }
+                } label: {
+                    Label("Remove me from shared track", systemImage: "person.badge.minus")
+                }
             }
         } label: {
             Image(systemName: "ellipsis.circle")
@@ -77,7 +90,9 @@ struct EditTrackView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
             }
-            FieldsView(theTrack: theTrack)
+            FieldsView(theTrack: theTrack,
+                       canEdit: TrackSharingService.shared
+                        .sharingInfo(for: theTrack).canEditMetadata)
                 .listRowBackground(palette.midBackground)
         }
         .scrollContentBackground(.hidden)
@@ -128,11 +143,13 @@ struct EditTrackView: View {
 
 struct FieldsView: View {
     @ObservedObject var theTrack: Track
+    var canEdit: Bool = true
 
     var body: some View {
         Section("Name") {
             TextField("Name", text: $theTrack.name)
                 .font(.title2)
+                .disabled(!canEdit)
         }
 
         Section {
@@ -154,6 +171,7 @@ struct FieldsView: View {
             )
             LabeledContent("Difficulty:") {
                 DifficultyView(difficulty: $theTrack.difficulty)
+                    .disabled(!canEdit)
             }
             LabeledContent(
                 "Track rested:",
@@ -171,6 +189,15 @@ struct FieldsView: View {
 
         Section("Comments") {
             TextField("Comments", text: $theTrack.comments, axis: .vertical)
+                .lineLimit(3...6)
+                .disabled(!canEdit)
+        }
+
+        Section("Your feedback") {
+            TextField("Feedback", text: Binding(
+                get: { theTrack.trackerComments ?? "" },
+                set: { theTrack.trackerComments = $0 }),
+                axis: .vertical)
                 .lineLimit(3...6)
         }
     }

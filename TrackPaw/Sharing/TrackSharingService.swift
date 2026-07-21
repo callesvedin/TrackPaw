@@ -137,6 +137,17 @@ extension TrackSharingService {
     }
 }
 
+extension TrackSharingService {
+    /// Participant leaves a share: purge the local copy in the shared store.
+    /// The owner's track is untouched.
+    func removeSelf(from track: Track) async throws {
+        guard let share = share(for: track) else { return }
+        _ = try await controller.persistentContainer.purgeObjectsAndRecordsInZone(
+            with: share.recordID.zoneID, in: controller.sharedPersistentStore)
+        invalidate()
+    }
+}
+
 struct TrackShareTransferable: Transferable {
     let existingShare: CKShare?
     let container: CKContainer

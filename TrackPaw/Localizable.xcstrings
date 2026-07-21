@@ -254,6 +254,16 @@
         }
       }
     },
+    "Feedback" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback"
+          }
+        }
+      }
+    },
     "Finished tracks" : {
       "extractionState" : "migrated",
       "localizations" : {
@@ -385,6 +395,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pausa"
+          }
+        }
+      }
+    },
+    "Remove me from shared track" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta bort mig från delat spår"
           }
         }
       }
@@ -654,6 +674,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Du har inte några spår"
+          }
+        }
+      }
+    },
+    "Your feedback" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din feedback"
           }
         }
       }
