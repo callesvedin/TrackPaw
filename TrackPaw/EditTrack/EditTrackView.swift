@@ -34,10 +34,19 @@ struct EditTrackView: View {
 
     var actionsMenu: some View {
         Menu {
-            ShareLink(item: TrackSharingService.shared
-                .makeTransferable(for: theTrack),
-                preview: SharePreview(theTrack.name)) {
-                Label("Share Track", systemImage: "square.and.arrow.up")
+            if persistanceController.isCloudAvailable {
+                ShareLink(item: TrackSharingService.shared
+                    .makeTransferable(for: theTrack),
+                    preview: SharePreview(theTrack.name)) {
+                    Label("Share Track", systemImage: "square.and.arrow.up")
+                }
+            } else {
+                Button {
+                    // No-op: sharing requires iCloud, disabled below.
+                } label: {
+                    Label("Share Track", systemImage: "square.and.arrow.up")
+                }
+                .disabled(true)
             }
 
             if canEditMetadata {
