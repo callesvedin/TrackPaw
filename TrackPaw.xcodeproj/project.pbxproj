@@ -90,8 +90,6 @@
 		EBB85EF229CA19F40058E0B5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB85EF129CA19F40058E0B5 /* Logger.swift */; };
 		EBB85EF429CA22AD0058E0B5 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */; };
 		EBB85EF529CA22AD0058E0B5 /* ValueTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */; };
-		EBC01F4629D048B300693A5F /* NSManagedObject+Clone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC01F4529D048B300693A5F /* NSManagedObject+Clone.swift */; };
-		EBC01F4729D048B300693A5F /* NSManagedObject+Clone.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC01F4529D048B300693A5F /* NSManagedObject+Clone.swift */; };
 		EBC1BF0C2E204DA6005525D6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC1BF0B2E204DA6005525D6 /* LocationManager.swift */; };
 		EBC1BF0D2E204DA6005525D6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC1BF0B2E204DA6005525D6 /* LocationManager.swift */; };
 		EBC6BBE029D8B64000093EF4 /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6BBDF29D8B64000093EF4 /* ViewCoordinator.swift */; };
@@ -173,7 +171,6 @@
 		EBB11B8A29B47935008EE889 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		EBB85EF129CA19F40058E0B5 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueTransformers.swift; sourceTree = "<group>"; };
-		EBC01F4529D048B300693A5F /* NSManagedObject+Clone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Clone.swift"; sourceTree = "<group>"; };
 		EBC1BF0B2E204DA6005525D6 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		EBC6BBDF29D8B64000093EF4 /* ViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
 		EBCB4816266762F800E5631C /* TrackPaw.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackPaw.xcdatamodel; sourceTree = "<group>"; };
@@ -357,7 +354,6 @@
 				EB352C89278CEB0D0015AC5A /* Entities */,
 				EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */,
 				EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */,
-				EBC01F4529D048B300693A5F /* NSManagedObject+Clone.swift */,
 			);
 			path = Persistance;
 			sourceTree = "<group>";
@@ -610,7 +606,6 @@
 				EBA6D5B5296B6266000579FC /* CoreDataHelper.swift in Sources */,
 				EBC1BF0D2E204DA6005525D6 /* LocationManager.swift in Sources */,
 				EB05E19526277868002941B6 /* PathAnnotation.swift in Sources */,
-				EBC01F4629D048B300693A5F /* NSManagedObject+Clone.swift in Sources */,
 				EB5688E0269C304000AF9AB1 /* TrackCellView.swift in Sources */,
 				EBA6D5B9296B6325000579FC /* PersistenceController+Track.swift in Sources */,
 				EBA6D5B7296B6266000579FC /* PersistenceController+History.swift in Sources */,
@@ -693,7 +688,6 @@
 				EBA6D5E1296B6738000579FC /* Color.swift in Sources */,
 				EBA6D5E2296B6738000579FC /* DifficultyView.swift in Sources */,
 				EBA6D5E4296B6738000579FC /* SyncMonitor.swift in Sources */,
-				EBC01F4729D048B300693A5F /* NSManagedObject+Clone.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

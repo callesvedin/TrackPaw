@@ -30,8 +30,6 @@ struct TrackListView: View {
     private var tracks: SectionedFetchResults<Int16, Track>
     private let persistenceController = PersistenceController.shared
 
-    @State private var waitingForShareId: UUID?
-
     @AppStorage("systemTheme") private var systemTheme: Int = SchemeType.allCases.first!.rawValue
 
     private var selectedScheme: ColorScheme? {
@@ -124,8 +122,7 @@ struct TrackListView: View {
                                     label: {
                                         TrackCellView(
                                             deleteFunction: deleteTrack,
-                                            track: track,
-                                            waitingForShare: track.id == waitingForShareId)
+                                            track: track)
                                     }
                                 )
                                 .swipeActions(allowsFullSwipe: false) {

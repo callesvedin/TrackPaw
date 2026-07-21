@@ -15,7 +15,6 @@ struct TrackCellView: View {
 
     let deleteFunction: DeleteFunction
     var track: Track
-    var waitingForShare = false
 
     let columns = [
         GridItem(.flexible(maximum: 140)),
@@ -72,9 +71,6 @@ struct TrackCellView: View {
         .padding(.vertical, 10)
         .font(.caption)
         .background(palette.midBackground)
-        .overlay {
-            ProgressView().opacity(waitingForShare ? 1 : 0)
-        }
     }
 
     private let itemFormatter: DateFormatter = {

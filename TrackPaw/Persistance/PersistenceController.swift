@@ -31,9 +31,6 @@ enum TransactionAuthor {
 
 class PersistenceController: NSObject, ObservableObject {
     static let shared = PersistenceController()
-    
-    var sharedTrack: Track?
-    var trackShare: CKShare?
 
     /// Whether the device is signed into an iCloud account. CloudKit sync and sharing both require this.
     var isCloudAvailable: Bool {
