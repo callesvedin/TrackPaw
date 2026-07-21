@@ -33,6 +33,16 @@
         }
       }
     },
+    "a friend" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en vän"
+          }
+        }
+      }
+    },
     "Add track" : {
       "localizations" : {
         "sv" : {
@@ -633,6 +643,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tid spåret legat:"
+          }
+        }
+      }
+    },
+    "Tracked by" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spårat av"
+          }
+        }
+      }
+    },
+    "Tracker feedback" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spårarens feedback"
+          }
+        }
+      }
+    },
+    "Tracking result" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spårningsresultat"
           }
         }
       }

@@ -24,8 +24,12 @@ struct EditTrackView: View {
         theTrack = track
     }
 
+    private var sharingInfo: TrackSharingInfo {
+        TrackSharingService.shared.sharingInfo(for: theTrack)
+    }
+
     private var canEditMetadata: Bool {
-        TrackSharingService.shared.sharingInfo(for: theTrack).canEditMetadata
+        sharingInfo.canEditMetadata
     }
 
     var actionsMenu: some View {
@@ -99,7 +103,7 @@ struct EditTrackView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
             }
-            FieldsView(theTrack: theTrack, canEdit: canEditMetadata)
+            FieldsView(theTrack: theTrack, canEdit: canEditMetadata, sharingInfo: sharingInfo)
                 .listRowBackground(palette.midBackground)
         }
         .scrollContentBackground(.hidden)
@@ -156,6 +160,7 @@ struct EditTrackView: View {
 struct FieldsView: View {
     @ObservedObject var theTrack: Track
     var canEdit: Bool = true
+    var sharingInfo: TrackSharingInfo = .notShared
 
     var body: some View {
         Section("Name") {
@@ -215,6 +220,17 @@ struct FieldsView: View {
                 set: { theTrack.trackerComments = $0 }),
                 axis: .vertical)
                 .lineLimit(3...6)
+        }
+
+        if sharingInfo.status == .sharedByMe, theTrack.getState() == .trailTracked {
+            Section("Tracking result") {
+                LabeledContent("Tracked by",
+                    value: sharingInfo.participantNames.first
+                        ?? String(localized: "a friend"))
+                if let feedback = theTrack.trackerComments, !feedback.isEmpty {
+                    LabeledContent("Tracker feedback", value: feedback)
+                }
+            }
         }
     }
 
