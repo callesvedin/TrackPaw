@@ -93,6 +93,7 @@ struct EditTrackView: View {
     }
 
     var body: some View {
+        let info = sharingInfo
         Form {
             Section {
                 MapView(track: theTrack, preview: true, showButtons: false)
@@ -103,7 +104,7 @@ struct EditTrackView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
             }
-            FieldsView(theTrack: theTrack, canEdit: canEditMetadata, sharingInfo: sharingInfo)
+            FieldsView(theTrack: theTrack, canEdit: info.canEditMetadata, sharingInfo: info)
                 .listRowBackground(palette.midBackground)
         }
         .scrollContentBackground(.hidden)
