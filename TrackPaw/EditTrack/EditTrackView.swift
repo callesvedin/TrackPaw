@@ -8,6 +8,7 @@
 import CloudKit
 import CoreData
 import SwiftUI
+import os.log
 
 struct EditTrackView: View {
     @Environment(\.dismiss) var dismiss
@@ -15,11 +16,16 @@ struct EditTrackView: View {
     @EnvironmentObject var coordinator: ViewCoordinator
     @ObservedObject var theTrack: Track
     @State private var showingDeleteAlert = false
+    @State private var showRemoveError = false
     @State private var mapRefreshTrigger = 0
     private var persistanceController = PersistenceController.shared
 
     init(_ track: Track) {
         theTrack = track
+    }
+
+    private var canEditMetadata: Bool {
+        TrackSharingService.shared.sharingInfo(for: theTrack).canEditMetadata
     }
 
     var actionsMenu: some View {
@@ -30,8 +36,7 @@ struct EditTrackView: View {
                 Label("Share Track", systemImage: "square.and.arrow.up")
             }
 
-            if TrackSharingService.shared
-                .sharingInfo(for: theTrack).canEditMetadata {
+            if canEditMetadata {
                 Button(role: .destructive) {
                     showingDeleteAlert = true
                 } label: {
@@ -40,9 +45,13 @@ struct EditTrackView: View {
             } else {
                 Button(role: .destructive) {
                     Task {
-                        try? await TrackSharingService.shared
-                            .removeSelf(from: theTrack)
-                        dismiss()
+                        do {
+                            try await TrackSharingService.shared.removeSelf(from: theTrack)
+                            dismiss()
+                        } catch {
+                            Logger.sharing.error("\(#function): Failed to remove self from share: \(error)")
+                            showRemoveError = true
+                        }
                     }
                 } label: {
                     Label("Remove me from shared track", systemImage: "person.badge.minus")
@@ -90,9 +99,7 @@ struct EditTrackView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
             }
-            FieldsView(theTrack: theTrack,
-                       canEdit: TrackSharingService.shared
-                        .sharingInfo(for: theTrack).canEditMetadata)
+            FieldsView(theTrack: theTrack, canEdit: canEditMetadata)
                 .listRowBackground(palette.midBackground)
         }
         .scrollContentBackground(.hidden)
@@ -122,6 +129,11 @@ struct EditTrackView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(String(localized: "delete.confirmation"))
+        }
+        .alert("Couldn't leave shared track", isPresented: $showRemoveError) {
+            Button("OK") {}
+        } message: {
+            Text(String(localized: "remove.self.error"))
         }
         .onAppear {
             mapRefreshTrigger += 1

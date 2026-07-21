@@ -120,6 +120,16 @@
         }
       }
     },
+    "Couldn't leave shared track" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunde inte lämna delat spår"
+          }
+        }
+      }
+    },
     "Create track" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -389,6 +399,16 @@
         }
       }
     },
+    "OK" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
     "Pause" : {
       "localizations" : {
         "sv" : {
@@ -405,6 +425,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ta bort mig från delat spår"
+          }
+        }
+      }
+    },
+    "remove.self.error" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong. Please try again."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Något gick fel. Försök igen."
           }
         }
       }
