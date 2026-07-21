@@ -172,6 +172,10 @@ struct FieldsView: View {
             LabeledContent("Difficulty:") {
                 DifficultyView(difficulty: $theTrack.difficulty)
                     .disabled(!canEdit)
+                    // DifficultyView taps its own onTapGesture, which .disabled()
+                    // doesn't block on its own — allowsHitTesting does.
+                    .allowsHitTesting(canEdit)
+                    .opacity(canEdit ? 1 : 0.4)
             }
             LabeledContent(
                 "Track rested:",
