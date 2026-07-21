@@ -215,12 +215,14 @@ struct FieldsView: View {
                 .disabled(!canEdit)
         }
 
-        Section("Your feedback") {
-            TextField("Feedback", text: Binding(
-                get: { theTrack.trackerComments ?? "" },
-                set: { theTrack.trackerComments = $0 }),
-                axis: .vertical)
-                .lineLimit(3...6)
+        if !canEdit {
+            Section("Your feedback") {
+                TextField("Feedback", text: Binding(
+                    get: { theTrack.trackerComments ?? "" },
+                    set: { theTrack.trackerComments = $0 }),
+                    axis: .vertical)
+                    .lineLimit(3...6)
+            }
         }
 
         if sharingInfo.status == .sharedByMe, theTrack.getState() == .trailTracked {
