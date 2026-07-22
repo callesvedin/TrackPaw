@@ -132,6 +132,7 @@ struct TrackListView: View {
                                     } label: {
                                         Label("Delete", systemImage: "trash.fill")
                                     }
+                                    .tint(.red)
                                 }
                             }
                         }
