@@ -34,21 +34,6 @@ struct EditTrackView: View {
 
     var actionsMenu: some View {
         Menu {
-            if persistanceController.isCloudAvailable {
-                ShareLink(item: TrackSharingService.shared
-                    .makeTransferable(for: theTrack),
-                    preview: SharePreview(theTrack.name)) {
-                    Label("Share Track", systemImage: "square.and.arrow.up")
-                }
-            } else {
-                Button {
-                    // No-op: sharing requires iCloud, disabled below.
-                } label: {
-                    Label("Share Track", systemImage: "square.and.arrow.up")
-                }
-                .disabled(true)
-            }
-
             if canEditMetadata {
                 Button(role: .destructive) {
                     showingDeleteAlert = true
@@ -123,6 +108,19 @@ struct EditTrackView: View {
                 showMapViewButton
                     .buttonStyle(.glassProminent)
                     .tint(palette.accent)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if persistanceController.isCloudAvailable {
+                    ShareLink(
+                        item: TrackSharingService.shared.makeTransferable(for: theTrack),
+                        preview: SharePreview(theTrack.name)
+                    ) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                } else {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundStyle(.secondary)
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 actionsMenu.foregroundStyle(palette.link)

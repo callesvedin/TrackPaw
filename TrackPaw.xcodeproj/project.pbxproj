@@ -13,6 +13,7 @@
 		70343928DE37ECE12C263FAD /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
 		71C5D0101F0DB08B9E15198A /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
 		A47D76AB2FF4BD5452DB8756 /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
+		B7A44C63A697B323CE72FCEF /* ShareTrackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AB63D79354054706C595D3 /* ShareTrackSheet.swift */; };
 		D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2020FC0563357CA9478BE36 /* TrackSharingService.swift */; };
 		EB05E19526277868002941B6 /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
 		EB10D38C2E31517C00B59BDE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBB11B8A29B47935008EE889 /* Settings.bundle */; };
@@ -125,6 +126,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19AB63D79354054706C595D3 /* ShareTrackSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ShareTrackSheet.swift; sourceTree = "<group>"; };
 		8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingInfo.swift; sourceTree = "<group>"; };
 		9FA68D1157AA4471591646DF /* CloudAvailabilityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudAvailabilityTests.swift; sourceTree = "<group>"; };
 		A2020FC0563357CA9478BE36 /* TrackSharingService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingService.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			children = (
 				8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */,
 				A2020FC0563357CA9478BE36 /* TrackSharingService.swift */,
+				19AB63D79354054706C595D3 /* ShareTrackSheet.swift */,
 			);
 			name = Sharing;
 			path = Sharing;
@@ -632,6 +635,7 @@
 				578DDC1CE2DDD4F865FD74CA /* TrackSharingInfo.swift in Sources */,
 				D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */,
 				A47D76AB2FF4BD5452DB8756 /* CKAccountStatus+Availability.swift in Sources */,
+				B7A44C63A697B323CE72FCEF /* ShareTrackSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

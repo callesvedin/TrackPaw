@@ -31,6 +31,7 @@ struct TrackListView: View {
     @ObservedObject private var persistenceController = PersistenceController.shared
 
     @AppStorage("systemTheme") private var systemTheme: Int = SchemeType.allCases.first!.rawValue
+    @State private var trackToShare: Track?
 
     private var selectedScheme: ColorScheme? {
         guard let theme = SchemeType(rawValue: systemTheme) else { return nil }
@@ -126,7 +127,14 @@ struct TrackListView: View {
                                     }
                                 )
                                 .swipeActions(allowsFullSwipe: false) {
-                                    shareLink(for: track)
+                                    if persistenceController.isCloudAvailable {
+                                        Button {
+                                            trackToShare = track
+                                        } label: {
+                                            Label("Share", systemImage: "square.and.arrow.up")
+                                        }
+                                        .tint(.green)
+                                    }
                                     Button(role: .destructive) {
                                         deleteTrack(track)
                                     } label: {
@@ -141,6 +149,9 @@ struct TrackListView: View {
                     .listRowBackground(palette.midBackground)
                 }
                 .listStyle(.automatic)
+                .sheet(item: $trackToShare) { track in
+                    ShareTrackSheet(track: track)
+                }
                 .hideScroll()
                 .navigationDestination(for: Destination.self) { destination in
                     switch destination {
@@ -179,25 +190,6 @@ struct TrackListView: View {
 
     func deleteTrack(_ track: Track) {
         PersistenceController.shared.delete(track: track)
-    }
-
-    @ViewBuilder
-    private func shareLink(for track: Track) -> some View {
-        if persistenceController.isCloudAvailable {
-            ShareLink(item: TrackSharingService.shared.makeTransferable(for: track),
-                      preview: SharePreview(track.name)) {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-            .tint(.green)
-        } else {
-            Button {
-                // No-op: sharing requires iCloud, disabled below.
-            } label: {
-                Label("Share", systemImage: "square.and.arrow.up")
-            }
-            .tint(.gray)
-            .disabled(true)
-        }
     }
 }
 
