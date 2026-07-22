@@ -468,7 +468,7 @@ extension TrackMapModel {
                 "Status not determined. Requesting authorization"
             )
             showAccessDenied = false
-            LocationManager.shared.requestAlwaysAuthorization()
+            LocationManager.shared.requestWhenInUseAuthorization()
         case .authorizedWhenInUse:
             showAccessDenied = false
             LocationManager.shared.requestAlwaysAuthorization()
