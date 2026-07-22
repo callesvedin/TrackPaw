@@ -18,7 +18,7 @@ struct EditTrackView: View {
     @State private var showingDeleteAlert = false
     @State private var showRemoveError = false
     @State private var mapRefreshTrigger = 0
-    private var persistanceController = PersistenceController.shared
+    @ObservedObject private var persistanceController = PersistenceController.shared
 
     init(_ track: Track) {
         theTrack = track

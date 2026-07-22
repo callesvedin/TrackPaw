@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18F2820C086246BA93A031EC /* CloudAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68D1157AA4471591646DF /* CloudAvailabilityTests.swift */; };
 		578DDC1CE2DDD4F865FD74CA /* TrackSharingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */; };
 		5938FA24C59D0CE654699F3E /* TrackSharingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */; };
+		70343928DE37ECE12C263FAD /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
+		71C5D0101F0DB08B9E15198A /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
+		A47D76AB2FF4BD5452DB8756 /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
 		D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2020FC0563357CA9478BE36 /* TrackSharingService.swift */; };
 		EB05E19526277868002941B6 /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
 		EB10D38C2E31517C00B59BDE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBB11B8A29B47935008EE889 /* Settings.bundle */; };
@@ -122,7 +126,9 @@
 
 /* Begin PBXFileReference section */
 		8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingInfo.swift; sourceTree = "<group>"; };
+		9FA68D1157AA4471591646DF /* CloudAvailabilityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudAvailabilityTests.swift; sourceTree = "<group>"; };
 		A2020FC0563357CA9478BE36 /* TrackSharingService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingService.swift; sourceTree = "<group>"; };
+		BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CKAccountStatus+Availability.swift"; sourceTree = "<group>"; };
 		D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingTests.swift; sourceTree = "<group>"; };
 		EB05E19426277868002941B6 /* PathAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathAnnotation.swift; sourceTree = "<group>"; };
 		EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -312,6 +318,7 @@
 				EB87251E260CC0C5008AD8E7 /* TrackPawTests.swift */,
 				EB872520260CC0C5008AD8E7 /* Info.plist */,
 				D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */,
+				9FA68D1157AA4471591646DF /* CloudAvailabilityTests.swift */,
 			);
 			path = TrackPawTests;
 			sourceTree = "<group>";
@@ -354,6 +361,7 @@
 				EB352C89278CEB0D0015AC5A /* Entities */,
 				EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */,
 				EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */,
+				BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */,
 			);
 			path = Persistance;
 			sourceTree = "<group>";
@@ -623,6 +631,7 @@
 				EBA842C528702F0C0061C338 /* SyncMonitor.swift in Sources */,
 				578DDC1CE2DDD4F865FD74CA /* TrackSharingInfo.swift in Sources */,
 				D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */,
+				A47D76AB2FF4BD5452DB8756 /* CKAccountStatus+Availability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +654,8 @@
 				EB67AC892E30C7C500B925EA /* Logger.swift in Sources */,
 				EB67AC8B2E30C8DF00B925EA /* PersistenceController.swift in Sources */,
 				5938FA24C59D0CE654699F3E /* TrackSharingTests.swift in Sources */,
+				18F2820C086246BA93A031EC /* CloudAvailabilityTests.swift in Sources */,
+				70343928DE37ECE12C263FAD /* CKAccountStatus+Availability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +699,7 @@
 				EBA6D5E1296B6738000579FC /* Color.swift in Sources */,
 				EBA6D5E2296B6738000579FC /* DifficultyView.swift in Sources */,
 				EBA6D5E4296B6738000579FC /* SyncMonitor.swift in Sources */,
+				71C5D0101F0DB08B9E15198A /* CKAccountStatus+Availability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

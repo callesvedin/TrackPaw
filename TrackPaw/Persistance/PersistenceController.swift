@@ -29,12 +29,32 @@ enum TransactionAuthor {
     static let app = "app"
 }
 
+/// Thin file-scope wrapper around `isCloudAvailable(from:)`. `PersistenceController`
+/// declares a property of the same name, which shadows the free function within the
+/// class's own scope; calling through this wrapper (defined outside the class) avoids
+/// that name collision.
+private func cloudAvailability(for status: CKAccountStatus) -> Bool {
+    isCloudAvailable(from: status)
+}
+
 class PersistenceController: NSObject, ObservableObject {
     static let shared = PersistenceController()
 
-    /// Whether the device is signed into an iCloud account. CloudKit sync and sharing both require this.
-    var isCloudAvailable: Bool {
-        FileManager.default.ubiquityIdentityToken != nil
+    /// Whether the iCloud account is available for CloudKit. Defaults to `true`
+    /// so the Share UI isn't gated during the brief async check on launch;
+    /// `refreshCloudAvailability()` corrects it from `CKContainer.accountStatus`.
+    @Published private(set) var isCloudAvailable: Bool = true
+
+    /// Refresh `isCloudAvailable` from the CloudKit account status. Safe to call
+    /// repeatedly; publishes on the main actor.
+    func refreshCloudAvailability() {
+        cloudKitContainer.accountStatus { [weak self] status, error in
+            if let error = error {
+                Logger.persistance.error("\(#function): accountStatus error: \(error)")
+            }
+            let available = cloudAvailability(for: status)
+            DispatchQueue.main.async { self?.isCloudAvailable = available }
+        }
     }
 
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
@@ -149,6 +169,12 @@ class PersistenceController: NSObject, ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(containerEventChanged(_:)),
                                                name: NSPersistentCloudKitContainer.eventChangedNotification,
                                                object: container)
+        NotificationCenter.default.addObserver(
+            forName: .CKAccountChanged, object: nil, queue: .main
+        ) { [weak self] _ in
+            self?.refreshCloudAvailability()
+        }
+        DispatchQueue.main.async { [weak self] in self?.refreshCloudAvailability() }
         #endif
         return container
     }()

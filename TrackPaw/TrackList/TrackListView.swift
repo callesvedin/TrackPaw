@@ -28,7 +28,7 @@ struct TrackListView: View {
         animation: Animation.default
     )
     private var tracks: SectionedFetchResults<Int16, Track>
-    private let persistenceController = PersistenceController.shared
+    @ObservedObject private var persistenceController = PersistenceController.shared
 
     @AppStorage("systemTheme") private var systemTheme: Int = SchemeType.allCases.first!.rawValue
 
