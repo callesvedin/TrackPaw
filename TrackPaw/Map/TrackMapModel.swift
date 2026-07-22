@@ -135,8 +135,8 @@ class TrackMapModel: NSObject, LocationManagerDelegate {
                 // No access at track start: also raise the permission alert.
                 showLocationAlert = true
             }
-            if locationAuthorizationStatus == .notDetermined || locationAuthorizationStatus == .restricted {
-                LocationManager.shared.requestAlwaysAuthorization()
+            if locationAuthorizationStatus == .notDetermined {
+                LocationManager.shared.requestWhenInUseAuthorization()
             }
         } else {
             Logger.mapView.debug(
@@ -469,7 +469,11 @@ extension TrackMapModel {
             )
             showAccessDenied = false
             LocationManager.shared.requestAlwaysAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
+        case .authorizedWhenInUse:
+            showAccessDenied = false
+            LocationManager.shared.requestAlwaysAuthorization()
+            startTracking()
+        case .authorizedAlways:
             showAccessDenied = false
             startTracking()
         case .denied, .restricted:

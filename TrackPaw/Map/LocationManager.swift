@@ -97,6 +97,10 @@ public class LocationManager: NSObject, ObservableObject {
     public func requestAlwaysAuthorization() {
         locationManager.requestAlwaysAuthorization()
     }
+
+    public func requestWhenInUseAuthorization() {
+        locationManager.requestWhenInUseAuthorization()
+    }
     
     private func startLocationTracking() {
         guard !isTracking else { return }
