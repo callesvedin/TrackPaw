@@ -156,9 +156,11 @@ struct TrackShareTransferable: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         CKShareTransferRepresentation { item in
             if let share = item.existingShare {
-                return .existing(share, container: item.container)
+                return .existing(share, container: item.container,
+                                 allowedSharingOptions: .standard)
             }
-            return .prepareShare(container: item.container) {
+            return .prepareShare(container: item.container,
+                                 allowedSharingOptions: .standard) {
                 try await item.prepare()
             }
         }
