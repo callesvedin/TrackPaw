@@ -94,7 +94,13 @@ public class LocationManager: NSObject, ObservableObject {
         delegates.removeAll { $0.delegate == nil }
     }
     
+    /// Guards against re-requesting on every MapView open: the When-In-Use ->
+    /// Always escalation fires once per app session (iOS won't re-prompt once
+    /// the user has decided anyway).
+    private var hasRequestedAlways = false
     public func requestAlwaysAuthorization() {
+        guard !hasRequestedAlways else { return }
+        hasRequestedAlways = true
         locationManager.requestAlwaysAuthorization()
     }
 

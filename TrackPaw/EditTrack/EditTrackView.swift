@@ -117,9 +117,11 @@ struct EditTrackView: View {
                     ) {
                         Image(systemName: "square.and.arrow.up")
                     }
+                    .accessibilityLabel(Text("Share Track"))
                 } else {
                     Image(systemName: "square.and.arrow.up")
                         .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
