@@ -105,21 +105,31 @@ extension TrackSharingService {
     /// Create (or reuse) a CKShare for the track. Wraps the completion-based
     /// NSPersistentCloudKitContainer API so `ShareLink` can await it.
     func prepareShare(for track: Track) async throws -> CKShare {
-        if let existing = share(for: track) { return existing }
+        Logger.sharing.debug("DIAG-SHARE: prepareShare ENTER for \(track.name)")
+        if let existing = share(for: track) {
+            Logger.sharing.debug("DIAG-SHARE: prepareShare returning EXISTING share")
+            return existing
+        }
         return try await withCheckedThrowingContinuation { continuation in
+            Logger.sharing.debug("DIAG-SHARE: calling persistentContainer.share([track], to: nil)")
             controller.persistentContainer.share([track], to: nil) { _, share, _, error in
                 if let error = error {
+                    Logger.sharing.error("DIAG-SHARE: share() completion ERROR: \(error)")
                     continuation.resume(throwing: error)
                 } else if let share = share {
+                    Logger.sharing.debug("DIAG-SHARE: share() completion SUCCESS, got CKShare; persisting title")
                     share[CKShare.SystemFieldKey.title] = track.name as CKRecordValue
                     self.controller.persistentContainer.persistUpdatedShare(share, in: self.controller.privatePersistentStore) { persisted, persistError in
                         if let persistError = persistError {
-                            Logger.sharing.error("\(#function): Failed to persist share title: \(persistError)")
+                            Logger.sharing.error("DIAG-SHARE: persistUpdatedShare ERROR: \(persistError)")
+                        } else {
+                            Logger.sharing.debug("DIAG-SHARE: persistUpdatedShare OK")
                         }
                         self.invalidate()
                         continuation.resume(returning: persisted ?? share)
                     }
                 } else {
+                    Logger.sharing.error("DIAG-SHARE: share() completion returned NEITHER share NOR error")
                     continuation.resume(throwing: CKError(.internalError))
                 }
             }
@@ -127,8 +137,10 @@ extension TrackSharingService {
     }
 
     func makeTransferable(for track: Track) -> TrackShareTransferable {
-        TrackShareTransferable(
-            existingShare: share(for: track),
+        let existing = share(for: track)
+        Logger.sharing.debug("DIAG-SHARE: makeTransferable for \(track.name), existingShare=\(existing == nil ? "nil" : "present")")
+        return TrackShareTransferable(
+            existingShare: existing,
             container: controller.cloudKitContainer,
             prepare: { [weak self] in
                 guard let self else { throw CKError(.internalError) }
@@ -156,9 +168,11 @@ struct TrackShareTransferable: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         CKShareTransferRepresentation { item in
             if let share = item.existingShare {
+                Logger.sharing.debug("DIAG-SHARE: representation closure -> .existing branch (allowedSharingOptions: .standard)")
                 return .existing(share, container: item.container,
                                  allowedSharingOptions: .standard)
             }
+            Logger.sharing.debug("DIAG-SHARE: representation closure -> .prepareShare branch (allowedSharingOptions: .standard)")
             return .prepareShare(container: item.container,
                                  allowedSharingOptions: .standard) {
                 try await item.prepare()
