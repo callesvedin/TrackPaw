@@ -846,6 +846,16 @@
           }
         }
       }
+    },
+    "Not signed in to iCloud" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte inloggad på iCloud"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"

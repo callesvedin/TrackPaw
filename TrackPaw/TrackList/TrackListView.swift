@@ -32,6 +32,8 @@ struct TrackListView: View {
 
     @AppStorage("systemTheme") private var systemTheme: Int = SchemeType.allCases.first!.rawValue
     @State private var trackToShare: Track?
+    @State private var showICloudAlert = false
+    @State private var didFlagICloudUnavailable = false
 
     private var selectedScheme: ColorScheme? {
         guard let theme = SchemeType(rawValue: systemTheme) else { return nil }
@@ -69,14 +71,23 @@ struct TrackListView: View {
         }
         .onReceive(NotificationCenter.default.storeDidChangePublisher) { notification in
             processStoreChangeNotification(notification)
-        }.preferredColorScheme(selectedScheme)
+        }
+        .onChange(of: persistenceController.isCloudAvailable, initial: true) { _, available in
+            if !available && !didFlagICloudUnavailable {
+                didFlagICloudUnavailable = true
+                showICloudAlert = true
+            }
+        }
+        .alert("Not signed in to iCloud", isPresented: $showICloudAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Sign in to iCloud to share tracks.")
+        }
+        .preferredColorScheme(selectedScheme)
     }
 
     @ViewBuilder
     private var banners: some View {
-        if !persistenceController.isCloudAvailable {
-            banner(Text("Sign in to iCloud to share tracks."))
-        }
         if let message = syncMonitor.lastUserFacingError {
             banner(Text(message), dismissAction: { syncMonitor.lastUserFacingError = nil })
         }
