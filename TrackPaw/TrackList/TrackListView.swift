@@ -48,10 +48,7 @@ struct TrackListView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            banners
-            content
-        }
+        content
         .foregroundColor(palette.primaryText)
         .navigationTitle(LocalizedStringKey("Tracks"))
         .overlay(alignment: .bottomTrailing) {
@@ -83,33 +80,19 @@ struct TrackListView: View {
         } message: {
             Text("Sign in to iCloud to share tracks.")
         }
+        .alert(
+            "Sync issue",
+            isPresented: Binding(
+                get: { syncMonitor.lastUserFacingError != nil },
+                set: { if !$0 { syncMonitor.lastUserFacingError = nil } }
+            ),
+            presenting: syncMonitor.lastUserFacingError
+        ) { _ in
+            Button("OK", role: .cancel) { }
+        } message: { message in
+            Text(message)
+        }
         .preferredColorScheme(selectedScheme)
-    }
-
-    @ViewBuilder
-    private var banners: some View {
-        if let message = syncMonitor.lastUserFacingError {
-            banner(Text(message), dismissAction: { syncMonitor.lastUserFacingError = nil })
-        }
-    }
-
-    @ViewBuilder
-    private func banner(_ text: Text, dismissAction: (() -> Void)? = nil) -> some View {
-        HStack {
-            text
-                .font(.footnote)
-            Spacer()
-            if let dismissAction {
-                Button(action: dismissAction) {
-                    Image(systemName: "xmark.circle.fill")
-                }
-                .accessibilityLabel(Text("Dismiss"))
-            }
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
-        .background(palette.warning.opacity(0.15))
-        .foregroundColor(palette.primaryText)
     }
 
     @ViewBuilder

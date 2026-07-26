@@ -856,6 +856,16 @@
           }
         }
       }
+    },
+    "Sync issue" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synkningsproblem"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"
