@@ -41,9 +41,13 @@ public class LocationManager: NSObject, ObservableObject {
     )
     
     private override init() {
-        authorizationStatus = locationManager.authorizationStatus
+        // Don't read locationManager.authorizationStatus synchronously here — on the
+        // main thread it can block. Start as .notDetermined; setupLocationManager()
+        // sets the delegate, which triggers locationManagerDidChangeAuthorization(_:)
+        // once with the real status.
+        authorizationStatus = .notDetermined
         super.init()
-        
+
         setupLocationManager()
     }
     
@@ -149,15 +153,18 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        // Reading authorizationStatus inside this callback is the recommended,
+        // non-blocking access point. Capture it once here.
+        let status = manager.authorizationStatus
         DispatchQueue.main.async {
             LocationManager.logger.debug(
-                "LocationManager: Authorization changed to \(String(describing: manager.authorizationStatus))"
+                "LocationManager: Authorization changed to \(String(describing: status))"
             )
-            self.authorizationStatus = manager.authorizationStatus
+            self.authorizationStatus = status
         }
-        
+
         notifyDelegates { delegate in
-            delegate.locationManager(self, didChangeAuthorization: manager.authorizationStatus)
+            delegate.locationManager(self, didChangeAuthorization: status)
         }
     }
     
