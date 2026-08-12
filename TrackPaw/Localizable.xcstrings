@@ -244,6 +244,7 @@
       }
     },
     "Dismiss" : {
+      "extractionState" : "stale",
       "localizations" : {
         "sv" : {
           "stringUnit" : {
@@ -436,6 +437,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ingen internetanslutning. Ändringar synkas när du är uppkopplad igen."
+          }
+        }
+      }
+    },
+    "Not signed in to iCloud" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte inloggad på iCloud"
           }
         }
       }
@@ -652,6 +663,16 @@
         }
       }
     },
+    "Sync issue" : {
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synkningsproblem"
+          }
+        }
+      }
+    },
     "Time since created:" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -843,26 +864,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ditt iCloud-konto ändrades. Starta om appen för att fortsätta synka."
-          }
-        }
-      }
-    },
-    "Not signed in to iCloud" : {
-      "localizations" : {
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inte inloggad på iCloud"
-          }
-        }
-      }
-    },
-    "Sync issue" : {
-      "localizations" : {
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Synkningsproblem"
           }
         }
       }
