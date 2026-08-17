@@ -10,9 +10,12 @@
 		18F2820C086246BA93A031EC /* CloudAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68D1157AA4471591646DF /* CloudAvailabilityTests.swift */; };
 		578DDC1CE2DDD4F865FD74CA /* TrackSharingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */; };
 		5938FA24C59D0CE654699F3E /* TrackSharingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */; };
+		5CA0AFCA9E5BF89561A9EFBB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048644EB0989E1B8D917D5D7 /* SnapshotHelper.swift */; };
 		70343928DE37ECE12C263FAD /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
 		71C5D0101F0DB08B9E15198A /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
+		92470505F9ABDF08BE1F9650 /* PersistenceController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06584A1A857202B5EFD937F7 /* PersistenceController+Snapshot.swift */; };
 		A47D76AB2FF4BD5452DB8756 /* CKAccountStatus+Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */; };
+		B296CEAA6C03687107415380 /* PersistenceController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06584A1A857202B5EFD937F7 /* PersistenceController+Snapshot.swift */; };
 		B7A44C63A697B323CE72FCEF /* ShareTrackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AB63D79354054706C595D3 /* ShareTrackSheet.swift */; };
 		D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2020FC0563357CA9478BE36 /* TrackSharingService.swift */; };
 		EB05E19526277868002941B6 /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
@@ -106,6 +109,7 @@
 		EBDC075D29B69B0A0028FC64 /* TrackTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075B29B69B0A0028FC64 /* TrackTimer.swift */; };
 		EBDC075F29B69F750028FC64 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075E29B69F750028FC64 /* MainTabView.swift */; };
 		EBE9440328D25AE900C1C7A5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE9440228D25AE900C1C7A5 /* Color.swift */; };
+		F17D1D9864D9184C281F9A12 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304B28287080793FC115A388 /* ScreenshotTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,7 +130,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		048644EB0989E1B8D917D5D7 /* SnapshotHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
+		06584A1A857202B5EFD937F7 /* PersistenceController+Snapshot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "PersistenceController+Snapshot.swift"; sourceTree = "<group>"; };
 		19AB63D79354054706C595D3 /* ShareTrackSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ShareTrackSheet.swift; sourceTree = "<group>"; };
+		304B28287080793FC115A388 /* ScreenshotTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingInfo.swift; sourceTree = "<group>"; };
 		9FA68D1157AA4471591646DF /* CloudAvailabilityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudAvailabilityTests.swift; sourceTree = "<group>"; };
 		A2020FC0563357CA9478BE36 /* TrackSharingService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingService.swift; sourceTree = "<group>"; };
@@ -266,6 +273,7 @@
 				EB872528260CC0C5008AD8E7 /* TrackPawUITests */,
 				EB872505260CC0C4008AD8E7 /* Products */,
 				EB7D2143282C6181006CB703 /* Frameworks */,
+				048644EB0989E1B8D917D5D7 /* SnapshotHelper.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -331,6 +339,7 @@
 			children = (
 				EB872529260CC0C5008AD8E7 /* TrackPawUITests.swift */,
 				EB87252B260CC0C5008AD8E7 /* Info.plist */,
+				304B28287080793FC115A388 /* ScreenshotTests.swift */,
 			);
 			path = TrackPawUITests;
 			sourceTree = "<group>";
@@ -365,6 +374,7 @@
 				EBCB4815266762F800E5631C /* TrackPaw.xcdatamodeld */,
 				EBB85EF329CA22AD0058E0B5 /* ValueTransformers.swift */,
 				BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */,
+				06584A1A857202B5EFD937F7 /* PersistenceController+Snapshot.swift */,
 			);
 			path = Persistance;
 			sourceTree = "<group>";
@@ -636,6 +646,7 @@
 				D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */,
 				A47D76AB2FF4BD5452DB8756 /* CKAccountStatus+Availability.swift in Sources */,
 				B7A44C63A697B323CE72FCEF /* ShareTrackSheet.swift in Sources */,
+				92470505F9ABDF08BE1F9650 /* PersistenceController+Snapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +671,7 @@
 				5938FA24C59D0CE654699F3E /* TrackSharingTests.swift in Sources */,
 				18F2820C086246BA93A031EC /* CloudAvailabilityTests.swift in Sources */,
 				70343928DE37ECE12C263FAD /* CKAccountStatus+Availability.swift in Sources */,
+				B296CEAA6C03687107415380 /* PersistenceController+Snapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +680,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB87252A260CC0C5008AD8E7 /* TrackPawUITests.swift in Sources */,
+				F17D1D9864D9184C281F9A12 /* ScreenshotTests.swift in Sources */,
+				5CA0AFCA9E5BF89561A9EFBB /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

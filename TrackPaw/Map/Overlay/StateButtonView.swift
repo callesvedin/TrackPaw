@@ -29,6 +29,7 @@ struct StateButtonView: View {
                                 .buttonStyle(.glassProminent)
                                 .tint(palette.confirm)
                                 .disabled(mapModel.accuracy > 10)
+                                .accessibilityIdentifier("startTrackingButton")
                         }
                     }
                     if mapModel.currentState == .running {

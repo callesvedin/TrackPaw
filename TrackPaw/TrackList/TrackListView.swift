@@ -65,6 +65,7 @@ struct TrackListView: View {
             .tint(palette.accent)
             .padding(24)
             .accessibilityLabel(Text("Add track"))
+            .accessibilityIdentifier("addTrackButton")
         }
         .onReceive(NotificationCenter.default.storeDidChangePublisher) { notification in
             processStoreChangeNotification(notification)
@@ -120,6 +121,7 @@ struct TrackListView: View {
                                             track: track)
                                     }
                                 )
+                                .accessibilityIdentifier("trackCell")
                                 .swipeActions(allowsFullSwipe: false) {
                                     if persistenceController.isCloudAvailable {
                                         Button {

@@ -5,6 +5,7 @@
 //  Created by carl-johan.svedin on 2021-03-25.
 //
 
+import CoreData
 import SwiftUI
 import os
 
@@ -12,8 +13,14 @@ import os
 struct TrackPawApp: App {
     @StateObject private var syncMonitor = SyncMonitor()
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
-    private let persistentContainer = PersistenceController.shared
-        .persistentContainer
+    private let persistentContainer: NSPersistentContainer = {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-SNAPSHOT") {
+            return PersistenceController.forSnapshotTesting()
+        }
+        #endif
+        return PersistenceController.shared.persistentContainer
+    }()
 
     @ObservedObject var environment = AppEnvironment.shared
     @ObservedObject var coordinator = ViewCoordinator()

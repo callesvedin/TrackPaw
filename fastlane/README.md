@@ -15,14 +15,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios check_status
-
-```sh
-[bundle exec] fastlane ios check_status
-```
-
-Check TestFlight build processing status (temporary)
-
 ### ios beta
 
 ```sh
@@ -30,6 +22,14 @@ Check TestFlight build processing status (temporary)
 ```
 
 Build and upload a new beta build to TestFlight
+
+### ios screenshots
+
+```sh
+[bundle exec] fastlane ios screenshots
+```
+
+Capture App Store screenshots
 
 ----
 

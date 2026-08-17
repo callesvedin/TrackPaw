@@ -43,6 +43,22 @@ final class TrackSharingService: TrackSharing {
     }
 
     func share(for track: Track) -> CKShare? {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-SNAPSHOT") {
+            // Fixture tracks under `-SNAPSHOT` live in the in-memory snapshot
+            // container, never in `PersistenceController.shared`'s real
+            // CloudKit-backed one. Consulting `controller.persistentContainer`
+            // below would force that real container's lazy load: creating store
+            // folders, loading two CloudKit-backed sqlite stores, registering
+            // remote-change/CloudKit-event observers, and kicking off
+            // `refreshCloudAvailability()` — a live CloudKit stack booting mid-run
+            // that can flip `isCloudAvailable` to false or raise a sync-issue
+            // alert over the screenshots. They're never shared, so short-circuit
+            // to the existing "no share" result.
+            return nil
+        }
+        #endif
+
         lock.lock()
         if let cached = shareCache[track.objectID] { lock.unlock(); return cached }
         let gen = generation
@@ -59,6 +75,19 @@ final class TrackSharingService: TrackSharing {
     }
 
     func sharingInfo(for track: Track) -> TrackSharingInfo {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-SNAPSHOT") {
+            // Fixture tracks under `-SNAPSHOT` live in the in-memory snapshot
+            // container, never in `PersistenceController.shared`'s real
+            // CloudKit-backed one. In snapshot mode nothing ever loads that real
+            // container, so `_sharedPersistentStore` is still nil; consulting
+            // `controller.sharedPersistentStore` below would hit its own guard
+            // and fatalError. They're never shared, so short-circuit to the
+            // existing "not shared" state.
+            return .notShared
+        }
+        #endif
+
         lock.lock()
         if let cached = infoCache[track.objectID] { lock.unlock(); return cached }
         let gen = generation
@@ -105,6 +134,18 @@ extension TrackSharingService {
     /// Create (or reuse) a CKShare for the track. Wraps the completion-based
     /// NSPersistentCloudKitContainer API so `ShareLink` can await it.
     func prepareShare(for track: Track) async throws -> CKShare {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-SNAPSHOT") {
+            // Fixture tracks under `-SNAPSHOT` have no real CloudKit container to
+            // share through (see `share(for:)` above). Reaching
+            // `controller.persistentContainer` below would force that real
+            // container's lazy load — the same live CloudKit stack booting
+            // mid-run that the other guards in this file avoid. Fail honestly
+            // instead of ever attempting it.
+            throw CKError(.internalError)
+        }
+        #endif
+
         if let existing = share(for: track) { return existing }
         return try await withCheckedThrowingContinuation { continuation in
             controller.persistentContainer.share([track], to: nil) { _, share, _, error in
