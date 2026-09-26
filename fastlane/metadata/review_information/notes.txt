@@ -1,0 +1,5 @@
+TrackPaw needs no account or login. Tracks are stored on the device and synced through the user's own iCloud account (CloudKit).
+
+Background location ("Always") is used only while the user is actively laying or following a track, so the phone can be put in a pocket during a training session. Tracking stops as soon as the user taps Stop. No location data is sent to the developer or any third party.
+
+To test: tap "Add track", then "Lay track" and walk a short distance, then Stop. Open the track and tap "Follow track" to record the dog following it. Sharing a track (Share button on a track) requires being signed in to iCloud.

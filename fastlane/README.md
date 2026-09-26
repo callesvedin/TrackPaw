@@ -23,6 +23,16 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Build and upload a new beta build to TestFlight
 
+### ios release
+
+```sh
+[bundle exec] fastlane ios release
+```
+
+Upload metadata, screenshots and the latest TestFlight build to the App Store
+
+Pass submit:true to also submit for review. Release after approval stays manual.
+
 ### ios screenshots
 
 ```sh
