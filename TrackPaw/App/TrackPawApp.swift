@@ -43,7 +43,7 @@ struct TrackPawApp: App {
     /// default background, which is Liquid Glass) so only the title color changes —
     /// unlike a transparent+solid-color config, which would flatten the glass.
     private func configureNavigationTitleColor() {
-        let titleColor = UIColor(named: "Satchi/text-primary") ?? .white
+        let titleColor = UIColor(named: "TrackPaw/text-primary") ?? .white
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.titleTextAttributes = [.foregroundColor: titleColor]

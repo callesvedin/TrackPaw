@@ -92,3 +92,15 @@ fastlane/test_output
 
 # screenshots
 screenshots/
+
+# IDE
+.idea/
+
+# fastlane secrets and personal details
+fastlane/.env
+
+# Local AI-assistant files
+CLAUDE.md
+docs/superpowers/
+.superpowers/
+.worktrees/

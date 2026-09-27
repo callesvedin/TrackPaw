@@ -1,6 +1,10 @@
+---
+title: TrackPaw Privacy Policy
+---
+
 # TrackPaw Privacy Policy
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-09-27*
 
 TrackPaw does not collect, store or sell any personal data. The developer has no servers and cannot see your tracks.
 
@@ -27,7 +31,7 @@ Deleting a track in the app removes it from your device and from iCloud. Deletin
 
 ## Contact
 
-Questions: ***REMOVED***
+Questions: open an issue at <https://github.com/callesvedin/TrackPaw/issues>
 
 ---
 
@@ -41,4 +45,4 @@ TrackPaw samlar inte in, lagrar eller säljer några personuppgifter. Utvecklare
 
 Allt lagras på din enhet och i ditt eget iCloud-konto (Apples CloudKit) för att synkas mellan dina enheter. Delar du ett spår kan de du bjuder in se spårets väg och uppgifter. Appen har inget konto, ingen analys, ingen reklam och skickar ingen data till utvecklaren eller tredje part. Raderar du ett spår i appen försvinner det från enheten och iCloud.
 
-Frågor: ***REMOVED***
+Frågor: skapa ett ärende på <https://github.com/callesvedin/TrackPaw/issues>

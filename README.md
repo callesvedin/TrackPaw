@@ -1,156 +1,61 @@
-# TrackPaw 🐕
+# TrackPaw
 
-A GPS-enabled iOS app for tracking dog training paths and routes. TrackPaw allows dog trainers and owners to create, record, and manage training tracks with CloudKit synchronization across devices.
+An iOS app for tracking training with dogs. Lay a track with your phone's GPS, let it rest, then record your dog following it and compare the two routes on the map, with timing and distance for every session. Tracks sync through iCloud and can be shared with a training partner.
 
-## Screenshots
-
-| Track List | Recording | Track View |
-|------------|-----------|------------|
-| ![Track List Light](screenshots/iPhone%2015%20plus%20-%206,7%22/First%20Screen%20Light-%20iPhone%2015%20Plus%20-%202024-02-10%20at%2014.58.04.png) | ![Recording](screenshots/iPhone%2015%20plus%20-%206,7%22/Info%20Screen%20Light%20-%20iPhone%2015%20Plus%20-%202024-02-10%20at%2015.04.02.png) | ![Track View Light](screenshots/iPhone%2015%20plus%20-%206,7%22/View%20track%20Light%20-%20iPhone%2015%20Plus%20-%202024-02-10%20at%2015.05.06.png) |
-
-## Features
-
-- **GPS Track Recording**: Real-time GPS tracking for dog training paths
-- **CloudKit Sync**: Automatic synchronization across all your Apple devices
-- **Track Sharing**: Share training tracks with other users via CloudKit sharing
-- **Background Tracking**: Continue recording even when the app is in the background
-- **Preview Mode**: View and analyze completed tracks
-- **Localization**: Support for English and Swedish languages
-- **State Management**: Robust state machine for track recording (start, pause, resume, stop)
-
-## Architecture
-
-### Core Components
-
-- **TrackMapModel**: Central state management using SwiftState library
-  - States: `notStarted`, `running`, `paused`, `done`, `viewing`
-  - Events: `start`, `pause`, `resume`, `stop`
-  - Manages GPS location tracking and path recording
-
-- **PersistenceController**: CloudKit + Core Data integration
-  - Single `Track` entity with CloudKit sharing capabilities
-  - Container: `iCloud.se.cjs.TrackPaw`
-
-- **ViewCoordinator**: Navigation management across the app
-- **AppEnvironment**: Shared environment object for dependency injection
-
-### Technology Stack
-
-- **SwiftUI**: Modern declarative UI framework
-- **Core Data + CloudKit**: Local persistence with cloud synchronization
-- **Core Location**: GPS tracking and location services
-- **MapKit**: Map display and annotations
-- **SwiftState**: State machine for track recording lifecycle
+| Tracks | Track details | Tracking |
+|---|---|---|
+| ![Track list](docs/images/track-list.png) | ![Track details](docs/images/edit-track.png) | ![Live tracking](docs/images/tracking.png) |
 
 ## Requirements
 
-- iOS 17.0+
-- Xcode 15.0+
-- Apple Developer Account (for CloudKit functionality)
-- Location permissions for GPS tracking
+- Xcode 27 or later
+- iOS 26 or later
+- An Apple Developer account, to run on a device with iCloud
 
-## Installation
+## Building
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/TrackPaw.git
-cd TrackPaw
-```
+The project runs as-is in the Simulator. To run it on a device, which is needed for iCloud sync and sharing, use your own identifiers:
 
-2. Open the project in Xcode:
-```bash
-open TrackPaw.xcodeproj
-```
+1. Open `TrackPaw.xcodeproj`. For both the **TrackPaw** and **InitializeCloudKitSchema** targets, open **Signing & Capabilities**, set **Team** to your team, and change the **Bundle Identifier** from `se.cjs.TrackPaw` to your own.
+2. Under **iCloud**, replace the container `iCloud.se.cjs.TrackPaw` with one of yours. Update the identifier in `TrackPaw/Persistance/PersistenceController.swift` and `TrackPaw/TrackPaw.entitlements` to match.
+3. Run the **InitializeCloudKitSchema** scheme once, signed in to iCloud. It builds the app with the `InitializeCloudKitSchema` compilation condition, which creates the CloudKit schema in your container's development environment. Then use the **TrackPaw** scheme as normal.
 
-3. Configure your Apple Developer Team and Bundle Identifier in Xcode project settings
+CloudKit sharing only works on a real device, not in the Simulator.
 
-4. Build and run on device or simulator:
-```bash
-# Build the project
-xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw build
-
-# Build and run on iPhone 15 simulator
-xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw -destination 'platform=iOS Simulator,name=iPhone 15' build
-```
-
-## Development
-
-### Build Commands
+## Tests and linting
 
 ```bash
-# Build the project
-xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw build
-
-# Run tests
-xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw test
-
-# Reset simulator location permissions (useful for development)
-xcrun simctl privacy booted reset all
+xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw \
+  -destination 'platform=iOS Simulator,name=iPhone 17' test
 ```
 
-### Project Structure
+SwiftLint runs as a build-tool plugin, with its configuration in `.swiftlint.yml`.
 
-```
-TrackPaw/
-├── App/                    # Application lifecycle and coordination
-├── Map/                    # Original map implementation
-├── TrackList/              # Track listing and management UI
-├── EditTrack/              # Track editing interface
-├── Persistance/            # Core Data model and CloudKit integration
-├── Extensions/             # Swift extensions and utilities
-├── Formatters/             # Data formatters for display
-└── Localizations/          # English and Swedish translations
-```
+## Architecture
 
-### CloudKit Setup
+- **SwiftUI** views, organized by feature: `TrackList/`, `EditTrack/`, `Map/`, `Sharing/`.
+- **`TrackMapModel`** drives recording with a [SwiftState](https://github.com/ReactKit/SwiftState) state machine: `notStarted → running ⇄ paused → done`, plus `viewing` for read-only maps.
+- **`PersistenceController`**: Core Data with `NSPersistentCloudKitContainer`, using a single `Track` entity that stores the laid and followed paths as `CLLocation` arrays. It syncs through the private database and shares through CloudKit shares.
+- **Localization:** English and Swedish, in `Localizable.xcstrings`.
 
-The app uses CloudKit for data synchronization. To set up CloudKit:
+## Releasing (fastlane)
 
-1. Enable CloudKit capability in your Apple Developer account
-2. Use the `InitializeCloudKitSchema` build flag for schema initialization
-3. Configure the CloudKit container: `iCloud.se.cjs.TrackPaw`
+Lanes live in `fastlane/Fastfile`:
 
-### State Management
+| Lane | What it does |
+|---|---|
+| `fastlane beta` | Bumps the build number, archives and uploads to TestFlight |
+| `fastlane screenshots` | Generates App Store screenshots in the Simulator with a simulated GPS walk |
+| `fastlane release` | Uploads metadata and screenshots, and selects the latest TestFlight build. Add `submit:true` to submit for review. |
 
-The app uses SwiftState for managing track recording states:
-
-- **notStarted**: Initial state, ready to begin tracking
-- **running**: Actively recording GPS coordinates
-- **paused**: Tracking paused, can be resumed
-- **done**: Recording completed
-- **viewing**: Read-only mode for completed tracks
-
-## Testing
-
-The project includes basic unit and UI tests:
-
-```bash
-# Run all tests
-xcodebuild -project TrackPaw.xcodeproj -scheme TrackPaw test
-```
-
-Test files are located in:
-- `TrackPawTests/`: Unit tests
-- `TrackPawUITests/`: UI automation tests
-
-## Localization
-
-TrackPaw supports multiple languages:
-- **English** (`en`): Default language
-- **Swedish** (`sv`): Full translation
-
-Localization files are in respective `.lproj` directories.
+Copy `fastlane/.env.example` to `fastlane/.env` and fill in your App Store Connect API key and review contact. Change `fastlane/Appfile`, and the bundle ID in the `screenshots` lane, to your bundle ID and team.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Issues and pull requests are welcome at <https://github.com/callesvedin/TrackPaw/issues>.
 
 ## License
 
-This project is open source. Please check the license file for details.
+The source code is released under the [MIT License](LICENSE).
 
-*TrackPaw - Making dog training paths visible and shareable*
+The TrackPaw name and app icon are not covered by the license. Please use your own name and icon if you publish a build of this app.
