@@ -67,7 +67,7 @@ extension Color {
 }
 
 extension Color.Palette {
-    static let satchi = Color.Palette(name: "Satchi")
+    static let trackPaw = Color.Palette(name: "TrackPaw")
 }
 
 private extension Color {
@@ -77,7 +77,7 @@ private extension Color {
 }
 
 private struct ColorPaletteKey: EnvironmentKey {
-    static let defaultValue = Color.Palette.satchi
+    static let defaultValue = Color.Palette.trackPaw
 }
 
 extension EnvironmentValues {

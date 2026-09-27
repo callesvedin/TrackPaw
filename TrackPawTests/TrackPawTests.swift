@@ -6,6 +6,8 @@
 //
 
 import XCTest
+import SwiftUI
+import UIKit
 @testable import TrackPaw
 
 class TrackPawTests: XCTestCase {
@@ -21,6 +23,17 @@ class TrackPawTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+    }
+
+    func test_allPaletteColorsResolve() {
+        let names = [
+            "accent", "background-alt", "background-main", "background-mid", "link",
+            "primary", "quaternary", "secondary", "tertiary", "text-alt", "text-primary"
+        ]
+        for name in names {
+            XCTAssertNotNil(UIColor(named: "TrackPaw/\(name)"), "Missing colour TrackPaw/\(name)")
+        }
+        XCTAssertEqual(Color.Palette.trackPaw.name, "TrackPaw")
     }
 
     func testPerformanceExample() throws {
