@@ -95,3 +95,6 @@ screenshots/
 
 # IDE
 .idea/
+
+# fastlane secrets and personal details
+fastlane/.env
