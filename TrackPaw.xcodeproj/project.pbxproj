@@ -160,7 +160,6 @@
 		EB7D2144282C6181006CB703 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		EB7D2148282C6553006CB703 /* UIApplicationExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
 		EB80DA992E100D4E0005CBCB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		EB80DA9B2E100D660005CBCB /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		EB872504260CC0C4008AD8E7 /* TrackPaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackPaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB872507260CC0C4008AD8E7 /* TrackPawApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPawApp.swift; sourceTree = "<group>"; };
 		EB872509260CC0C4008AD8E7 /* TrackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListView.swift; sourceTree = "<group>"; };
@@ -264,7 +263,6 @@
 		EB8724FB260CC0C4008AD8E7 = {
 			isa = PBXGroup;
 			children = (
-				EB80DA9B2E100D660005CBCB /* CLAUDE.md */,
 				EB80DA992E100D4E0005CBCB /* README.md */,
 				EB7539B62DE8E99500BD7288 /* TODO.md */,
 				EB60D74F2B5D90AF00D60252 /* screenshots */,
