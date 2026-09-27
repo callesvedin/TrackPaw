@@ -98,3 +98,9 @@ screenshots/
 
 # fastlane secrets and personal details
 fastlane/.env
+
+# Local AI-assistant files
+CLAUDE.md
+docs/superpowers/
+.superpowers/
+.worktrees/
