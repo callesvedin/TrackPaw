@@ -32,6 +32,16 @@ struct MapView: View {
         // Set different camera behavior based on preview mode
         if preview || track.getState() == .trailTracked {
             self._cameraPosition = State(initialValue: .automatic)
+        } else if ProcessInfo.processInfo.arguments.contains("-SNAPSHOT") {
+            // `.userLocation` zooms to a wide, fixed system default distance,
+            // leaving a just-started walk a barely visible sliver in
+            // screenshots. `.automatic` instead continuously fits the camera
+            // to whatever's currently drawn (the laid path, its annotations),
+            // so it stays zoomed in on the growing track — same as the
+            // preview/trailTracked branch above. Real live tracking keeps
+            // `.userLocation` below to avoid camera jitter as GPS points
+            // stream in during an actual walk.
+            self._cameraPosition = State(initialValue: .automatic)
         } else {
             self._cameraPosition = State(
                 initialValue: .userLocation(fallback: MapCameraPosition.automatic))

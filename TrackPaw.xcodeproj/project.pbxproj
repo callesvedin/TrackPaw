@@ -152,7 +152,6 @@
 		EB5A5BA829DB79B000F05A4F /* SchemeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeType.swift; sourceTree = "<group>"; };
 		EB5BDF0F28181E61009DF497 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
 		EB5CE22D261CBFE100D56711 /* TrackMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModel.swift; sourceTree = "<group>"; };
-		EB60D74F2B5D90AF00D60252 /* screenshots */ = {isa = PBXFileReference; lastKnownFileType = folder; path = screenshots; sourceTree = "<group>"; };
 		EB67AC842E30C69D00B925EA /* TrackMapModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapModelTests.swift; sourceTree = "<group>"; };
 		EB690CFA2ABCAF5800652A6F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		EB7539B62DE8E99500BD7288 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
@@ -239,7 +238,6 @@
 				A2020FC0563357CA9478BE36 /* TrackSharingService.swift */,
 				19AB63D79354054706C595D3 /* ShareTrackSheet.swift */,
 			);
-			name = Sharing;
 			path = Sharing;
 			sourceTree = "<group>";
 		};
@@ -265,7 +263,6 @@
 			children = (
 				EB80DA992E100D4E0005CBCB /* README.md */,
 				EB7539B62DE8E99500BD7288 /* TODO.md */,
-				EB60D74F2B5D90AF00D60252 /* screenshots */,
 				EB872506260CC0C4008AD8E7 /* TrackPaw */,
 				EB87251D260CC0C5008AD8E7 /* TrackPawTests */,
 				EB872528260CC0C5008AD8E7 /* TrackPawUITests */,
@@ -724,7 +721,7 @@
 /* Begin PBXTargetDependency section */
 		EB386FE62E12BF1900557A54 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = EB386FE52E12BF1900557A54 /* plugin:SwiftLintBuildToolPlugin */;
+			productRef = EB386FE52E12BF1900557A54 /* SwiftLintBuildToolPlugin */;
 		};
 		EB87251C260CC0C5008AD8E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1144,7 +1141,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EB386FE52E12BF1900557A54 /* plugin:SwiftLintBuildToolPlugin */ = {
+		EB386FE52E12BF1900557A54 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EB386FE42E12BE6E00557A54 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";

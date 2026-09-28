@@ -20,14 +20,28 @@ final class ScreenshotTests: XCTestCase {
         )
 
         let app = XCUIApplication()
-        // Pin the system language/region so localized strings (the section
-        // header, "Name" field placeholder, etc.) render in English regardless
-        // of the host machine's simulator locale — required for this test to be
-        // deterministic across machines, and for screenshot automation in
-        // general to produce a known-language result.
+        // Pinned as a fallback for local runs outside the lane (e.g. plain
+        // `xcodebuild test`), where no language.txt cache exists yet for
+        // setupSnapshot to read below. Under the lane, setupSnapshot appends
+        // its own `-AppleLanguages`/`-AppleLocale` pair for the language
+        // `snapshot` is currently iterating (per Snapfile's `languages`
+        // list), and that later pair wins over this one in the argument
+        // domain — so the app actually launches in whichever language the
+        // lane is currently capturing, not always English.
         app.launchArguments = ["-SNAPSHOT", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         setupSnapshot(app)
         app.launch()
+
+        // Localized UI chrome (section headers, field placeholders, button
+        // titles) renders in whichever language `setupSnapshot` just set, so
+        // assertions on that text need the matching translation. Fixture
+        // data (track/trail names below) is plain seeded strings, not
+        // localized, so those stay the same across languages.
+        let isSwedish = Snapshot.deviceLanguage.hasPrefix("sv")
+        let finishedTracksLabel = isSwedish ? "Avslutade spår" : "Finished tracks"
+        let nameFieldLabel = isSwedish ? "Namn" : "Name"
+        let tracksBackButtonLabel = isSwedish ? "Spår" : "Tracks"
+        let pauseButtonLabel = isSwedish ? "Pausa" : "Pause"
 
         XCTAssertTrue(app.staticTexts["Morning walk with Bella"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["Forest scent trail"].exists)
@@ -36,20 +50,19 @@ final class ScreenshotTests: XCTestCase {
         // Both fixtures are seeded with state = .trailTracked, so they must land
         // under a single "Finished tracks" section with no duplicates.
         XCTAssertEqual(app.buttons.matching(identifier: "trackCell").count, 2)
-        XCTAssertTrue(app.staticTexts["Finished tracks"].exists)
+        XCTAssertTrue(app.staticTexts[finishedTracksLabel].exists)
         snapshot("01TrackList")
 
         app.buttons["trackCell"].firstMatch.tap()
         XCTAssertTrue(app.navigationBars.staticTexts.firstMatch.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.textFields["Name"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.textFields[nameFieldLabel].waitForExistence(timeout: 5))
         snapshot("02EditTrack")
 
         // EditTrackView's trailing toolbar holds three items (including a ShareLink),
         // so an index-based lookup for the back button is one tap away from hitting
         // one of those instead. The back button inherits TrackListView's
-        // navigationTitle("Tracks"), which is deterministic since the language is
-        // pinned above.
-        app.navigationBars.buttons["Tracks"].tap() // back to the list
+        // navigationTitle("Tracks"), localized above to match the active language.
+        app.navigationBars.buttons[tracksBackButtonLabel].tap() // back to the list
 
         // The location permission prompt is granted ahead of time by the
         // `screenshots` lane (`xcrun simctl privacy ... grant location-always`),
@@ -70,17 +83,14 @@ final class ScreenshotTests: XCTestCase {
             return false
         }
 
-        // The walk itself is driven from outside this test process, by the
-        // `screenshots` lane feeding a continuous route to the Simulator via
-        // `xcrun simctl location ... start` for the whole test suite (see
-        // the Fastfile) — independent of this test's automation session.
         app.buttons["addTrackButton"].tap()
         app.tap() // wake the interruption monitor so it can dismiss the system alert
 
         let startButton = app.buttons["startTrackingButton"]
         XCTAssertTrue(startButton.waitForExistence(timeout: 10))
+        try requestWalk()
         startButton.tap()
-        sleep(20) // let the ambient walk advance far enough to draw a visible path
+        sleep(20) // let the walk advance far enough to draw a visible path
 
         // `trailStartLocation` (and the "Start" marker rendered from it) is
         // only set from a real CLLocation fix delivered to TrackMapModel —
@@ -89,7 +99,31 @@ final class ScreenshotTests: XCTestCase {
         // through to the screenshot silently.
         XCTAssertTrue(app.otherElements["Start"].waitForExistence(timeout: 5),
                       "No location fix arrived — the route was not drawn")
-        XCTAssertTrue(app.buttons["Pause"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons[pauseButtonLabel].waitForExistence(timeout: 5))
         snapshot("03LiveTracking")
+    }
+
+    /// Asks the `screenshots` lane to start the simulated walk from its first
+    /// waypoint, and waits until it has. This process can't run `simctl`
+    /// itself, so it drops a request file in the host's snapshot cache
+    /// directory (reachable from the simulator) for the lane's watcher to act
+    /// on and delete — see `walk_request` in the Fastfile.
+    private func requestWalk() throws {
+        let cacheDirectory = try XCTUnwrap(Snapshot.cacheDirectory, "setupSnapshot found no host cache directory")
+        let request = cacheDirectory.appendingPathComponent("walk_request")
+        let udid = ProcessInfo.processInfo.environment["SIMULATOR_UDID"] ?? ""
+        try udid.write(to: request, atomically: true, encoding: .utf8)
+
+        let deadline = Date().addingTimeInterval(30)
+        while FileManager.default.fileExists(atPath: request.path) {
+            guard Date() < deadline else {
+                XCTFail("The screenshots lane never picked up the walk request")
+                return
+            }
+            Thread.sleep(forTimeInterval: 0.5)
+        }
+        // "Start" is placed at the last fix received before it's tapped, so
+        // wait for the walk's first fixes (one per second) to arrive.
+        sleep(3)
     }
 }

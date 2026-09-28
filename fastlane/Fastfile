@@ -1,3 +1,6 @@
+require "fileutils"
+require "shellwords"
+
 default_platform(:ios)
 
 XCODEPROJ = "TrackPaw.xcodeproj"
@@ -95,6 +98,25 @@ platform :ios do
 
   desc "Capture App Store screenshots"
   lane :screenshots do
+    # `ScreenshotTests` writes this file (containing its simulator's UDID)
+    # once the tracking map is open, and the watcher spawned below answers
+    # by starting the walk and deleting it — the test waits for the deletion
+    # before tapping "Start". The simulator reaches it through
+    # SIMULATOR_HOST_HOME, the same host cache directory SnapshotHelper
+    # already writes screenshots to. Starting the walk on request, rather
+    # than on a timer, means every language's test gets a fresh walk from
+    # the first waypoint exactly when it needs one, however long the build
+    # or the previous language took.
+    walk_request = File.expand_path("~/Library/Caches/tools.fastlane/walk_request")
+    FileUtils.rm_f(walk_request)
+
+    # A watcher from a previous run that was killed (Ctrl-C, closed
+    # terminal) before its `ensure` block ran would otherwise still be alive
+    # and answer this run's requests with that run's waypoints. The request
+    # file name is unique to this lane, so matching on it is safe; pkill
+    # skips its own ancestors, so this doesn't kill the shell running it.
+    sh("pkill -f 'walk_request' 2>/dev/null || true", log: false)
+
     # The location permission alert is a system UI element that renders in
     # the Simulator's system language, not the app's `-AppleLanguages`
     # launch argument, so on a host whose simulator isn't English or
@@ -116,117 +138,85 @@ platform :ios do
                     "location permission was not granted anywhere, so `snapshot` would boot " \
                     "an ungranted device.") if udids.empty?
 
-    # A ~1.75km loop (4 legs of ~438m) at 6 m/s (a brisk jog — faster than the
-    # app's realistic dog-walking pace, but this only needs to look like a
-    # walked route in a ~20s screenshot window, not model real speed): fast
-    # enough that the segment covered during the screenshot wait is clearly
-    # visible rather than a few-meter sliver.
+    # Walking pace fed to `simctl location start` below. Needs to be fast
+    # enough that the segment covered during the ~20s screenshot wait is
+    # clearly visible rather than a few-meter sliver, not to model a real
+    # dog-walking pace. Route drawn in gpx.studio and converted with
+    # `fastlane/gpx_to_waypoints.rb <path.gpx> [speed_m_s]`, which also
+    # rewrites this value and the summary line below. The route must take
+    # longer to walk than the ~25s the test tracks for, or the path stops
+    # growing before the screenshot.
+    walk_speed_m_s = 4
+    # Current route: ~0.46km, 20 waypoints, ~116s to walk once at 4.0 m/s.
     waypoints = [
-      "59.3400,18.0900", "59.3430,18.0950", "59.3460,18.0900",
-      "59.3430,18.0850", "59.3400,18.0900"
+      "56.659066,16.319496", "56.659166,16.319910", "56.659193,16.320727", "56.659193,16.320738",
+      "56.659402,16.320953", "56.659639,16.321053", "56.659857,16.321036", "56.660030,16.320904",
+      "56.660212,16.320804", "56.660449,16.320821", "56.660640,16.320854", "56.660877,16.320970",
+      "56.661068,16.321053", "56.661393,16.321086", "56.661576,16.320837", "56.661769,16.320671",
+      "56.661985,16.320485", "56.662156,16.320589", "56.662316,16.320754", "56.662430,16.320920"
     ].join(" ")
 
-    # `simctl location start` runs this route once (~292s at speed=6) and then
-    # parks on the final waypoint — so the poller below re-issues `start`
-    # periodically, for as long as it lives, rather than letting the walk run
-    # out mid-suite and leave the device sitting still. This interval must
-    # stay *greater* than the route's ~292s duration, not shorter: the last
-    # waypoint equals the first (a closed loop), so a restart issued after
-    # natural completion lands the device exactly where it already is — a
-    # seamless continuation, just a few seconds of standing still at the loop
-    # origin. A restart issued *before* completion instead snaps the device
-    # from mid-route back to the first waypoint — an instantaneous ~130m
-    # teleport that can cut a straight line across a screenshot taken while
-    # it happens.
-    walk_reissue_interval_seconds = 300
+    watcher_pid = nil
 
-    # The walk is driven from here via `simctl location`, independent of
-    # the test process — one poller per simulator, tracked below so the
-    # `ensure` block can always stop the scenario and reap the poller
-    # rather than leaving either running past this lane's lifetime.
-    spawned_pids = []
-
-    # Everything that grants a permission or spawns a poller lives inside
+    # Everything that grants a permission or spawns the watcher lives inside
     # this `begin`, not just the `snapshot` call, so that a later `sh(...)`
-    # raising mid-loop (e.g. the privacy grant failing on a second device
-    # after the first device's poller already started) still runs the
-    # `ensure` cleanup below instead of leaving that poller and its walk
-    # behind with no supervision.
+    # raising (e.g. the privacy grant failing on a second device) still runs
+    # the `ensure` cleanup below instead of leaving the watcher behind.
     begin
       udids.each do |udid|
-        # `simctl privacy grant` requires the device to already be booted, so
-        # it's booted, granted, then explicitly shut down again — leaving it
-        # in a known Shutdown state before the poller below starts watching
-        # for it to reboot. Without this, the device would still read as
-        # Booted (from this same boot) the instant the poller starts, and it
-        # would fire the walk immediately against that boot rather than
-        # waiting for the fresh one `snapshot` is about to trigger — scheduling
-        # it on a session that's torn down before tests even run.
+        # `simctl privacy grant` requires a booted device. It's shut down
+        # again afterwards so a matching device that `snapshot` doesn't
+        # pick isn't left running.
         sh("xcrun simctl boot #{udid} 2>/dev/null || true")
         sh("xcrun simctl privacy #{udid} grant location-always se.cjs.TrackPaw")
         sh("xcrun simctl shutdown #{udid} 2>/dev/null || true")
-
-        # `snapshot` reboots the Simulator (shutdown, then xcodebuild boots it
-        # fresh) before every run; this device is already Shutdown from the
-        # line above, so this waits for the Booted state that follows *that*
-        # reboot before submitting the walk. The whole build (SPM resolution,
-        # the SwiftLint plugin, and compiling TrackPaw) happens before the
-        # simulator becomes reachable, so this wait covers that entire build,
-        # not just a boot — the Snapfile's `derived_data_path` keeps rebuilds
-        # incremental, but the cap still needs to survive a cold first build.
-        # 600 is a generous ceiling; the loop exits the instant `Booted`
-        # appears, well before reaching it in the common case. `simctl
-        # location start` only submits the scenario to the simulator's
-        # location daemon and returns immediately, so the outer loop below —
-        # which keeps re-issuing it every `walk_reissue_interval_seconds` for
-        # as long as this poller lives — doesn't block either. The whole
-        # command runs in its own process group (`pgroup: true` below) so the
-        # `ensure` block can kill the poller *and* its `sleep` child in one
-        # signal rather than depending on bash to notice a TERM while it's
-        # blocked inside that child.
-        spawned_pids << Process.spawn(
-          "i=0; until xcrun simctl list devices | grep -q '#{udid}) (Booted)' || " \
-          "[ \"$i\" -ge 600 ]; do sleep 1; i=$((i + 1)); done; " \
-          "xcrun simctl list devices | grep -q '#{udid}) (Booted)' || exit 0; " \
-          "while true; do xcrun simctl location #{udid} start --speed=6 --interval=1 #{waypoints}; " \
-          "sleep #{walk_reissue_interval_seconds}; done",
-          out: File::NULL,
-          pgroup: true
-        )
       end
+
+      # Starts the walk on the simulator named in the request, then deletes
+      # the request so the waiting test knows it's running (see
+      # `walk_request` above). Falls back to "booted" if the test couldn't
+      # tell which simulator it's on. Runs in its own process group so the
+      # `ensure` block can kill it and its `sleep` child in one signal.
+      request = Shellwords.escape(walk_request)
+      watcher_pid = Process.spawn(
+        "while true; do if [ -f #{request} ]; then " \
+        "udid=$(cat #{request}); [ -n \"$udid\" ] || udid=booted; " \
+        "xcrun simctl location \"$udid\" start --speed=#{walk_speed_m_s} --interval=1 #{waypoints}; " \
+        "rm -f #{request}; fi; sleep 0.5; done",
+        out: File::NULL,
+        pgroup: true
+      )
 
       # `TEST_RUNNER_`-prefixed environment variables on the `xcodebuild`
       # process are forwarded to the test runner with the prefix stripped, so
-      # `ScreenshotTests` sees this as `SCREENSHOT_LANE` and knows the GPS walk
-      # above is actually running, rather than skipping itself as it does
-      # under a plain `xcodebuild test`. Setting it here (before `snapshot`
-      # spawns its `xcodebuild`) is enough, since that child process inherits
-      # this one's environment.
+      # `ScreenshotTests` sees this as `SCREENSHOT_LANE` and knows the watcher
+      # above will answer its walk request, rather than skipping itself as it
+      # does under a plain `xcodebuild test`. Setting it here (before
+      # `snapshot` spawns its `xcodebuild`) is enough, since that child
+      # process inherits this one's environment.
       ENV["TEST_RUNNER_SCREENSHOT_LANE"] = "1"
       snapshot
     ensure
       # Guaranteed cleanup on every exit path (success, test failure, or
-      # interrupt): reap each poller so none is left watching a UDID past
-      # this run, stop the walk on every device it was granted on, and revoke
-      # the location grant so the device is left exactly as it was found — not
-      # just walk-free but permission-free too, so a later run through the
+      # interrupt): reap the watcher, stop the walk on every device it was
+      # granted on, and revoke the location grant so the device is left
+      # exactly as it was found — so a later run through the
       # permission-request or denied path still sees the real system prompt.
-      # Each step is rescued individually so an already-exited poller or
+      # Each step is rescued individually so an already-exited watcher or
       # already-stopped scenario can't mask the real lane result.
-      spawned_pids.each do |pid|
+      if watcher_pid
         begin
-          # Signal the whole process group (negative pid), not just the shell
-          # itself: the poller's `while` loop spends most of its life blocked
-          # inside a foreground `sleep`, and bash defers a TERM sent only to
-          # itself until that child returns. Signaling the group hits `sleep`
-          # directly, so teardown is immediate instead of waiting out up to a
-          # full `walk_reissue_interval_seconds`.
-          Process.kill("TERM", -pid)
-          Process.wait(pid)
-        rescue Errno::ESRCH, Errno::ECHILD
-          # Already gone — nothing left to signal or reap.
+          # Signal the whole process group (negative pid) so the `sleep` child
+          # dies too, rather than waiting for bash to notice the TERM.
+          Process.kill("TERM", -watcher_pid)
+          Process.wait(watcher_pid)
+        rescue StandardError
+          # Already gone (Errno::ESRCH/ECHILD), or its pid got recycled by
+          # the OS for something we don't own (Errno::EPERM) — either way
+          # there's nothing of ours left to signal or reap.
         end
       end
+      FileUtils.rm_f(walk_request)
 
       udids.each do |udid|
         # `simctl location` has no `stop` action — `clear` is the documented
@@ -236,6 +226,29 @@ platform :ios do
         sh("xcrun simctl privacy #{udid} reset location se.cjs.TrackPaw 2>/dev/null || true", log: false)
       end
     end
+
+    # Puts a *copy* of every captured screenshot in an iPhone device frame
+    # (via frameit), for marketing/preview use — never the originals in
+    # "screenshots/", which `release` uploads to App Store Connect. A
+    # frameit device bezel enlarges the canvas beyond Apple's exact
+    # required screenshot resolution (e.g. the iPhone 17 Pro Max's
+    # 1320x2868 screenshot becomes a 1470x3000 framed image), which fails
+    # ASC validation; worse, `deliver` auto-detects a "_framed.png"
+    # sibling in a locale folder and uploads *that* instead of the
+    # original, so a framed file left next to the originals would silently
+    # break `release`. Framing a separate copy sidesteps both problems.
+    screenshots_path = File.expand_path("screenshots", __dir__)
+    framed_path = File.expand_path("screenshots_framed", __dir__)
+    FileUtils.rm_rf(framed_path)
+    FileUtils.cp_r(screenshots_path, framed_path)
+    frame_screenshots(path: framed_path)
+    # Drop the unframed copies `frame_screenshots` needed as its source,
+    # and the stale HTML index of them, so this directory holds only the
+    # finished framed images.
+    Dir.glob(File.join(framed_path, "**", "*.png")).each do |path|
+      File.delete(path) unless path.end_with?("_framed.png")
+    end
+    FileUtils.rm_f(File.join(framed_path, "screenshots.html"))
   end
 
   # `devices` in the Snapfile is the one canonical list of target

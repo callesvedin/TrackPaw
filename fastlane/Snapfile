@@ -3,11 +3,19 @@ devices([
 ])
 
 languages([
-  "en-US"
+  "en-US",
+  "sv"
 ])
 
 scheme("TrackPaw")
 configuration("Debug")
+
+# TrackPawTests (unit tests) has nothing to do with screenshots and
+# occasionally hits its own unrelated Xcode/Simulator flake ("test runner
+# hung before establishing connection"). That still counts as a whole-suite
+# failure and forces a retry of everything, including the already-passing
+# UI tests. Running only the UI test target sidesteps it.
+only_testing(["TrackPawUITests"])
 
 # Without this, snapshot builds into a fresh temp directory and `rm_rf`s it
 # every run, so every `fastlane screenshots` is a full clean build (SPM
@@ -18,3 +26,9 @@ output_directory("./fastlane/screenshots")
 clear_previous_screenshots(true)
 
 stop_after_first_error(true)
+
+# Default is 1. A whole-suite retry (not just the flaky test) occasionally
+# needs more than one extra attempt when the host machine is under heavy,
+# unrelated load (e.g. Spotlight reindexing) — bumped so that doesn't burn
+# `stop_after_first_error`'s one shot before ever reaching a later language.
+number_of_retries(3)

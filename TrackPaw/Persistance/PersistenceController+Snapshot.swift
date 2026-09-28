@@ -48,18 +48,29 @@ extension PersistenceController {
         morningWalk.timeToCreate = 18 * 60
         morningWalk.started = Date().addingTimeInterval(-2 * 24 * 60 * 60)
         morningWalk.timeToFinish = 21 * 60
-        morningWalk.length = 950
+        morningWalk.length = 464
         morningWalk.state = TrackState.trailTracked.rawValue
         morningWalk.laidPath = [
-            CLLocation(latitude: 59.3293, longitude: 18.0686),
-            CLLocation(latitude: 59.3296, longitude: 18.0690),
-            CLLocation(latitude: 59.3298, longitude: 18.0686),
-            CLLocation(latitude: 59.3298, longitude: 18.0680),
-            CLLocation(latitude: 59.3296, longitude: 18.0676),
-            CLLocation(latitude: 59.3293, longitude: 18.0676),
-            CLLocation(latitude: 59.3291, longitude: 18.0680),
-            CLLocation(latitude: 59.3291, longitude: 18.0686),
-            CLLocation(latitude: 59.3293, longitude: 18.0686)
+            CLLocation(latitude: 56.659066, longitude: 16.319496),
+            CLLocation(latitude: 56.659166, longitude: 16.319910),
+            CLLocation(latitude: 56.659193, longitude: 16.320727),
+            CLLocation(latitude: 56.659193, longitude: 16.320738),
+            CLLocation(latitude: 56.659402, longitude: 16.320953),
+            CLLocation(latitude: 56.659639, longitude: 16.321053),
+            CLLocation(latitude: 56.659857, longitude: 16.321036),
+            CLLocation(latitude: 56.660030, longitude: 16.320904),
+            CLLocation(latitude: 56.660212, longitude: 16.320804),
+            CLLocation(latitude: 56.660449, longitude: 16.320821),
+            CLLocation(latitude: 56.660640, longitude: 16.320854),
+            CLLocation(latitude: 56.660877, longitude: 16.320970),
+            CLLocation(latitude: 56.661068, longitude: 16.321053),
+            CLLocation(latitude: 56.661393, longitude: 16.321086),
+            CLLocation(latitude: 56.661576, longitude: 16.320837),
+            CLLocation(latitude: 56.661769, longitude: 16.320671),
+            CLLocation(latitude: 56.661985, longitude: 16.320485),
+            CLLocation(latitude: 56.662156, longitude: 16.320589),
+            CLLocation(latitude: 56.662316, longitude: 16.320754),
+            CLLocation(latitude: 56.662430, longitude: 16.320920)
         ]
         morningWalk.trackPath = morningWalk.laidPath
 
