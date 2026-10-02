@@ -14,7 +14,7 @@ struct TrackPawApp: App {
     @StateObject private var syncMonitor = SyncMonitor()
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
     private let persistentContainer: NSPersistentContainer = {
-        #if DEBUG
+        #if DEBUG && !InitializeCloudKitSchema
         if ProcessInfo.processInfo.arguments.contains("-SNAPSHOT") {
             return PersistenceController.forSnapshotTesting()
         }

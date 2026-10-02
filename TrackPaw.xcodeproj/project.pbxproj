@@ -109,6 +109,9 @@
 		EBDC075D29B69B0A0028FC64 /* TrackTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075B29B69B0A0028FC64 /* TrackTimer.swift */; };
 		EBDC075F29B69F750028FC64 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDC075E29B69F750028FC64 /* MainTabView.swift */; };
 		EBE9440328D25AE900C1C7A5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE9440228D25AE900C1C7A5 /* Color.swift */; };
+		EBEE7A5F306F8864004AC0F2 /* TrackSharingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8189C3900E5A952E2D78EC36 /* TrackSharingInfo.swift */; };
+		EBEE7A60306F886C004AC0F2 /* TrackSharingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2020FC0563357CA9478BE36 /* TrackSharingService.swift */; };
+		EBEE7A61306F8872004AC0F2 /* ShareTrackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AB63D79354054706C595D3 /* ShareTrackSheet.swift */; };
 		F17D1D9864D9184C281F9A12 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304B28287080793FC115A388 /* ScreenshotTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -686,6 +689,7 @@
 			files = (
 				EBA6D5BE296B6738000579FC /* TrackPaw.xcdatamodeld in Sources */,
 				EBA6D5C1296B6738000579FC /* StateButtonView.swift in Sources */,
+				EBEE7A5F306F8864004AC0F2 /* TrackSharingInfo.swift in Sources */,
 				EBA6D5C2296B6738000579FC /* Track+CoreDataProperties.swift in Sources */,
 				EBC6BBE129D8B9BE00093EF4 /* ViewCoordinator.swift in Sources */,
 				EBA6D5C4296B6738000579FC /* TrackMapModel.swift in Sources */,
@@ -700,6 +704,7 @@
 				EBA6D5CF296B6738000579FC /* TimeFormatter.swift in Sources */,
 				EBA6D5D1296B6738000579FC /* CoreDataHelper.swift in Sources */,
 				EBA6D5D2296B6738000579FC /* PathAnnotation.swift in Sources */,
+				EBEE7A61306F8872004AC0F2 /* ShareTrackSheet.swift in Sources */,
 				EBA6D5D3296B6738000579FC /* TrackCellView.swift in Sources */,
 				EBA6D5D4296B6738000579FC /* PersistenceController+Track.swift in Sources */,
 				EBA6D5D5296B6738000579FC /* PersistenceController+History.swift in Sources */,
@@ -707,6 +712,7 @@
 				EBA6D5D9296B6738000579FC /* AppDelegate.swift in Sources */,
 				EBA6D5DC296B6738000579FC /* PersistenceController.swift in Sources */,
 				EBA6D5DD296B6738000579FC /* AppEnvironment.swift in Sources */,
+				EBEE7A60306F886C004AC0F2 /* TrackSharingService.swift in Sources */,
 				EBA11D202E6348B9007F8F59 /* SchemeType.swift in Sources */,
 				EBA6D5DE296B6738000579FC /* DistanceFormatter.swift in Sources */,
 				EBA6D5E1296B6738000579FC /* Color.swift in Sources */,
