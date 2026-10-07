@@ -19,6 +19,8 @@
 		B7A44C63A697B323CE72FCEF /* ShareTrackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AB63D79354054706C595D3 /* ShareTrackSheet.swift */; };
 		D9D7958D590E5BFBDDBAC8AF /* TrackSharingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2020FC0563357CA9478BE36 /* TrackSharingService.swift */; };
 		EB05E19526277868002941B6 /* PathAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05E19426277868002941B6 /* PathAnnotation.swift */; };
+		EB0DED24307623A500FBF257 /* TrackStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0DED23307623A000FBF257 /* TrackStatsView.swift */; };
+		EB0DED25307623A500FBF257 /* TrackStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0DED23307623A000FBF257 /* TrackStatsView.swift */; };
 		EB10D38C2E31517C00B59BDE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBB11B8A29B47935008EE889 /* Settings.bundle */; };
 		EB1DA65F2AFED152001CF587 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */; };
 		EB1DA6602AFED152001CF587 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */; };
@@ -143,6 +145,7 @@
 		BD58F8C1D3A8265C8E45175D /* CKAccountStatus+Availability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CKAccountStatus+Availability.swift"; sourceTree = "<group>"; };
 		D49F10BFAFA4D9A8135B1B64 /* TrackSharingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackSharingTests.swift; sourceTree = "<group>"; };
 		EB05E19426277868002941B6 /* PathAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathAnnotation.swift; sourceTree = "<group>"; };
+		EB0DED23307623A000FBF257 /* TrackStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStatsView.swift; sourceTree = "<group>"; };
 		EB1DA65E2AFED152001CF587 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		EB1DA6612AFED152001CF587 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		EB2409C828D1A5000027671D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -402,6 +405,7 @@
 		EBDC075729B6995E0028FC64 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
+				EB0DED23307623A000FBF257 /* TrackStatsView.swift */,
 				EB409F3528AD0EB700BA2C23 /* StateButtonView.swift */,
 			);
 			path = Overlay;
@@ -608,6 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB352C8E278EB6720015AC5A /* TrackPaw.xcdatamodeld in Sources */,
+				EB0DED24307623A500FBF257 /* TrackStatsView.swift in Sources */,
 				EB409F3628AD0EB700BA2C23 /* StateButtonView.swift in Sources */,
 				EB59DE40283045A60043DE33 /* Track+CoreDataProperties.swift in Sources */,
 				EB5CE22E261CBFE100D56711 /* TrackMapModel.swift in Sources */,
@@ -691,6 +696,7 @@
 				EBA6D5C1296B6738000579FC /* StateButtonView.swift in Sources */,
 				EBEE7A5F306F8864004AC0F2 /* TrackSharingInfo.swift in Sources */,
 				EBA6D5C2296B6738000579FC /* Track+CoreDataProperties.swift in Sources */,
+				EB0DED25307623A500FBF257 /* TrackStatsView.swift in Sources */,
 				EBC6BBE129D8B9BE00093EF4 /* ViewCoordinator.swift in Sources */,
 				EBA6D5C4296B6738000579FC /* TrackMapModel.swift in Sources */,
 				EBB85EF529CA22AD0058E0B5 /* ValueTransformers.swift in Sources */,

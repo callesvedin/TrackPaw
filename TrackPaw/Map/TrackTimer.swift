@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observation
 import os.log
 
 enum TimerMode {
@@ -13,10 +14,11 @@ enum TimerMode {
     case stopped
 }
 
-class TrackTimer: ObservableObject {
-    var timer = Timer()
-    @Published var secondsElapsed = 0.0
-    @Published var mode: TimerMode = .stopped
+@Observable
+class TrackTimer {
+    @ObservationIgnored var timer = Timer()
+    var secondsElapsed = 0.0
+    var mode: TimerMode = .stopped
 
     public func start() {
         Logger.timer.debug("Starting timer")
