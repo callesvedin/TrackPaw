@@ -98,9 +98,11 @@ struct MapView: View {
                         }
                     }
                     .overlay(alignment: .topLeading) {
-                        TrackStatsView(mapModel: bindableModel)
-                            .padding(.top, 60)
-                            .padding(.leading, 20)
+                        if showButtons {
+                            TrackStatsView(mapModel: bindableModel)
+                                .padding(.top, 60)
+                                .padding(.leading, 20)
+                        }
                     }
                     .overlay(alignment: .bottom) {
                         StateButtonView(mapModel: bindableModel)

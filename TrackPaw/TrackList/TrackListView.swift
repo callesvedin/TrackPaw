@@ -63,7 +63,7 @@ struct TrackListView: View {
             .buttonBorderShape(.circle)
             .controlSize(.large)
             .tint(palette.accent)
-            .padding(24)
+            .padding(.horizontal,24)
             .accessibilityLabel(Text("Add track"))
             .accessibilityIdentifier("addTrackButton")
         }
@@ -216,3 +216,16 @@ struct NoTracksView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        TrackListView()
+    }
+    .environment(\.managedObjectContext, PersistenceController.forSnapshotTesting().viewContext)
+    .environment(\.preferredColorPalette, AppEnvironment.shared.palette)
+    .environmentObject(AppEnvironment.shared)
+    .environmentObject(ViewCoordinator())
+    .environmentObject(SyncMonitor())
+}
+#endif
