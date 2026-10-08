@@ -185,14 +185,6 @@ struct FieldsView: View {
                 value: theTrack.created != nil ? TimeFormatter.dateStringFrom(date: theTrack.created) : "-"
             )
             LabeledContent(
-                "Time to create:",
-                value: TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToCreate)
-            )
-            LabeledContent(
-                "Time since created:",
-                value: getTimeSinceCreated()
-            )
-            LabeledContent(
                 "Length:",
                 value: DistanceFormatter.distanceFor(meters: Double(theTrack.length))
             )
@@ -204,18 +196,21 @@ struct FieldsView: View {
                     .allowsHitTesting(canEdit)
                     .opacity(canEdit ? 1 : 0.4)
             }
-            LabeledContent(
-                "Track rested:",
-                value: getTimeBetween(date: theTrack.created, and: theTrack.started)
-            )
-            LabeledContent(
-                "Tracking started:",
-                value: theTrack.started != nil ? TimeFormatter.dateStringFrom(date: theTrack.started!) : "-"
-            )
-            LabeledContent(
-                "Time to finish:",
-                value: theTrack.timeToFinish > 0 ? TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToFinish) : "-"
-            )
+            if theTrack.started != nil {
+                LabeledContent(
+                    "Track age:",
+                    value: getTimeBetween(date: theTrack.created, and: theTrack.started)
+                )
+
+                LabeledContent(
+                    "Tracking started:",
+                    value: theTrack.started != nil ? TimeFormatter.dateStringFrom(date: theTrack.started!) : "-"
+                )
+                LabeledContent(
+                    "Time to finish:",
+                    value: theTrack.timeToFinish > 0 ? TimeFormatter.shortTimeWithSecondsFor(seconds: theTrack.timeToFinish) : "-"
+                )
+            }
         }
 
         Section("Comments") {
@@ -251,10 +246,6 @@ struct FieldsView: View {
         return TimeFormatter.shortTimeWithMinutesFor(seconds: fromDate.distance(to: toDate))
     }
 
-    private func getTimeSinceCreated() -> String {
-        guard let timeDistance = theTrack.created?.distance(to: Date()) else { return "-" }
-        return TimeFormatter.shortTimeWithMinutesFor(seconds: timeDistance)
-    }
 }
 
 struct EditTrackView_Previews: PreviewProvider {

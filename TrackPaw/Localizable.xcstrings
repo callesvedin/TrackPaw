@@ -724,19 +724,19 @@
         }
       }
     },
-    "Track rested:" : {
+    "Track age:" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Track rested:"
+            "value" : "Track age:"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tid spåret legat:"
+            "value" : "Liggtid:"
           }
         }
       }
