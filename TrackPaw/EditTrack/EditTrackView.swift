@@ -34,6 +34,19 @@ struct EditTrackView: View {
 
     var actionsMenu: some View {
         Menu {
+            if persistanceController.isCloudAvailable {
+                ShareLink(
+                    item: TrackSharingService.shared.makeTransferable(for: theTrack),
+                    preview: SharePreview(theTrack.name)
+                ) {
+                    Label("Share Track", systemImage: "square.and.arrow.up")
+                }
+            } else {
+                Button {} label: {
+                    Label("Share Track", systemImage: "square.and.arrow.up")
+                }
+                .disabled(true)
+            }
             if canEditMetadata {
                 Button(role: .destructive) {
                     showingDeleteAlert = true
@@ -90,11 +103,30 @@ struct EditTrackView: View {
         let info = sharingInfo
         Form {
             Section {
+                // The system title ignores the palette on this screen, so draw it here.
+                Text(theTrack.name)
+                    .font(.largeTitle.bold())
+                    .foregroundStyle(palette.primaryText)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 12)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                    .accessibilityAddTraits(.isHeader)
                 MapView(track: theTrack, preview: true, showButtons: false)
                     .id(mapRefreshTrigger)
                     .scaledToFit()
                     .cornerRadius(10)
                     .frame(maxWidth: .infinity)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                showMapViewButton
+                    .buttonStyle(.glassProminent)
+                    .buttonSizing(.flexible)
+                    .controlSize(.large)
+                    .tint(palette.accent)
+                    .padding(.top, 8)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
             }
@@ -105,31 +137,11 @@ struct EditTrackView: View {
         .foregroundColor(palette.primaryText)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                showMapViewButton
-                    .buttonStyle(.glassProminent)
-                    .tint(palette.accent)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if persistanceController.isCloudAvailable {
-                    ShareLink(
-                        item: TrackSharingService.shared.makeTransferable(for: theTrack),
-                        preview: SharePreview(theTrack.name)
-                    ) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .accessibilityLabel(Text("Share Track"))
-                } else {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundStyle(.secondary)
-                        .accessibilityHidden(true)
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
                 actionsMenu.foregroundStyle(palette.link)
             }
         }
         .background(palette.mainBackground)
-        .navigationBarTitle(theTrack.name)
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(false)
